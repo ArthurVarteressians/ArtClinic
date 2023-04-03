@@ -1,0 +1,164 @@
+.sec-padding {
+    padding: 0.5rem 5rem 0.3rem 5rem;
+}
+
+.footer {
+    background: rgba(148, 227, 227, 0.507);
+}
+
+.sb-footer {
+    display: flex;
+    flex-direction: column;
+}
+
+.sb-footer-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    text-align: left;
+    width: 100%;
+}
+
+.sb-footer-links-div {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    color: rgb(52, 170, 224);
+}
+
+.sb-footer-links-div h4{
+    font-size: 15px;
+    font-weight: 900;
+}
+.sb-footer-links-div p{
+    font-size: 15px;
+    font-weight: 200;
+
+}
+a {
+    color: rgba(0, 0, 0, 0.699);
+    text-decoration: none;
+}
+
+.socialMedia {
+    display: flex;
+}
+
+.socialMedia h4 {
+    font-size: 14px;
+    line-height: 17px;
+    margin-bottom: 0.9rem;
+}
+
+.socialMedia i{
+    font-size: 20px;
+}
+
+.socialMedia a {
+    font-size: 32px;
+    line-height: 15px;
+    margin: 0.5rem 0.5rem;
+    cursor: pointer;
+}
+
+.sb-footer-below {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 0.2rem;
+}
+
+.sb-footer-below-links {
+    display: flex;
+    flex-direction: row;
+}
+
+.sb-footer-below-links div p {
+    font-size: 10px;
+    font-weight: 400;
+    margin-left: 0.9rem;
+    color: rgb(46, 124, 241);
+}
+
+hr {
+    color: rgb(255, 255, 255) !important;
+    width: 100%;
+}
+
+.sb-footer-copyright p {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 15px;
+    color: rgb(46, 124, 241);
+ 
+}
+
+@media screen and (max-width:850px) {
+    .sb-footer h1 {
+        font-size: 44px;
+        line-height: 50px;
+    }
+
+    h4 {
+        font-size: x-large;
+    }
+
+    p {
+        font-size: large;
+    }
+
+}
+
+@media screen and (max-width:550px) {
+    .sb-footer h1 {
+        font-size: 34px;
+        line-height: 42px;
+    }
+
+
+    .sb-footer-links div {
+        margin: 1rem 0;
+    }
+
+    .sb-footer-below {
+        flex-direction: column;
+        justify-content: left;
+    }
+
+    .sb-footer-below-links {
+        flex-direction: column;
+    }
+
+    .sb-footer-below-links p {
+        margin-left: 0;
+        margin-top: 1rem;
+    }
+
+    h4 {
+        font-size: larger;
+    }
+
+    p {
+        font-size: large;
+
+    }
+}
+
+@media screen and (max-width:400px) {
+    h4 {
+        font-size: large;
+    }
+
+    p {
+        font-size: medium;
+
+    }
+
+    .sb-footer h1 {
+        font-size: 27px;
+        line-height: 38px;
+    }
+}

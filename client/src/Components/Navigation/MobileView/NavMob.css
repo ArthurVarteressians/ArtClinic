@@ -1,0 +1,234 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Poppins";
+}
+
+.mobileVersion {
+    background-color: #d45d5d;
+    width: 100%;
+    height: 100vh;
+}
+
+.nav {
+    width: 100%;
+    background-color: rgb(41, 41, 41);
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.clinicLogo {
+    width: 100px;
+    height: 40px;
+}
+
+button {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.overlay {
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.4s;
+}
+
+body.open .overlay {
+    opacity: 1;
+    visibility: visible;
+}
+
+.burger {
+    position: fixed;
+    z-index: 3;
+    top: 20px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.burger-avatar {
+    width: 32px;
+    height: 32px;
+    transition: 0.4s;
+    border-radius: 30%;
+}
+
+body.open .burger-avatar {
+    translate: 40px 0;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.burger-icon {
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-image: url("../Imgs/icon-burger.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+body.open .burger-icon {
+    background-image: url("../Imgs/icon-close.svg");
+}
+
+.sidebar {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding: 40px 20px;
+    background: #000000;
+    opacity: 0;
+    visibility: hidden;
+    filter: blur(10px);
+    transition-property: filter, visibility, opacity;
+    transition-duration: 0.6s;
+}
+
+body.open .sidebar {
+    translate: 0 0;
+    opacity: 1;
+    visibility: visible;
+    filter: blur(0);
+}
+
+.sidebar-avatar {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+    border-radius: 20%;
+}
+
+.sidebar-username {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.96);
+}
+
+.sidebar-role {
+    margin: 0 0 20px;
+    font-size: 9px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.57);
+}
+
+.sidebar-menu {
+    display: grid;
+    width: 100%;
+    padding: 10px 0;
+    padding-left: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+@media (min-width: 200px) {
+    .sidebar-menu {
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.sidebar-menu>button {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-family: "Poppins";
+    font-size: 16px;
+    font-weight: 200;
+    letter-spacing: 2px;
+    line-height: 1;
+    padding: 10px 10px;
+}
+
+.sidebar-menu>button>img {
+    width: 18px;
+    height: 18px;
+}
+
+.sidebar-menu>button>span {
+    color: #f9f9f9;
+    font-size: 11px;
+    translate: 0 1px;
+}
+
+@media (width >=380px) {
+    .sidebar {
+        width: 190px;
+        transition: 0.8s;
+        border-left: 1px solid rgba(255, 255, 255, 0.16);
+    }
+}
+
+/* @media (min-width: 300px) {
+
+    .mobileVersion {
+        display: block;
+    }
+
+    .errorDisplay {
+        display: none;
+    }
+} */
+
+
+/* Gif part */
+
+/* @media (max-width: 329.9px) {
+
+    .mobileVersion {
+        display: none;
+    }
+
+    .errorDisplay {
+        display: block;
+    }
+}
+
+.errorDisplay {
+    padding-top: 50%;
+    background-color: #20212415;
+    width: 100%;
+    height: 100vh;
+}
+
+.errorText p {
+    font-family: 'Courier New', Courier, monospace;
+    color: #000000da;
+    padding: 20px 20px;
+    margin: 0;
+}
+
+.four_zero_four_bg {
+    width: 100vw;
+    height: 200px;
+    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px;
+} */

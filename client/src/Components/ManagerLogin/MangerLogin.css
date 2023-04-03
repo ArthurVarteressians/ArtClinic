@@ -1,0 +1,53 @@
+.patientManagerInfo {
+    display: flex;
+    border: 2px solid silver;
+    border-radius: 7px;
+    height: auto;
+    width: 90%;
+    margin-top: 30px;
+}
+
+.patientManagerInfoSection {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(250, 235, 215, 0.363);
+    gap: 15px;
+    justify-content: space-between;
+    text-align: center;
+    font-size: 1.4vw;
+}
+
+
+.managerDeleteBtn {
+    margin: 0;
+    font-size: 1.3vw;
+    background-color: rgba(207, 0, 0, 0.61);
+    box-shadow: rgba(255, 0, 0, 0.712) 0px 0px 10px;
+}
+
+.managerDeleteBtn:hover {
+    background-color: red;
+    transition: 1s;
+}
+
+@media screen and (max-width:500px) {
+    .mainSignUpBodySection {
+        display: flex;
+        flex-direction: column;
+        background-color: aqua;
+    }
+
+    .patientManagerInfoSection {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        font-size: 3.5vw;
+        gap: 3px;
+    }
+
+    .managerDeleteBtn {
+        font-size: 2.3vw;
+    }
+}
