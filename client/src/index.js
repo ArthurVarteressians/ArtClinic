@@ -11,11 +11,19 @@ import Doctors from "./Components/Doctors/Doctors";
 import Mainpage from "./Components/Mainpage/Mainpage";
 import Services from "./Components/ServiceSe/Services.js";
 import MainSignUp from "./Components/Signup/MainSignUp";
-import "./Components/Sass/LandingpageButton.scss"
+import "./Components/Sass/LandingpageButton.scss";
+import Getinfopage from "./Components/ManagerLogin/Getinfopage";
+import ManagerLogin from "./Components/ManagerLogin/ManagerLogin";
+import Calendar from "./Components/Scheduling/Calendar";
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+  },
+
+  {
+    path: "/Calendar",
+    element: <Calendar />,
   },
   {
     path: "AllDoctors",
@@ -34,8 +42,12 @@ const router = createBrowserRouter([
     element: <Mainpage />,
   },
   {
-    path: "MakeAppontmentBTN",
-    element: <MainSignUp />,
+    path: "Admin",
+    element: <ManagerLogin />,
+  },
+  {
+    path: "Getinfopage",
+    element: <Getinfopage />,
   },
 ]);
 

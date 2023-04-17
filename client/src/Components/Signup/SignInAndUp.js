@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./Signup.css";
 import Axios from "axios";
+// import { validate } from "./validate";
+
 function SignIn({ onSignUpClick }) {
   return (
     <>
@@ -31,7 +33,7 @@ function SignIn({ onSignUpClick }) {
           </div>
           <p>
             <span style={{ fontSize: "1.2vw", fontWeight: "bold" }}>
-              Don't have an account?{" "}
+              Don't have an account?
             </span>
             <button onClick={onSignUpClick}>Sign Up</button>
           </p>
@@ -64,19 +66,17 @@ function SignUp({ onSignInClick }) {
           confirmPassword: confirmPassword,
         })
           .then(() => {
-            alert("Done");
             console.log("Added, success");
           })
           .catch(() => {
             alert("Shit!");
             console.log("Shit");
           });
-      }
-      else {
+      } else {
         throw Error("Password not equal");
       }
     } catch (error) {
-      alert("Shit2!");
+      alert("Password Is Not Equal!");
       console.log("Shit2" + error);
     }
   };
@@ -170,7 +170,7 @@ function SignUp({ onSignInClick }) {
         </div>
         <p>
           <span style={{ fontSize: "1.2vw", fontWeight: "bold" }}>
-            Already have an account?{" "}
+            Already have an account?
           </span>
           <button onClick={onSignInClick}>Sign In</button>
         </p>

@@ -4,12 +4,20 @@ import Telicon from "./emergency-call.gif";
 import LoginIcon from "./profile.gif";
 import { Link as ScrollLink } from "react-scroll";
 import { Link as RouterLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import Mainpage from "../../Mainpage/Mainpage";
 import Services from "../../ServicesLanding/WebView/ServicesLanding";
 import LandingFaqsAll from "../../FAQS/LandingFaqsAll";
 import Footer from "../../Footer/Footer";
 import { useState } from "react";
 function NavWeb() {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    window.scrollTo(0, 0);
+    navigate("/Profile");
+  };
+
   const [activeLink, setActiveLink] = useState(0);
 
   const handleLinkClick = (index) => {
@@ -39,12 +47,12 @@ function NavWeb() {
               to="section2"
               spy={true}
               smooth={true}
-              offset={-20}
+              offset={-30}
               duration={500}
               activeClass="active"
               onClick={() => handleLinkClick(0)}
             >
-              Get?
+              Concession
             </ScrollLink>
           </li>
           <li>
@@ -52,7 +60,7 @@ function NavWeb() {
               to="section3"
               spy={true}
               smooth={true}
-              offset={-70}
+              offset={-25}
               duration={500}
               activeClass="active"
               onClick={() => handleLinkClick(0)}

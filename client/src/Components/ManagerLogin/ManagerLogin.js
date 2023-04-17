@@ -1,39 +1,36 @@
-import React from "react";
-import { useState } from "react";
-import "./MangerLogin.css";
+import React, { useState } from "react";
 import Axios from "axios";
+import "./MangerLogin.css";
+import { useNavigate } from "react-router-dom";
 
 const ManagerLogin = () => {
   const [patientsList, setPatientList] = useState([]);
-
   const [managerEmail, setManagerEmail] = useState("");
   const [managerPassword, setManagerPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const getPatientInformations = () => {
-    Axios.get("http://localhost:3001/ManagerLogin").then((response) => {
-      setPatientList(response.data);
-    });
+  const handleLogin = () => {
+    // Send a POST request to the server with manager email and password
+    Axios.post("http://localhost:3001/ManagerLogin", {
+      email: managerEmail,
+      password: managerPassword,
+    })
+      .then((response) => {
+        navigate("/Getinfopage");
+      })
+      .catch((error) => {
+        // If login fails, show error message
+        setError("Invalid email or password. Please try again.");
+      });
   };
 
-
-
-  const deletePatients = (id) => {
-    Axios.delete(`http://localhost:3001/ManagerDelete/${id}`).then(
-      (response) => {
-        setPatientList(
-          patientsList.filter((val) => {
-            return val.id != id;
-          })
-        );
-      }
-    );
-  };
   return (
-    <div>
+    <div className="MainBoxes">
       <div className="mainSignUpBodySection">
-        <h2>Hello Maanager</h2>
+        <h2>Hello Manager</h2>
         <div className="mainSignUpBody">
-          <label for="email">Email:</label>
+          <label htmlFor="email">Email</label>
           <input
             placeholder="Enter your registration email"
             type="email"
@@ -43,7 +40,7 @@ const ManagerLogin = () => {
             }}
           />
 
-          <label for="password">Password:</label>
+          <label htmlFor="password">Password</label>
           <input
             placeholder="Enter password"
             type="password"
@@ -53,50 +50,12 @@ const ManagerLogin = () => {
             }}
           />
 
-          {/* <button onClick={managerLoginSection}>Login into account</button> */}
+          <button onClick={handleLogin}>Sign In</button>
 
-          <button onClick={getPatientInformations}>Sign In</button>
+          {error && <p className="error">{error}</p>}
         </div>
-        {patientsList.map((val, key) => {
-          return (
-            <div className="patientManagerInfo">
-              <div className="patientManagerInfoSection">
-                <div>
-                  <div style={{ fontWeight: "bold" }}> Name</div>
-                  {val.name}
-                </div>
-                <div>
-                  <div style={{ fontWeight: "bold" }}> Last Name</div>
-                  {val.lastname}
-                </div>
-                <div>
-                  <div style={{ fontWeight: "bold" }}> Email</div>
-                  {val.email}
-                </div>
-                <div>
-                  <div style={{ fontWeight: "bold" }}> Age</div>
-                  {val.age}
-                </div>
-                <div>
-                  <div style={{ fontWeight: "bold" }}> Phone Number</div>
-                  {val.phonenumber}
-                </div>
-
-                <button
-                  className="managerDeleteBtn"
-                  onClick={() => {
-                    deletePatients(val.id);
-                  }}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          );
-        })}
       </div>
     </div>
   );
 };
-
 export default ManagerLogin;

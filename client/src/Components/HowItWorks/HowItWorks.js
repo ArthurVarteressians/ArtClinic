@@ -5,9 +5,14 @@ import checklist from "./assets/checklist.gif";
 import medicien from "./assets/medicine.gif";
 import stethsocpme from "./assets/stethoscope.gif";
 import ".././Sass/LandingpageButton.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function HowItWorks() {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    window.scrollTo(0, 0);
+    navigate("/Profile");
+  };
   return (
     <div className="howItWorkL">
       <div className="howItWorkLSec">
@@ -33,9 +38,10 @@ function HowItWorks() {
             <p>Happy life</p>
           </div>
         </div>
-        <Link to="MakeAppontmentBTN">
-          <button className="howItWorkLBtn">Make An Appontment</button>
-        </Link>
+
+        <button onClick={handleClick} className="howItWorkLBtn">
+          Make An Appontment
+        </button>
       </div>
     </div>
   );

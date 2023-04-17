@@ -1,10 +1,14 @@
+.scroll-to-top {
+    scroll-behavior: auto !important;
+    scroll-margin-top: 0 !important;
+}
+
 .servicesWebMain {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 140vh;
     background-image: url(../b2.png);
     background-position: center;
     background-size: cover;
@@ -16,7 +20,7 @@
 .service3,
 .service4,
 .service5 {
-    width: 70%;
+    width: 60%;
     display: flex;
     border: 1.8px solid rgba(0, 0, 0, 0.671);
     border-radius: 5px;
@@ -35,6 +39,7 @@
 .servicesWebMain img {
     width: 30vw;
     height: 25vh;
+    padding: 10px;
 }
 
 .servicesWebMain p {

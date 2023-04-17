@@ -1,10 +1,56 @@
+.MainBoxes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    background-image: url("./b13.png");
+}
+
+.mainSignUpBodySection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.allContent {
+    width: 90%;
+}
+
+.mainSignUpBody {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-items: center;
+    width: 50%;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.76);
+    padding: 20px;
+    background-color: rgba(230, 230, 230, 0.658)
+
+}
+
+.mainSignUpBody input {
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
 .patientManagerInfo {
     display: flex;
+    flex-direction: column;
     border: 2px solid silver;
     border-radius: 7px;
     height: auto;
-    width: 90%;
+    padding: 10px;
     margin-top: 30px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+    background-color: rgba(250, 235, 215, 0.363);
 }
 
 .patientManagerInfoSection {
@@ -12,23 +58,22 @@
     display: flex;
     align-items: center;
     padding: 10px;
-    background-color: rgba(250, 235, 215, 0.363);
     gap: 15px;
     justify-content: space-between;
     text-align: center;
-    font-size: 1.4vw;
+    font-size: 1.3vw;
 }
 
 
 .managerDeleteBtn {
     margin: 0;
     font-size: 1.3vw;
-    background-color: rgba(207, 0, 0, 0.61);
+    background-color: rgba(207, 0, 0, 0.61) !important;
     box-shadow: rgba(255, 0, 0, 0.712) 0px 0px 10px;
 }
 
 .managerDeleteBtn:hover {
-    background-color: red;
+    background-color: red !important;
     transition: 1s;
 }
 

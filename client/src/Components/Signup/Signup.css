@@ -1,4 +1,4 @@
-.mainSignUpSec {
+/* .mainSignUpSec {
     background-image: url("./b4.png");
     background-position: center;
     opacity: 0.9;
@@ -7,19 +7,19 @@
     width: 100%;
     display: flex;
     align-items: center;
-    height: 120vh;
-}
+    height: 140vh;
+} */
 
-.SignUpSecText {
+/* .SignUpSecText {
     width: 100%;
     margin: 50px;
     font-size: 2vw;
     border: 1px solid rgb(182, 182, 182);
-    background-color: rgba(219, 219, 219, 0.281);
+    background-color: rgba(219, 219, 219, 0.281) ; 
     padding: 14px;
     text-align: center;
     border-radius: 7px;
-}
+} */
 
 .mainSignUpBodySection {
     display: flex;
@@ -27,6 +27,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    
 }
 
 .mainSignUpBodySection button{
@@ -53,7 +54,7 @@
 
 .mainSignUpBody input {
     border: 1px solid silver;
-    background-color: rgba(255, 255, 255, 0.548);
+    background-color: rgba(255, 255, 255, 0.548) !important;
     border-radius: 7px;
     height: 3vw;
     padding-left: 15px;

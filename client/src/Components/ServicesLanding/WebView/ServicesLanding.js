@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ServicesLanding.css";
 import img1 from "../1.png";
 import img2 from "../2.png";
 import img3 from "../3.png";
 import HowItWorks from "../../HowItWorks/HowItWorks";
 import "../../Sass/LandingpageButton.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Services = () => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    window.scrollTo(0, 0);
+    navigate("/ServicesPage");
+  };
   return (
     <>
       <div className="ServicesLWeb">
@@ -47,9 +52,7 @@ const Services = () => {
               </div>
             </div>
           </div>
-          <Link to="ServicesPage">
-            <button>Explore More</button>
-          </Link>
+          <button onClick={handleClick}>Explore More</button>
         </div>
         <hr className="landingServicesDivider" />
         <HowItWorks />
@@ -57,5 +60,4 @@ const Services = () => {
     </>
   );
 };
-
 export default Services;
