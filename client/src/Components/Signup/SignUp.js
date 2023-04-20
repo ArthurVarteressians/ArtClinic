@@ -54,6 +54,10 @@ function SignUp({ onSignInClick }) {
         if (response.status === 200) {
           // Request was successful
           notify("You signed up successfully", "success");
+
+          setTimeout(() => {
+            window.location.href = "/Calendar";
+          }, 2000);
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
@@ -271,37 +275,40 @@ function SignIn({ onSignUpClick }) {
     setTouched({ ...touched, [event.target.name]: true });
   };
 
-
-
-
-
-
   const submitHandlerForLogin = async (event) => {
     event.preventDefault();
-    console.log("Login button clicked");
-      try {
-        const response = await axios.post(
-          "http://localhost:3001/ClientsLogins",
-          data // Use data object to send form data
-        );
-        // Handle successful login
-        console.log("Yeeeeeeeeah");
-        const token = response.data.token; // Access token from response.data
-        localStorage.setItem("token", token);
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/ClientsLogins",
+        data // Use data object to send form data
+      );
+      // Handle successful login
 
-        // Reset form fields and error message
-        setData({ email: "", password: "" });
-        setError("");
+      const token = response.data.token; // Access token from response.data
+      localStorage.setItem("Token", token);
 
-        // Redirect to main page
-        window.location.href = "/Calendar"; // Update this with the actual URL of your main page
-      } catch (error) {
-        // Handle login error
-        console.error(error.response ? error.response.data : error); // Update error handling to check for response property
-        setError("Invalid email or password");
+      // Redirect to main page
+      window.location.href = "/Calendar"; // Update this with the actual URL of your main page
+    } catch (error) {
+      if (error.response) {
+        // Server responded with an error
+        const { status, data } = error.response;
+        if (status === 401 && data === "Token expired") {
+          window.location.href = "/"; // MainPage
+          console.log("Token has expired. Please log in again.");
+          setError("Token has expired. Please log in again.");
+        } else {
+          // Other server error, handle it as appropriate
+          console.error("Server error:", data);
+          setError("Invalid email or password");
+        }
+      } else {
+        // Network error or other client-side error, handle it as appropriate
+        console.error("Error:", error.message);
+        setError("An error occurred. Please try again later.");
       }
     }
-
+  };
 
   return (
     <div className={styles.mainSignUpSec}>

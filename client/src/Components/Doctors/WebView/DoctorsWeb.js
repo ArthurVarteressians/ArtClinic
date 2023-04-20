@@ -45,11 +45,17 @@ const DoctorsWeb = () => {
     <a>
       <i class="fa-brands fa-facebook"></i>
     </a>,
+    <a>
+      <i class="fa-brands fa-linkedin"></i>
+    </a>,
   ];
   const soc5 = [
     <a>
       <i class="fa-brands fa-instagram"></i>
     </a>,
+        <a>
+        <i class="fa-brands fa-linkedin"></i>
+      </a>,
   ];
   const soc6 = [
     <a>
@@ -69,49 +75,49 @@ const DoctorsWeb = () => {
           <Doctor
             img={img1}
             alt="img"
-            name="M. Brandon"
+            name="A. Kim"
             profession="Dentist"
-            description="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content."
+            description="Skilled in comprehensive dental care, from check-ups to advanced procedures like fillings and root canals. Ensures oral health and beautiful smiles."
             social={soc1}
           />
           <Doctor
             img={img2}
             alt="img"
-            name="J. Aikens"
+            name="H. Jhon"
             profession="Cardiologists"
-            description="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content."
+            description="Expert in diagnosing and treating heart conditions. Utilizes cutting-edge technology and patient-centered approach for optimal heart health."
             social={soc2}
           />
           <Doctor
             img={img3}
             alt="img"
-            name="J. Aikens"
-            profession="Cardiologists"
-            description="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content."
+            name="J. Alik"
+            profession="Neurologist"
+            description="Skilled in diagnosing and treating neurological conditions affecting the brain and nervous system. Provides personalized care for optimal brain health."
             social={soc3}
           />
           <Doctor
             img={img4}
             alt="img"
-            name="J. Aikens"
-            profession="Cardiologists"
-            description="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content."
+            name="P. Lee"
+            profession="Internal Medicine"
+            description="Providing expert care for adults, managing a wide range of health conditions,and promoting overall health and well-being through comprehensive and patient-centered care."
             social={soc4}
           />
           <Doctor
             img={img5}
             alt="img"
-            name="K. Pauline"
-            profession="Audiologists"
-            description="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content."
+            name="B. Gaya"
+            profession="Pulmonologist"
+            description="Specializes in diagnosing and treating respiratory conditions. Expert in managing lung health, including asthma, chronic bronchitis, and pneumonia. "
             social={soc5}
           />
           <Doctor
             img={img6}
             alt="img"
-            name="J. Richard"
+            name="C. Richard"
             profession="Radiologist"
-            description="In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content."
+            description="Expert in interpreting medical imaging studies, such as X-rays, CT scans, and MRI scans. Provides accurate diagnoses for various medical conditions."
             social={soc6}
           />
         </div>

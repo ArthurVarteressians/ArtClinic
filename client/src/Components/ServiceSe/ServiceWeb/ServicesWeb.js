@@ -19,37 +19,38 @@ const ServicesWeb = () => {
         <div class="service1">
           <img src={img1} alt="Service1" />
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit
-            consequatur doloremque voluptatum quaerat, molestiae quam non neque
-            exercitationem dolores rerum rem ratione. Eum aut excepturi omnis
-            alias corporis quas delectus?
+            Our cutting-edge imaging technology allows for detailed
+            visualization of the heart and its structures. Our expert
+            radiologists analyze heart images to aid in the diagnosis and
+            management of cardiovascular conditions, ensuring optimal heart
+            health.
           </p>
         </div>
 
         <div class="service2">
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit
-            consequatur doloremque voluptatum quaerat, molestiae quam non neque
-            exercitationem dolores rerum rem ratione. Eum aut excepturi omnis
-            alias corporis quas delectus?
+            Our state-of-the-art imaging technology allows for accurate and
+            detailed imaging of the brain. Our expert radiologists interpret
+            brain images to aid in the diagnosis and treatment of neurological
+            conditions, ensuring optimal brain health.
           </p>
           <img src={img5} alt="service2" />
         </div>
         <div class="service3">
           <img src={img3} alt="service3" />
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit
-            consequatur doloremque voluptatum quaerat, molestiae quam non neque
-            exercitationem dolores rerum rem ratione. Eum aut excepturi omnis
-            alias corporis quas delectus?
+            Our specialized dental imaging services capture high-quality images
+            of teeth, gums, and jawbone. Our skilled radiologists interpret
+            dental images to assist in the diagnosis and treatment of various
+            dental conditions, ensuring healthy and beautiful smiles.
           </p>
         </div>
         <div class="service4">
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Suscipit
-            consequatur doloremque voluptatum quaerat, molestiae quam non neque
-            exercitationem dolores rerum rem ratione. Eum aut excepturi omnis
-            alias corporis quas delectus?
+            Our advanced imaging techniques provide detailed images of the
+            lungs, aiding in the diagnosis and management of respiratory
+            conditions. Our experienced radiologists analyze lung images to
+            guide treatment plans for optimal lung health.
           </p>
           <img src={img4} alt="service4" />
         </div>

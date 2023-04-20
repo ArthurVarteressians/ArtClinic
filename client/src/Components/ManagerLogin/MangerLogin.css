@@ -96,3 +96,12 @@
         font-size: 2.3vw;
     }
 }
+
+
+
+
+.getInfobtns{
+    width: 100%;
+    display: flex;
+    justify-content:space-around;
+}

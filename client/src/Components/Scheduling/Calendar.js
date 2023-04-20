@@ -2,148 +2,120 @@ import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Calender.css";
-import { getDay, addMonths } from "date-fns";
-
+import axios from "axios";
 function Calendar() {
-  const initialDate = new Date();
-  initialDate.setHours(14, 0, 0, 0); // set the time to 14:00
-  const [appointmentType, setAppointmentType] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  //======================
   const [selectedDate, setSelectedDate] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("");
-  const [selectedTimeOption, setselectedTimeOption] = useState("");
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [department, setDepartment] = useState("");
+  const [selectedDoctorId, setSelectedDoctorId] = useState("");
+  const [doctors, setDoctors] = useState([]);
+  const [test, setTest] = useState("");
+  //=================
 
-  const [startDate, setStartDate] = useState(null);
-
-  const isWeekday = (date) => {
-    const day = getDay(date);
-    return day !== 0 && day !== 6;
+  const fetchDoctors = (department) => {
+    fetch(`http://localhost:3001/doctors/${department}`)
+      .then((response) => response.json())
+      .then((data) => setDoctors(data))
+      .catch((err) => console.error("Error fetching doctors:", err));
   };
 
-  // Function to handle dropdown header click
-  const handleDropdownHeaderClick = () => {
-    setIsOpen(!isOpen);
+  const handleDoctorChange = (e) => {
+    const doctorId = e.target.value;
+    setSelectedDoctorId(doctorId);
   };
 
-  const handleDropdownHeaderClick2 = () => {
-    setIsOpen2(!isOpen2);
+  const handleDepartmentChange = (e) => {
+    const selectedDepartment = e.target.value;
+    setDepartment(selectedDepartment);
+    fetchDoctors(selectedDepartment);
+  };
+  const handleSubmit = async () => {
+    try {
+      if (doctors.length > 0) {
+        const token = localStorage.getItem("Token");
+        if (token) {
+          const response = await axios.post(
+            "http://localhost:3001/Sched",
+            {
+              doctorId: doctors[0].doctor_id,
+              date: selectedDate,
+              time: selectedTime,
+              token: token,
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          console.log("Appointment booked successfully:", response.data);
+        } else {
+          console.error("Token not found in localStorage");
+        }
+      } else {
+        console.error("No doctors found in the doctors array");
+      }
+    } catch (error) {
+      console.error("Failed to book appointment:", error);
+    }
   };
 
-  // Function to handle dropdown item click
-  const handleDropdownItemClick = (option) => {
-    setSelectedOption(option);
-    setIsOpen(false);
-  };
-
-  const handleDropdownTimeClick = (option) => {
-    setselectedTimeOption(option);
-    setIsOpen2(false);
-  };
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handleTimeChange = (time) => {
+    setSelectedTime(time);
   };
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert(`Appointment scheduled for ${name} at ${selectedDate}`);
-    setName("");
-    setEmail("");
-    setSelectedDate(initialDate);
-  };
-
   return (
-    <div className="schedulingSystem">
-      <div className="Container">
-        <h1>Schedule an Appointment </h1>
-
-        <div className="Test" onClick={handleDropdownHeaderClick}>
-          <h3>{"Select Department"}</h3>
-          {selectedOption || ""}
-
-          {isOpen && (
-            <>
-              <ul>
-                <li onClick={() => handleDropdownItemClick("Heart Doc")}>
-                  Heart Doc
+    <div>
+      <div>
+        <h2>Select Department</h2>
+        <select value={department} onChange={handleDepartmentChange}>
+          <option value="">Select Department</option>
+          <option value="Dentist">Dentist</option>
+          <option value="Cardiologists">Cardiologists</option>
+          <option value="Neurologist">Neurologist</option>
+          <option value="Internal Medicine">Internal Medicine</option>
+          <option value="Pulmonologist">Pulmonologist</option>
+          <option value="Radiologist">Radiologist</option>
+        </select>
+        {department && (
+          <div>
+            <ul>
+              {doctors.map((doctor) => (
+                <li key={doctor.id}>
+                  <span>
+                    Your Doctor will be:{" "}
+                    <span
+                      style={{
+                        color: "blue",
+                        fontSize: "14px",
+                        fontWeight: "400",
+                        border: "1px solid black",
+                        padding: "2px",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      {doctor.fullname}
+                    </span>
+                  </span>
                 </li>
-                <li onClick={() => handleDropdownItemClick("Bone Doc")}>
-                  Bone Doc
-                </li>
-                <li onClick={() => handleDropdownItemClick("Brain Doc")}>
-                  Brain Doc
-                </li>
-                <li onClick={() => handleDropdownItemClick("Lung Doc")}>
-                  Lung Doc
-                </li>
-                <li onClick={() => handleDropdownItemClick("Teeth Doc")}>
-                  Teeth Doc
-                </li>
-              </ul>
-            </>
-          )}
-        </div>
-
-        <form onSubmit={handleSubmit}>
-          {/* <label htmlFor="name">Name</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={handleNameChange}
-            placeholder="Enter your name"
-            required
-          ></input>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={handleEmailChange}
-            placeholder="Enter your email"
-            required
-          ></input> */}
-          <label htmlFor="date">Date</label>
-          <DatePicker
-            selected={startDate}
-            filterDate={isWeekday}
-            onChange={(date) => setStartDate(date)}
-            minDate={new Date()}
-            maxDate={addMonths(new Date(), 2)} // 2 future months
-            showDisabledMonthNavigation
-            id="date"
-            required
-          />{" "}
-          <div className="Test" onClick={handleDropdownHeaderClick2}>
-            <h3>{"Time"}</h3>
-            {selectedTimeOption || " "}
-
-            {isOpen2 && (
-              <>
-                <ul>
-                  <li onClick={() => handleDropdownTimeClick("12")}>12</li>
-                  <li onClick={() => handleDropdownTimeClick("14")}>14 </li>
-                  <li onClick={() => handleDropdownTimeClick("16")}>16</li>
-                </ul>
-              </>
-            )}
+              ))}
+            </ul>
           </div>
-          <button className="SubmitApps" type="submit" disabled={!selectedDate}>
-            Schedule Appointment
-          </button>
-        </form>
+        )}
       </div>
+      <h3>Select Appointment Date and Time:</h3>
+      <DatePicker selected={selectedDate} onChange={handleDateChange} />
+      <input
+        type="time"
+        value={selectedTime}
+        onChange={(e) => handleTimeChange(e.target.value)}
+      />
+      <button onClick={handleSubmit}>Book Appointment</button>
     </div>
   );
 }

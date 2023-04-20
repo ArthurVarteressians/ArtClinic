@@ -26,8 +26,8 @@ const Services = () => {
                 <img src={img1} alt="It's one of our clinic Services " />
                 <h2>Years of experience</h2>
                 <p>
-                  In publishing and graphic design, Lorem ipsum is a placeholder
-                  text commonly.
+                  With a wealth of experience in our field, we bring expertise
+                  and knowledge to every service we provide
                 </p>
               </div>
             </div>
@@ -36,8 +36,9 @@ const Services = () => {
                 <img src={img2} alt="It's one of our clinic Services " />
                 <h2>Modern equipment</h2>
                 <p>
-                  In publishing and graphic design, Lorem ipsum is a placeholder
-                  text commonly.
+                  Our advanced technology and equipment ensure
+                  precise and efficient services, delivering optimal results for
+                  our patients
                 </p>
               </div>
             </div>
@@ -46,8 +47,8 @@ const Services = () => {
                 <img src={img3} alt="It's one of our clinic Services " />
                 <h2>Caring Personnel</h2>
                 <p>
-                  In publishing and graphic design, Lorem ipsum is a placeholder
-                  text commonly.
+                  Our compassionate team provides personalized care Your
+                  well-being is our top priority
                 </p>
               </div>
             </div>
