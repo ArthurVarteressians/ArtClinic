@@ -21,11 +21,12 @@ import DD from "./Components/Scheduling/dddd";
 function App() {
   return (
     <div>
+      <NavWeb />
       {/* <ManagerLogin /> */}
 {/* <Calendar /> */}
 {/* <AppointmentForm /> */}
       {/* <TT /> */}
-<DD />
+{/* <DD /> */}
     </div>
   );
 }

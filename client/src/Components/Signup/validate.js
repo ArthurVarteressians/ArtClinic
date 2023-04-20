@@ -7,7 +7,6 @@ const validate = (data) => {
     delete errors.name;
   }
 
-
   if (!data.phonenumber || !data.phonenumber.trim()) {
     errors.phonenumber = "Phone number required!";
   } else {
@@ -25,7 +24,8 @@ const validate = (data) => {
   if (!data.password) {
     errors.password = "Password is required!";
   } else if (!/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{6,}$/.test(data.password)) {
-    errors.password = "Password must be 6 characters or more and contain at least one uppercase letter, one lowercase letter, and one digit!";
+    errors.password =
+      "Password must be 6 characters or more and contain at least one uppercase letter, one lowercase letter, and one digit!";
   } else {
     delete errors.password;
   }
@@ -37,7 +37,6 @@ const validate = (data) => {
   } else {
     delete errors.confirmPassword;
   }
-
 
   if (data.isAccepted) {
     delete errors.isAccepted;

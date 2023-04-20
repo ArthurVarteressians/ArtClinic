@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { notify } from "./toast";
 import styles from "./SignUp.module.css";
@@ -57,7 +57,7 @@ function SignUp({ onSignInClick }) {
 
           setTimeout(() => {
             window.location.href = "/Calendar";
-          }, 2000);
+          }, 1000);
         }
       } catch (error) {
         if (error.response && error.response.status === 400) {
@@ -257,11 +257,12 @@ function SignIn({ onSignUpClick }) {
     email: "",
     password: "",
   });
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  // const [error, setError] = useState("");
   const [errors, setErrors] = useState({});
-  const [touched, setTouched] = useState({});
+  const [touched, setTouched] = useState({
+    email: false,
+    password: false,
+  });
 
   useEffect(() => {
     setErrors(validate(data, "login"));
@@ -275,37 +276,42 @@ function SignIn({ onSignUpClick }) {
     setTouched({ ...touched, [event.target.name]: true });
   };
 
-  const submitHandlerForLogin = async (event) => {
-    event.preventDefault();
+  const submitHandlerForLogin = async (e) => {
+    e.preventDefault();
     try {
+      const loginEnteredData = {
+        email: data.email,
+        password: data.password,
+      };
+
       const response = await axios.post(
         "http://localhost:3001/ClientsLogins",
-        data // Use data object to send form data
+        loginEnteredData
       );
-      // Handle successful login
 
-      const token = response.data.token; // Access token from response.data
-      localStorage.setItem("Token", token);
-
-      // Redirect to main page
-      window.location.href = "/Calendar"; // Update this with the actual URL of your main page
+      if (response.status === 200) {
+        notify("You signed up successfully", "success");
+        const token = response.data.token;
+        localStorage.setItem("Token", token);
+        setTimeout(() => {
+          window.location.href = "/Calendar";
+        }, 1000);
+      }
     } catch (error) {
       if (error.response) {
         // Server responded with an error
         const { status, data } = error.response;
-        if (status === 401 && data === "Token expired") {
-          window.location.href = "/"; // MainPage
-          console.log("Token has expired. Please log in again.");
-          setError("Token has expired. Please log in again.");
-        } else {
-          // Other server error, handle it as appropriate
-          console.error("Server error:", data);
-          setError("Invalid email or password");
+        console.log("Token has expired. Please log in again.");
+
+        if (status === 401) {
+          notify("Check your inputes!", "error");
+        } else if (data === "Token expired") {
+          notify("Try again", "error");
         }
       } else {
         // Network error or other client-side error, handle it as appropriate
         console.error("Error:", error.message);
-        setError("An error occurred. Please try again later.");
+        toast.error("An error occurred. Please try again later.");
       }
     }
   };

@@ -33,12 +33,6 @@ const query = util.promisify(db.query).bind(db);
 
 // =================================Singup Logic===============================//
 app.post("/Profile", async (req, res) => {
-  // const name = req.body.name;
-  // const email = req.body.email;
-  // const age = req.body.age;
-  // const phonenumber = req.body.phonenumber;
-  // const password = req.body.password;
-
   const { name, email, age, phonenumber, password } = req.body;
   if (password) {
     try {
@@ -80,78 +74,11 @@ app.post("/Profile", async (req, res) => {
 });
 
 //==============================Client Login======================Main partt
-// const Secret = "1I1d6WhwZWjGn4ijZDpBaGq";
-
-// app.post("/ClientsLogins", async (req, res) => {
-//   const email = req.body.email;
-//   const password = req.body.password;
-//   const id = req.body.patient_id;
-//   let token = null;
-//   try {
-//     const results = await new Promise((resolve, reject) => {
-//       pool.query(
-//         `SELECT * FROM patientslist WHERE email = ?`,
-//         [email],
-//         function (error, results, fields) {
-//           if (error) {
-//             console.error("Error executing query:", error);
-//             reject(error);
-//           }
-//           resolve(results);
-//         }
-//       );
-//     });
-
-//     if (results.length === 0) {
-//       return res
-//         .status(401)
-//         .json({ success: false, message: "Invalid email or password" });
-//     }
-
-//     const hashedPassword = results[0].hashedpassword;
-//     if (bcrypt.compareSync(password, hashedPassword)) {
-//       const id = results[0].id;
-//       const token = jwt.sign({ id: id }, Secret, {
-//         expiresIn: "2h",
-//       });
-//     } else {
-//       return res
-//         .status(401)
-//         .json({ success: false, message: "Invalid email or password" });
-//     }
-
-// await new Promise((resolve, reject) => {
-//   pool.query(
-//     "INSERT INTO appointments (appointmentnumber, doctor_id, patient_id, appointment_date, registeration_date, update_date, status) VALUES (?,?, ?, ?,  ?, ?, ?)",
-//     [3, 7, id, new Date(), new Date(), new Date(), 0],
-//     function (error, results, fields) {
-//       if (error) {
-//         console.error("Error executing query:", error);
-//         reject(error);
-//       }
-//       resolve();
-//     }
-//   );
-// });
-
-//     res.status(200).json({
-//       success: true,
-//       token: token,
-//       email: email,
-//       patient_id: id,
-//       redirectUrl: "/", // Replace with the appropriate redirect URL
-//     });
-//   } catch (error) {
-//     console.error("Error during login:", error);
-//     return res.status(500).send("Server error");
-//   }
-// });
-
 const Secret = "1I1d6WhwZWjGn4ijZDpBaGq";
 
 app.post("/ClientsLogins", async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  const {email, password } = req.body;
+
 
   try {
     const results = await new Promise((resolve, reject) => {
@@ -201,79 +128,6 @@ app.post("/ClientsLogins", async (req, res) => {
   }
 });
 //=======================================
-
-// // ...
-
-// // Inside the route handler for '/ClientsLogins'
-// app.post("/ClientsLogins", (req, res) => {
-//   const email = req.body.email;
-//   const password = req.body.password;
-
-//   // Use connection from connection pool
-//   pool.getConnection(function (err, connection) {
-//     if (err) {
-//       console.error("Error getting database connection:", err);
-//       return res.status(500).send("Server error");
-//     }
-//     db.query(
-//       "SELECT * FROM patientslist WHERE (email) = (?)",
-//       [email],
-//       function (error, results, fields) {
-//         if (error) {
-//           console.error("Error executing query:", error);
-//           connection.destroy();
-//           return res.status(500).send("Server error");
-//         }
-
-//         if (results.length === 0) {
-//           connection.destroy(); // Close the connection when done
-//           return res.status(401).send("Invalid email or password");
-//         }
-
-//         // Verify password
-//         const hashedPassword = results[0].hashedpassword;
-//         if (bcrypt.compareSync(password, hashedPassword)) {
-//           const token = jwt.sign({ email: email }, Secret, {
-//             expiresIn: "2h",
-//           });
-
-//           // Send token to client
-//           res.status(200).json({ token });
-//         } else {
-//           // Passwords do not match
-//           connection.destroy();
-//           return res.status(401).send("Invalid email or password");
-//         }
-//       }
-//     );
-//   });
-// });
-
-// // Middleware to verify JWT token
-// const verifyToken = (req, res, next) => {
-//   const token = req.header("Authorization")?.replace("Bearer ", ""); // Get token from request headers
-
-//   if (!token) {
-//     return res.status(403).send("Access denied"); // Return error if token is not present
-//   }
-
-//   jwt.verify(token, Secret, (err, decoded) => {
-//     if (err) {
-//       console.error("Error verifying JWT token:", err);
-//       return res.status(500).send("Server error");
-//     }
-//     req.email = decoded.email; // Extract email from token payload
-//     next(); // Call next middleware or route handler
-//   });
-// };
-
-// // Example protected route that requires authentication
-// app.get("/protectedRoute", verifyToken, (req, res) => {
-//   const email = req.email; // Access the extracted email from the token payload
-//   // Perform actions for authenticated route
-//   // You can access the email and use it for authentication/authorization
-//   res.status(200).send(`Protected route accessed by email: ${email}`);
-// });
 
 // =================================Manager Logic===============================//
 app.post("/ManagerLogin", (req, res) => {
@@ -353,7 +207,7 @@ app.get("/doctors/:department", (req, res) => {
       res.status(500).json({ error: "Failed to fetch doctors" });
     } else {
       if (results.length > 0) {
-        res.status(200).json(results); // Send an array of doctors in the response
+        res.status(200).json(results); 
       } else {
         res.status(404).json({ error: "No doctors found" });
       }
