@@ -5,8 +5,11 @@ import "./MangerLogin.css";
 
 const Getinfopage = () => {
   const [patientsList, setPatientList] = useState([]);
+  const [newPatientList, setNewPatientList] = useState([]);
+  const [showNewPatients, setShowNewPatients] = useState(false); // added state for showing/hiding new patients
 
   const getPatientInformations = () => {
+    setShowNewPatients(false); // set showNewPatients to false when "All Patients Info" button is clicked
     Axios.get("http://localhost:3001/GetClientsLists").then((response) => {
       setPatientList(response.data);
     });
@@ -38,66 +41,89 @@ const Getinfopage = () => {
     });
   };
 
-  const fetchClientCount = async () => {
-    try {
-      // Make GET request to get count of clients
-      const response = await fetch("http://localhost:3001/GetNewClientsLists");
-      if (response.ok) {
-        // Parse response to JSON
-        const data = await response.json();
-        // Extract totalClients count from data
-        const totalClients = data.totalClients;
-        // Display totalClients count as needed
-        console.log(`Total new registered clients are: ${totalClients}`);
-      } else {
-        // Handle error
-        console.error("Failed to get count of clients");
-      }
-    } catch (error) {
-      // Handle network error
-      console.error(error);
-    }
+  const fetchClientCount = () => {
+    setShowNewPatients(true); // set showNewPatients to true when "NEW Patients Count" button is clicked
+    Axios.get("http://localhost:3001/GetNewClientsLists").then((response) => {
+      setNewPatientList(response.data);
+    });
   };
 
   return (
     <div>
       <div className="secionOne">
         <div className="getPatientInformationsPage">
-          <h2>Manager Logined Successfully</h2>
+          <h2>Manager Logged In Successfully</h2>
           <div className="getInfobtns">
             <button onClick={getPatientInformations}>All Patients Info</button>
             <button onClick={fetchClientCount}>NEW Patients Count</button>
           </div>
           <div className="MainBoxes">
             <div className="allContent">
-              {patientsList.map((val, key) => {
-                return (
-                  <div className="patientManagerInfo" key={val.id}>
-                    <div className="patientManagerInfoSection">
-                      <div>
-                        <div style={{ fontWeight: "bold" }}> Name</div>
-                        {val.name}
+              {showNewPatients ? (
+                <div className="SecPartFormanager">
+                  {newPatientList.map((val) => {
+                    return (
+                      <div className="patientManagerInfo" key={val.id}>
+                        <div className="patientManagerInfoSection">
+                          <div>
+                            <div style={{ fontWeight: "bold" }}> Name</div>
+                            {val.name}
+                          </div>
+                          <div>
+                            <div style={{ fontWeight: "bold" }}> Email</div>
+                            {val.email}
+                          </div>
+                          <div>
+                            <div style={{ fontWeight: "bold" }}> Age</div>
+                            {val.age}
+                          </div>
+                          <div>
+                            <div style={{ fontWeight: "bold" }}>
+                              Phone Number
+                            </div>
+                            {val.phonenumber}
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <div style={{ fontWeight: "bold" }}> Email</div>
-                        {val.email}
+                    );
+                  })}
+                </div>
+              ) : (
+                <div>
+                  {patientsList.map((val) => {
+                    return (
+                      <div className="patientManagerInfo" key={val.id}>
+                        <div className="patientManagerInfoSection">
+                          <div>
+                            <div style={{ fontWeight: "bold" }}> Name</div>
+                            {val.name}
+                          </div>
+                          <div>
+                            <div style={{ fontWeight: "bold" }}> Email</div>
+                            {val.email}
+                          </div>
+                          <div>
+                            <div style={{ fontWeight: "bold" }}> Age</div>
+                            {val.age}
+                          </div>
+                          <div>
+                            <div style={{ fontWeight: "bold" }}>
+                              Phone Number
+                            </div>
+                            {val.phonenumber}
+                          </div>
+                          <button
+                            onClick={() => confirmDelete(val.id)}
+                            className="managerDeleteBtn"
+                          >
+                            Delete
+                          </button>
+                        </div>
                       </div>
-                      <div>
-                        <div style={{ fontWeight: "bold" }}> Age</div>
-                        {val.age}
-                      </div>
-                      <div>
-                        <div style={{ fontWeight: "bold" }}> Phone Number</div>
-                        {val.phonenumber}
-                      </div>
-
-                      <button onClick={() => confirmDelete(val.id)}>
-                        Delete Patient
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -105,5 +131,4 @@ const Getinfopage = () => {
     </div>
   );
 };
-
 export default Getinfopage;

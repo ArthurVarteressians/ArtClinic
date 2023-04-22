@@ -12,21 +12,22 @@ import NavWeb from "./Components/Navigation/WebView/NavWeb";
 import Navtest from "./Components/Navigation/WebView/Navtest";
 import SignUp from "./Components/Signup/SignUp";
 import Getinfopage from "./Components/ManagerLogin/Getinfopage";
-import { BrowserRouter } from 'react-router-dom';
-import AppointmentForm from "./Components/Scheduling/test";
+import { BrowserRouter } from "react-router-dom";
+// import AppointmentForm from "./Components/Scheduling/test";
 import Calendar from "./Components/Scheduling/Calendar";
-import TT from "./Components/Scheduling/test";
-import DD from "./Components/Scheduling/dddd";
+import BookingApp from "./Components/Scheduling/BookingApp ";
 
 function App() {
   return (
     <div>
+{/* <BookingApp /> */}
+
+
       <NavWeb />
       {/* <ManagerLogin /> */}
-{/* <Calendar /> */}
-{/* <AppointmentForm /> */}
-      {/* <TT /> */}
-{/* <DD /> */}
+      {/* <Calendar /> */}
+      {/* <AppointmentForm /> */}
+
     </div>
   );
 }

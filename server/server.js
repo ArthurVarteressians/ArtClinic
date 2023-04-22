@@ -19,16 +19,8 @@ const db = mysql.createConnection({
   password: "123456789",
   database: "artclinic",
 });
-
-//==============
-
-const pool = mysql.createPool({
-  user: "root",
-  host: "localhost",
-  password: "123456789",
-  database: "artclinic",
-});
 //==================================//
+
 const query = util.promisify(db.query).bind(db);
 
 // =================================Singup Logic===============================//
@@ -43,49 +35,71 @@ app.post("/Profile", async (req, res) => {
         async (err, result) => {
           if (err) {
             console.error(err);
-            res.status(500).send("Internal server error");
+            return res.status(500).send("Internal server error");
           } else {
             // Check if the email or phone number exists
             const emailCount = result[0].emailCount;
             const phoneNumberCount = result[0].phoneNumberCount;
             if (emailCount > 0) {
-              res.status(400).json({ message: "Email already exists" });
+              return res.status(400).json({ message: "Email already exists" });
             } else if (phoneNumberCount > 0) {
-              res.status(400).json({ message: "Phone number already exists" });
+              return res
+                .status(400)
+                .json({ message: "Phone number already exists" });
             } else {
               const hashedPassword = await bcrypt.hash(password, saltRounds);
               await query(
                 "INSERT INTO patientslist (name, email, age, phonenumber, hashedpassword, patient_status) VALUES (?, ?, ?, ?, ?, 0)",
                 [name, email, age, phonenumber, hashedPassword]
               );
-              res.status(200).json({ message: "New patient added" });
+              db.query(
+                // TODO: pool
+                `SELECT * FROM patientslist WHERE email = ?`,
+                [email],
+                (error, results) => {
+                  if (error) {
+                    console.error("Error executing query:", error);
+                    reject(error);
+                  }
+                  const token = jwt.sign({ id: results[0].id }, SECRET, {
+                    expiresIn: "2h",
+                  });
+                  // resolve(results);
+                  return res
+                    .status(200)
+                    .header("Authorization", "Bearer " + token)
+                    .json({
+                      message: "New patient added",
+                      token: "Bearer " + token,
+                    });
+                }
+              );
             }
           }
         }
       );
     } catch (err) {
       console.error("Error inserting new patient: ", err);
-      res.status(500).send("Internal server error");
+      return res.status(500).send("Internal server error");
     }
   } else {
     console.error("Passwords do not match");
-    res.status(400).send("Passwords do not match");
+    return res.status(400).send("Passwords do not match");
   }
 });
 
 //==============================Client Login======================Main partt
-const Secret = "1I1d6WhwZWjGn4ijZDpBaGq";
+const SECRET = "1I1d6WhwZWjGn4ijZDpBaGq";
 
 app.post("/ClientsLogins", async (req, res) => {
-  const {email, password } = req.body;
-
+  const { email, password } = req.body;
 
   try {
     const results = await new Promise((resolve, reject) => {
-      pool.query(
+      db.query(
         `SELECT * FROM patientslist WHERE email = ?`,
         [email],
-        function (error, results, fields) {
+        (error, results) => {
           if (error) {
             console.error("Error executing query:", error);
             reject(error);
@@ -102,12 +116,12 @@ app.post("/ClientsLogins", async (req, res) => {
     }
 
     const hashedPassword = results[0].hashedpassword;
-    if (bcrypt.compareSync(password, hashedPassword)) {
-      const token = jwt.sign({ id: results[0].id }, Secret, {
+    if (await bcrypt.compare(password, hashedPassword)) {
+      const token = jwt.sign({ id: results[0].id }, SECRET, {
         expiresIn: "2h",
       });
       const patientId = results[0].id; // Retrieve patient_id from the query results
-      res
+      return res
         .status(200)
         .header("Authorization", "Bearer " + token) // Add the token to the headers
         .json({
@@ -169,7 +183,7 @@ app.get("/GetClientsLists", (req, res) => {
 app.get("/GetNewClientsLists", (req, res) => {
   // Execute MySQL query to get count of clients with status 0
   const query =
-    "SELECT COUNT(*) AS total_clients FROM patientslist WHERE patient_status = 0";
+    "SELECT name, email, age, phonenumber FROM patientslist WHERE patient_status = 0;";
   db.query(query, (err, result) => {
     if (err) {
       // Handle error
@@ -179,7 +193,7 @@ app.get("/GetNewClientsLists", (req, res) => {
       // Extract count from query result
       const totalClients = result[0].total_clients;
       // Return count to frontend
-      res.status(200).json({ totalClients });
+      res.send(result);
     }
   });
 });
@@ -207,7 +221,7 @@ app.get("/doctors/:department", (req, res) => {
       res.status(500).json({ error: "Failed to fetch doctors" });
     } else {
       if (results.length > 0) {
-        res.status(200).json(results); 
+        res.status(200).json(results);
       } else {
         res.status(404).json({ error: "No doctors found" });
       }
@@ -224,7 +238,7 @@ const verifyToken = (req, res, next) => {
     return res.status(403).send("Access denied"); // Return error if token is not present
   }
 
-  jwt.verify(token, Secret, (err, decoded) => {
+  jwt.verify(token, SECRET, (err, decoded) => {
     if (err) {
       console.error("Error verifying JWT token:", err);
       return res.status(500).send("Server error");

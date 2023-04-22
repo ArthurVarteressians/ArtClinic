@@ -32,7 +32,7 @@ const ManagerLogin = () => {
         <div className="mainSignUpBody">
           <label htmlFor="email">Email</label>
           <input
-            placeholder="Enter your registration email"
+            placeholder="Enter your email"
             type="email"
             id="email"
             onChange={(e) => {

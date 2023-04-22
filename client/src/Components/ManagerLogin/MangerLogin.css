@@ -1,10 +1,26 @@
+.secionOne {
+    background-color: rgba(173, 173, 173, 0.24);
+    min-height: 100vh;
+}
+
+.getPatientInformationsPage {
+    text-align: center;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 .MainBoxes {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 100vh;
-    background-image: url("./b13.png");
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.76);
+    width: 95%;
+
 }
 
 .mainSignUpBodySection {
@@ -18,6 +34,7 @@
 
 .allContent {
     width: 90%;
+    padding: 10px;
 }
 
 .mainSignUpBody {
@@ -30,7 +47,6 @@
     box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.76);
     padding: 20px;
     background-color: rgba(230, 230, 230, 0.658)
-
 }
 
 .mainSignUpBody input {
@@ -43,14 +59,10 @@
 .patientManagerInfo {
     display: flex;
     flex-direction: column;
-    border: 2px solid silver;
-    border-radius: 7px;
-    height: auto;
-    padding: 10px;
-    margin-top: 30px;
     border-radius: 10px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-    background-color: rgba(250, 235, 215, 0.363);
+    margin: 20px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    background-color: rgba(99, 78, 55, 0.24);
 }
 
 .patientManagerInfoSection {
@@ -69,7 +81,7 @@
     margin: 0;
     font-size: 1.3vw;
     background-color: rgba(207, 0, 0, 0.61) !important;
-    box-shadow: rgba(255, 0, 0, 0.712) 0px 0px 10px;
+    box-shadow: rgba(255, 0, 0, 0.712) 0px 0px 10px !important;
 }
 
 .managerDeleteBtn:hover {
@@ -100,8 +112,8 @@
 
 
 
-.getInfobtns{
+.getInfobtns {
     width: 100%;
     display: flex;
-    justify-content:space-around;
+    justify-content: space-around;
 }
