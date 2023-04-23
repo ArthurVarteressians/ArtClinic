@@ -1,26 +1,38 @@
 import "./Mainpage.css";
 import ".././Sass/LandingpageButton.scss";
 import { Link } from "react-router-dom";
-import Doctors from "../Doctors/Doctors";
+// import Doctors from "../Doctors/Doctors";
 function Mainpage() {
   return (
-    <div className="mainPageL">
-      <div className="mainContentL">
-        <p>
-          In publishing and graphic design, Lorem ipsum is a placeholder text
-          commonly used to demonstrate the visual form of a document or a
-          typeface without relying on meaningful content.
-        </p>
-        <p>
-          In publishing and graphic design, Lorem ipsum is a placeholder text
-          commonly used to demonstrate the visual form of a document or a
-          typeface without relying on meaningful content.
-        </p>
-      </div>
-      <div className="mainpageDoctorLBtnSection">
-        <Link to="/AllDoctors">
-          <button className="mainpageDoctorLBtn">See Doctors</button>
-        </Link>
+    <div className="mainLangdingPageSec">
+      <div className="mainPageStructure">
+        <div className="LandingpageTexts">
+          <div className="LandingpageTexts2">
+            At <span style={{ fontWeight: "bold" }}> Art Clinic</span>, we are
+            dedicated to providing high-quality healthcare services to our
+            patients. Our online clinic development system is designed to offer
+            a seamless and user-friendly experience for managing your healthcare
+            needs. We are committed to helping you achieve optimal health and
+            wellness through our comprehensive services and expert medical
+            professionals. Our mission is to deliver exceptional healthcare
+            services and patient-centric care.
+          </div>
+
+          <div className="LandingpageTexts2">
+            At our clinic, we understand the importance of compassionate care.
+            Our team is dedicated to delivering the highest standard of care
+            with empathy, respect, and professionalism. We prioritize patient
+            safety and follow evidence-based practices to ensure accurate
+            diagnoses, effective treatments, and positive outcomes. We are
+            committed to building long-term relationships with our patients
+            based on trust, integrity, and open communication.
+          </div>
+        </div>
+        <div className="mainpageDoctorLBtnSection">
+          <Link to="/AllDoctors">
+            <button className="mainpageDoctorLBtn">See Doctors</button>
+          </Link>
+        </div>
       </div>
     </div>
   );

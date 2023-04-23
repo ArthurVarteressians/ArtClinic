@@ -5,6 +5,7 @@ import LoginIcon from "./profile.gif";
 import { Link as ScrollLink } from "react-scroll";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Mainpage from "../../Mainpage/Mainpage";
 import Services from "../../ServicesLanding/WebView/ServicesLanding";
@@ -26,7 +27,9 @@ function NavWeb() {
   return (
     <div className="navWebV">
       <div className="navWebVContainer">
-        <img src={Logo} />
+        <Link to="/">
+          <img src={Logo} alt="Logo" />
+        </Link>
 
         <div className="navWebVLinks">
           <li>

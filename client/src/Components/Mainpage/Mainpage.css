@@ -1,32 +1,33 @@
-.mainPageL {
+.mainLangdingPageSec {
     background-image: url("./back11.png");
-    width: 100%;
-    height: 91vh;
     background-position: center;
-    background-repeat: no-repeat;
     background-size: cover;
+    background-repeat: no-repeat;
+    height: 91vh;
 }
 
-.mainContentL {
+.mainPageStructure {
     display: flex;
-    justify-content: center;
-    align-items: end;
+    flex-direction: column;
+    justify-content: end;
+    height: 88vh;
+    align-items: center;
+}
+
+.LandingpageTexts {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-between;
+    
+}
+
+.LandingpageTexts2 {
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.76);
+    width: 25%;
     text-align: center;
-    height: 87%;
-}
-
-.mainContentL p {
-    font-size: medium;
-    font-family: Century gothic;
-    padding: 15px;
-    border: 1px solid rgba(0, 0, 0, 0.24);
-    background-color: #ffffff5d;
-    border-radius: 7px;
-    margin: 0px 50px;
-}
-
-.mainpageDoctorLBtnSection {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    padding: 10px;
+    background-color: rgba(226, 226, 226, 0.486);
+    font-size: 1.17vw;
 }

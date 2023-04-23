@@ -4,7 +4,6 @@ import DoctorsMobile from "./MobiveView/DoctorsMobile";
 import Navigation from "../Navigation/Navigation";
 import Footer from "../Footer/Footer";
 import Navtest from "../Navigation/WebView/Navtest";
-import "./Doctors.css"
 function Doctors() {
   const ifWeb = useMediaQuery("(width > 650px)");
   const ifMob = useMediaQuery("(width < 649.9px)");

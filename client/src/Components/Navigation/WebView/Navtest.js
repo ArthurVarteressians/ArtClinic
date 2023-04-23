@@ -8,7 +8,9 @@ function Navtest() {
   return (
     <div className="navWebV">
       <div className="navWebVContainer">
-        <img src={Logo} />
+      <Link to="/">
+          <img src={Logo} alt="Logo" />
+        </Link>
 
         <div className="navWebVLinks">
           <li>

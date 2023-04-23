@@ -44,6 +44,5 @@
 
 .servicesWebMain p {
     padding: 10px;
-    font-size: large;
-    font-family:'Courier New', Courier, monospace;
+    font-weight: 300;
 }

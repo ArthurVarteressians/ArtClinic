@@ -1,12 +1,3 @@
-.navWebV {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-direction: column;
-    background-color: rgba(148, 227, 227, 0.507);
-    /* width: 100%; */
-}
-
 .navWebVContainer {
     display: flex;
     align-items: center;
@@ -14,8 +5,8 @@
     position: sticky;
     top: 0px;
     z-index: 2;
-    height: 70px;
-    min-height: 70px;
+    height: 60px;
+    min-height: 60px;
     width: 100%;
     background-color: rgba(148, 227, 227, 0.952);
     padding: 0 1rem;
@@ -24,6 +15,7 @@
 
 .navWebVContainer img {
     width: 60px;
+    padding-top: 7px;
 }
 
 .navWebVLinks {
@@ -37,7 +29,11 @@
 
 .navWebVLinks li {
     margin-right: 20px;
-    cursor: pointer;
+}
+
+.navWebVLinks li a {
+    cursor: pointer !important;
+
 }
 
 .iconLoginNav img,
@@ -59,7 +55,7 @@
 }
 
 .iconNumSe:hover .iconNumber {
-    top: 28px;
+    top: 40px;
     visibility: visible;
     opacity: 1;
 }
