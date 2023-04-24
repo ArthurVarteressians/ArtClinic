@@ -25,7 +25,8 @@ const query = util.promisify(db.query).bind(db);
 
 // =================================Singup Logic===============================//
 app.post("/Profile", async (req, res) => {
-  const { name, email, age, phonenumber, password } = req.body;
+  const { name, email, age, phonenumber, password, registrationDate } =
+    req.body;
   if (password) {
     try {
       // Check if email or phone number already exist in the database
@@ -49,8 +50,15 @@ app.post("/Profile", async (req, res) => {
             } else {
               const hashedPassword = await bcrypt.hash(password, saltRounds);
               await query(
-                "INSERT INTO patientslist (name, email, age, phonenumber, hashedpassword, patient_status) VALUES (?, ?, ?, ?, ?, 0)",
-                [name, email, age, phonenumber, hashedPassword]
+                "INSERT INTO patientslist (name, email, age, phonenumber, hashedpassword, registration_date, patient_status) VALUES (?, ?, ?, ?, ? , ?, 0)",
+                [
+                  name,
+                  email,
+                  age,
+                  phonenumber,
+                  hashedPassword,
+                  registrationDate,
+                ]
               );
               db.query(
                 // TODO: pool
@@ -199,6 +207,39 @@ app.get("/GetNewClientsLists", (req, res) => {
 });
 
 //==================================//
+
+// Example backend endpoint to fetch client counts
+app.get("/GetNewClientsListssss", (req, res) => {
+  // Fetch client counts from your MySQL database
+  const query =
+  "SELECT DAY(registration_date) as day, COUNT(*) as count FROM patientslist WHERE patient_status = 0 AND MONTH(registration_date) = ? AND YEAR(registration_date) = ? GROUP BY DAY(registration_date) HAVING COUNT(*) > 0;";
+;
+
+  // Execute the query to fetch client counts
+  db.query(
+    query,
+    [new Date().getMonth() + 1, new Date().getFullYear()],
+    (error, results) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ error: "Failed to fetch client counts" });
+      } else {
+        // Format the fetched data as an array of counts for each day in the month
+        const clientCounts = Array.from({ length: 31 }, (_, i) => {
+          const day = i + 1;
+          const count =
+            results.find((result) => result.day === day)?.count || 0; // Update this line
+          return count;
+        });
+
+        // Send the client counts data as a JSON response
+        res.json(clientCounts);
+      }
+    }
+  );
+});
+
+//===================================
 
 app.delete("/GetClientsLists/:id", (req, res) => {
   const id = req.params.id;

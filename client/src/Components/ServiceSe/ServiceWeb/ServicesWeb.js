@@ -19,38 +19,44 @@ const ServicesWeb = () => {
         <div class="service1">
           <img src={img1} alt="Service1" />
           <p>
-            Our cutting-edge imaging technology allows for detailed
-            visualization of the heart and its structures. Our expert
-            radiologists analyze heart images to aid in the diagnosis and
-            management of cardiovascular conditions, ensuring optimal heart
-            health.
+            Our clinic provides comprehensive cardiovascular care, focusing on
+            the health of your heart. Our expert medical team offers a range of
+            services, including heart health assessments, diagnostics, and
+            personalized treatment plans. We are committed to helping you
+            maintain a healthy heart and prevent cardiovascular diseases,
+            ensuring your overall well-being.
           </p>
         </div>
 
         <div class="service2">
           <p>
-            Our state-of-the-art imaging technology allows for accurate and
-            detailed imaging of the brain. Our expert radiologists interpret
-            brain images to aid in the diagnosis and treatment of neurological
-            conditions, ensuring optimal brain health.
+            We prioritize brain health and offer specialized
+            services to address neurological concerns. Our experienced
+            neurologists provide thorough evaluations, diagnostics, and advanced
+            treatment options for conditions such as migraines, seizures,
+            dementia, and more. Trust us to provide expert care for your brain
+            health needs.
           </p>
           <img src={img5} alt="service2" />
         </div>
         <div class="service3">
           <img src={img3} alt="service3" />
           <p>
-            Our specialized dental imaging services capture high-quality images
-            of teeth, gums, and jawbone. Our skilled radiologists interpret
-            dental images to assist in the diagnosis and treatment of various
-            dental conditions, ensuring healthy and beautiful smiles.
+            Oral health is a crucial aspect of overall wellness, and our clinic
+            offers comprehensive dental services to ensure your oral health is
+            well taken care of. From routine dental cleanings and check-ups to
+            advanced restorative procedures, our skilled dentists provide
+            personalized care to help you achieve a healthy and beautiful smile.
           </p>
         </div>
         <div class="service4">
           <p>
-            Our advanced imaging techniques provide detailed images of the
-            lungs, aiding in the diagnosis and management of respiratory
-            conditions. Our experienced radiologists analyze lung images to
-            guide treatment plans for optimal lung health.
+            Our clinic specializes in respiratory health, offering comprehensive
+            services for conditions affecting the lungs and respiratory system.
+            Our team of pulmonary specialists provides thorough evaluations,
+            diagnostics, and individualized treatment plans for conditions such
+            as asthma, COPD, lung infections, and more. Count on us for expert
+            care to keep your lungs healthy and breathing easy.
           </p>
           <img src={img4} alt="service4" />
         </div>

@@ -17,6 +17,7 @@ function SignUp({ onSignInClick }) {
   });
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
+  const [registrationDate, setRegistrationDate] = useState(null);
 
   useEffect(() => {
     setErrors(validate(data, "signup"));
@@ -35,6 +36,10 @@ function SignUp({ onSignInClick }) {
 
   const submitHandler = async (event) => {
     event.preventDefault();
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Set time to midnight
+    const formattedDate = currentDate.toLocaleDateString();
+
     if (!Object.keys(errors).length) {
       // Retrieve entered information here
       const enteredData = {
@@ -45,6 +50,7 @@ function SignUp({ onSignInClick }) {
         phonenumber: data.phonenumber,
         password: data.password,
         isAccepted: data.isAccepted,
+        registrationDate: formattedDate,
       };
       try {
         const response = await axios.post(

@@ -16,14 +16,15 @@ import { BrowserRouter } from "react-router-dom";
 // import AppointmentForm from "./Components/Scheduling/test";
 import Calendar from "./Components/Scheduling/Calendar";
 import BookingApp from "./Components/Scheduling/BookingApp ";
+import BarChart from "./Components/ManagerLogin/ManagerChart";
 
 function App() {
   return (
     <div>
 {/* <BookingApp /> */}
+<BarChart />
 
-
-      <NavWeb />
+      {/* <NavWeb /> */}
       {/* <ManagerLogin /> */}
       {/* <Calendar /> */}
       {/* <AppointmentForm /> */}
