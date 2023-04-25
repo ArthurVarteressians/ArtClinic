@@ -59,7 +59,7 @@ function SubmitQ() {
         </p>
         <p>
           Getting in touch with us is easy. Clients can fill out the form below,
-          send us an a call request, or call us at 02212. Our team is available
+          send us an a call request, or call us at <span style={{ fontWeight: "bold" }}>02212</span>. Our team is available
           during business hours to promptly respond to inquiries and provide
           assistance.
         </p>

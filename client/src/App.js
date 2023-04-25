@@ -20,6 +20,7 @@ import BarChart from "./Components/ManagerLogin/ManagerChart";
 import AboutMap from "./Components/About/About";
 import MainAboutSetcin from "./Components/About/MainAboutSetcin";
 import SubmitQ from "./Components/About/SubmitQ";
+import ManagerSection from "./Components/ManagerLogin/ManagerSection";
 
 function App() {
   return (
@@ -29,6 +30,8 @@ function App() {
       {/* <BarChart /> */}
       {/* <AboutMap /> */}
       <NavWeb />
+
+      {/* <ManagerSection /> */}
 
       {/* <SubmitQ /> */}
       {/* <ManagerLogin /> */}

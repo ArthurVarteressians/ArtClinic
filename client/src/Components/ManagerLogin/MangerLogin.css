@@ -1,26 +1,32 @@
 .secionOne {
-    background-color: rgba(173, 173, 173, 0.24);
+    background-color: rgba(173, 173, 173, 0.274);
     min-height: 100vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: flex-start;
-    
 }
 
 .getPatientInformationsPage {
-width: 100vw;
+    width: 100vw;
 }
+.ChartSectionss{
+    background-color: rgba(173, 173, 173, 0.096);
 
+}
 .MainBoxes {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    /* border-radius: 10px;
-    box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.76); */
-    width: 95%;
+    width: 100%;
+}
 
+.chartBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .mainSignUpBodySection {
@@ -76,7 +82,6 @@ width: 100vw;
     font-size: 1.3vw;
 }
 
-
 .managerDeleteBtn {
     margin: 0;
     font-size: 1.3vw;
@@ -108,9 +113,6 @@ width: 100vw;
         font-size: 2.3vw;
     }
 }
-
-
-
 
 .getInfobtns {
     width: 100%;

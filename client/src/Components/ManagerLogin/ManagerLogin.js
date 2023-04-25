@@ -9,9 +9,8 @@ const ManagerLogin = () => {
   const [managerPassword, setManagerPassword] = useState("");
   const [error, setError] = useState("");
 
-  const navigate = useNavigate(); // Move useNavigate outside of handleLogin
+  const navigate = useNavigate();
   const handleLogin = () => {
-    // Send a POST request to the server with manager email and password
     Axios.post("http://localhost:3001/ManagerLogin", {
       email: managerEmail,
       password: managerPassword,
@@ -20,10 +19,12 @@ const ManagerLogin = () => {
         const { data } = response;
         if (data && data.success) {
           if (data.doctorId) {
-            window.location.href = "/Admin/Doctor";
+            navigate("/Admin/Doctor");
+            localStorage.setItem("token", data.token);
             console.log("Redirecting to doctor page");
           } else if (data.managerId) {
-            window.location.href = "/Admin/Manager";
+            localStorage.setItem("token", data.token);
+            navigate("/Admin/Manager");
             console.log("Redirecting to manager page");
           } else {
             setError("Invalid role");

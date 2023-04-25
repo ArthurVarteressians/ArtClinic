@@ -18,6 +18,7 @@ import Calendar from "./Components/Scheduling/Calendar";
 import MainAboutSetcin from "./Components/About/MainAboutSetcin";
 import PrivacyandPolicy from "./Components/Privacy&Policy/PrivacyandPolicy";
 import DoctorGetInfo from "./Components/ManagerLogin/DoctorGetInfo";
+import ManagerSection from "./Components/ManagerLogin/ManagerSection";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -50,7 +51,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/Admin/Manager",
-    element: <Getinfopage />,
+    element: <ManagerSection />,
   },
   {
     path: "AboutUs",

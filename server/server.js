@@ -151,8 +151,9 @@ app.post("/ClientsLogins", async (req, res) => {
 });
 //=======================================
 
-// =================================Manager Logic===============================//
-app.post("/ManagerLogin", (req, res) => {
+// =================================Manager Logic===============================//const SECRET = "1I1d6WhwZWjGn4ijZDpBaGq"; // Secret for JWT
+
+app.post("/ManagerLogin", async (req, res) => {
   const { email, password } = req.body;
   const query = `SELECT * FROM managemenlogin WHERE email = ? AND password = ?`;
   db.query(query, [email, password], (err, result) => {
@@ -164,20 +165,29 @@ app.post("/ManagerLogin", (req, res) => {
         let response;
         if (user.role === "doctor") {
           // Handle doctor login
+          const token = jwt.sign({ id: user.id }, SECRET, {
+            expiresIn: "2h",
+          });
           response = {
             success: true,
             message: "Doctor login successful",
             doctorId: user.id,
             doctorEmail: user.email,
+            token: token, // Add token to the response
           };
           console.log(response.message);
         } else if (user.role === "manager") {
           // Handle manager login
+          const token = jwt.sign({ id: user.id }, SECRET, {
+            expiresIn: "2h",
+  
+          });
           response = {
             success: true,
             message: "Manager login successful",
             managerId: user.id,
             managerEmail: user.email,
+            token: token, // Add token to the response
             // Add additional properties specific to managers
             // ...
           };
@@ -385,6 +395,32 @@ app.post("/SubmitQ", async (req, res) => {
       }
     }
   );
+});
+
+//==================================================
+
+// Get appointment details for a specific doctor endpoint
+
+app.get("/api/doctors/:doctor_id", (req, res) => {
+  const { doctor_id } = req.params;
+
+  // Query to retrieve appointment details for a specific doctor
+  const query = `
+    SELECT a.appointmentnumber, a.doctor_id, a.patient_id, a.appointment_date, a.status, d.fullname, d.department
+    FROM appointments a
+    JOIN doctors d ON a.doctor_id = d.doctor_id
+    WHERE a.doctor_id = ?;
+  `;
+
+  // Execute the query with the doctorId parameter
+  db.query(query, [doctor_id], (error, results) => {
+    if (error) {
+      console.error(error);
+      res.sendStatus(500);
+    } else {
+      res.json(results);
+    }
+  });
 });
 
 app.listen(3001, () => console.log("Server is Up on port 3001"));

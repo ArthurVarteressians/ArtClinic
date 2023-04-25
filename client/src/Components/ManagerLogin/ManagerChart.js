@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import Axios from "axios";
+import "./MangerLogin.css";
 const MonthlyClientCountsChart = () => {
   const chartRef = useRef(null);
   const [clientCounts, setClientCounts] = useState([]);
@@ -53,23 +54,21 @@ const MonthlyClientCountsChart = () => {
   }, [clientCounts, showChart]);
 
   return (
-    <div>
-      {!showChart && <button onClick={handleGetChart}>Get Chart</button>}
-      {showChart && (
-        <div>
-          <button onClick={handleGetChart}>Get Chart</button>
-
-          <div style={{ height: "400px" }}>
-            <canvas ref={chartRef} />
-          </div>
-          <div>
-            <p>
-              Total New Clients: {clientCounts.reduce((acc, curr) => acc + curr, 0)}
-            </p>
-            <p>Max Registered Clients in a Day: {Math.max(...clientCounts)}</p>
-          </div>
-        </div>
-      )}
+    <div className="ChartSectionss">
+      <div className="chartBtn">
+        {!showChart && <button onClick={handleGetChart}>Get Chart</button>}
+        {showChart && <button onClick={handleGetChart}>Get Chart</button>}
+      </div>
+      <div style={{ height: "400px" }}>
+        <canvas ref={chartRef} />
+      </div>
+      <div>
+        <p>
+          Total New Clients:{" "}
+          {clientCounts.reduce((acc, curr) => acc + curr, 0)}
+        </p>
+        <p>Max Registered Clients in a Day: {Math.max(...clientCounts)}</p>
+      </div>
     </div>
   );
 };

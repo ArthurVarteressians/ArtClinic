@@ -127,7 +127,7 @@ const Getinfopage = () => {
               )}
             </div>
           </div>
-          <MonthlyClientCountsChart />
+        
         </div>
 
       </div>
