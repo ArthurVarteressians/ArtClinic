@@ -71,7 +71,9 @@ function NavWeb() {
               FAQS
             </ScrollLink>
           </li>
-
+          <li>
+            <RouterLink to="/AboutUs">About Us</RouterLink>
+          </li>
           <li>
             <RouterLink to="/AllDoctors">Doctors</RouterLink>
           </li>

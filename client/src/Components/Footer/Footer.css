@@ -2,6 +2,10 @@
     padding: 0.5rem 5rem 0.3rem 5rem;
 }
 
+.scroll-to-top {
+    scroll-behavior: auto !important;
+    scroll-margin-top: 0 !important;
+}
 .footer {
     background: rgba(148, 227, 227, 0.507);
 }

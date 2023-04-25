@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import Axios from "axios";
-
 const MonthlyClientCountsChart = () => {
   const chartRef = useRef(null);
   const [clientCounts, setClientCounts] = useState([]);

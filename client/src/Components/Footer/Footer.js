@@ -1,35 +1,38 @@
 import React from "react";
 import "./Footer.css";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
+  window.scrollTo(0, 0);
+
   return (
     <div className="footer">
       <div className="sb-footer sec-padding">
         <div className="sb-footer-links">
           <div className="sb-footer-links-div">
-            <h4>For business</h4>
-            <a href="/">
-              <p>Employess</p>
-            </a>
-          </div>{" "}
+            <h4>About Us</h4>
+            <Link to="/AboutUs">
+              <p>Get In Touch</p>
+            </Link>
+          </div>
           <div className="sb-footer-links-div">
-            <h4>For business</h4>
-            <a href="/">
-              <p>Employess</p>
-            </a>
-          </div>{" "}
+            <h4>Get Start</h4>
+            <Link to="/Profile">
+              <p>Sign Up</p>
+            </Link>
+          </div>
           <div className="sb-footer-links-div">
-            <h4>For business</h4>
-            <a href="/">
-              <p>Employess</p>
-            </a>
+            <h4>Regulations</h4>
+            <Link to="/Privacy&Policy">
+              <p>Privacy & Policy</p>
+            </Link>
           </div>
           <div className="sb-footer-links-div">
             <h4>Social media</h4>
             <div className="socialMedia">
-              <a href="/">
+              <Link href="/">
                 <i class="fa-brands fa-facebook"></i>
-              </a>
+              </Link>
               <a href="/">
                 <i class="fa-brands fa-instagram"></i>
               </a>
@@ -47,25 +50,22 @@ const Footer = () => {
 
         <div className="sb-footer-below">
           <div className="sb-footer-copyright">
-            <p>©{new Date().getFullYear()} Art Health. All rights reserved.</p>
+            <p>©{new Date().getFullYear()} Art Clinic. All rights reserved.</p>
           </div>
           <div className="sb-footer-below-links">
             <a href="/">
               <div>
-                <p>Terms & conditions</p>
+                <Link to="/Admin">
+                  <p>Manager Login</p>
+                </Link>
               </div>
             </a>
-            <a href="/">
-              <div>
-                <p>Privacy</p>
-              </div>
-            </a>
-            <a href="/">
+            <a href="#">
               <div>
                 <p>Security</p>
               </div>
             </a>
-            <a href="/">
+            <a href="#">
               <div>
                 <p>cookies</p>
               </div>

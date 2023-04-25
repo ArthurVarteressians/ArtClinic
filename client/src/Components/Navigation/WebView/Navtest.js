@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Logo from "../Imgs/logo.png";
 import Telicon from "./emergency-call.gif";
 import LoginIcon from "./profile.gif";
@@ -8,29 +8,43 @@ function Navtest() {
   return (
     <div className="navWebV">
       <div className="navWebVContainer">
-      <Link to="/">
+        <NavLink exact to="/" activeClassName="activeLink">
+          {/* Use activeClassName prop to specify the class for active link */}
           <img src={Logo} alt="Logo" />
-        </Link>
+        </NavLink>
 
         <div className="navWebVLinks">
           <li>
-            <Link to="/">Home</Link>
+            <NavLink exact to="/" activeClassName="activeLink">
+              {/* Use activeClassName prop to specify the class for active link */}
+              Home
+            </NavLink>
           </li>
           <li>
-            <Link href="#">About</Link>
+            <NavLink to="/AboutUs" activeClassName="activeLink">
+              {/* Use activeClassName prop to specify the class for active link */}
+              About Us
+            </NavLink>
           </li>
           <li>
-            <Link to="/AllDoctors">Doctors</Link>
+            <NavLink to="/AllDoctors" activeClassName="activeLink">
+              {/* Use activeClassName prop to specify the class for active link */}
+              Doctors
+            </NavLink>
           </li>
           <li>
-            <Link to="/ServicesPage">Services</Link>
+            <NavLink to="/ServicesPage" activeClassName="activeLink">
+              {/* Use activeClassName prop to specify the class for active link */}
+              Services
+            </NavLink>
           </li>
           <li>
             <div className="iconLoginNav">
-              <Link to="/Profile">
+              <NavLink to="/Profile" activeClassName="activeLink">
+                {/* Use activeClassName prop to specify the class for active link */}
                 <img src={LoginIcon} />
                 <span className="iconNumber">02212</span>
-              </Link>
+              </NavLink>
             </div>
           </li>
           <li>

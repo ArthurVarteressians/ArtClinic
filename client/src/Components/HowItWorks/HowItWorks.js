@@ -17,7 +17,7 @@ function HowItWorks() {
     <div className="howItWorkL">
       <div className="howItWorkLSec">
         <div className="howItWorkLSecHeader">
-          <h5>It's easy to get started</h5>
+          <h4>It's easy to get started</h4>
           <h1>Four easy steps</h1>
         </div>
         <div className="howItWorksLIcons">

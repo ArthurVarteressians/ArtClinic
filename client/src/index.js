@@ -15,6 +15,8 @@ import "./Components/Sass/LandingpageButton.scss";
 import Getinfopage from "./Components/ManagerLogin/Getinfopage";
 import ManagerLogin from "./Components/ManagerLogin/ManagerLogin";
 import Calendar from "./Components/Scheduling/Calendar";
+import MainAboutSetcin from "./Components/About/MainAboutSetcin";
+import PrivacyandPolicy from "./Components/Privacy&Policy/PrivacyandPolicy";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -49,6 +51,17 @@ const router = createBrowserRouter([
     path: "Getinfopage",
     element: <Getinfopage />,
   },
+  {
+    path: "AboutUs",
+    element: <MainAboutSetcin />,
+  },
+
+  {
+    path: "Privacy&Policy",
+    element: <PrivacyandPolicy />,
+  },
+
+
 ]);
 
 createRoot(document.getElementById("root")).render(

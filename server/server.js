@@ -212,9 +212,7 @@ app.get("/GetNewClientsLists", (req, res) => {
 app.get("/GetNewClientsListssss", (req, res) => {
   // Fetch client counts from your MySQL database
   const query =
-  "SELECT DAY(registration_date) as day, COUNT(*) as count FROM patientslist WHERE patient_status = 0 AND MONTH(registration_date) = ? AND YEAR(registration_date) = ? GROUP BY DAY(registration_date) HAVING COUNT(*) > 0;";
-;
-
+    "SELECT DAY(registration_date) as day, COUNT(*) as count FROM patientslist WHERE patient_status = 0 AND MONTH(registration_date) = ? AND YEAR(registration_date) = ? GROUP BY DAY(registration_date) HAVING COUNT(*) > 0;";
   // Execute the query to fetch client counts
   db.query(
     query,
@@ -351,5 +349,24 @@ app.post("/Sched", verifyToken, (req, res) => {
 });
 
 //==================================//
+
+app.post("/SubmitQ", async (req, res) => {
+  const { name, email, phonenumber } = req.body;
+
+  db.query(
+    "INSERT INTO callrequests (name, email , phonenumber, status) VALUES (?,  ? , ?, 0)",
+    [name, email, phonenumber],
+    (error, results) => {
+      if (results) {
+
+        res.status(200).send("We will call you as soon as possible. Thanks."); // Send success response
+      } else {
+        console.error("Error");
+        res.status(500).send("Error adding data"); // Send error response
+      }
+    }
+  );
+});
+
 
 app.listen(3001, () => console.log("Server is Up on port 3001"));

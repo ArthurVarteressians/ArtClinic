@@ -19,8 +19,6 @@ h2 {
   font-size: 2vw;
   font-weight: 600;
 }
-h5 {
-}
 
 label {
   font-weight: 400;
@@ -30,4 +28,9 @@ label {
 h6 {
   color: bisque;
   background-color: brown;
+}
+
+.scroll-to-top {
+  scroll-behavior: auto !important;
+  scroll-margin-top: 0 !important;
 }

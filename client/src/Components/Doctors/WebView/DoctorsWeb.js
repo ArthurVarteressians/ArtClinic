@@ -101,7 +101,7 @@ const DoctorsWeb = () => {
             alt="img"
             name="P. Lee"
             profession="Internal Medicine"
-            description="Providing expert care for adults, managing a wide range of health conditions,and promoting overall health and well-being through comprehensive and patient-centered care."
+            description="Providing expert care for adults, managing a wide range of health conditions,and promoting overall health through comprehensive care."
             social={soc4}
           />
           <Doctor
