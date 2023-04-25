@@ -4,14 +4,13 @@ import Axios from "axios";
 const MonthlyClientCountsChart = () => {
   const chartRef = useRef(null);
   const [clientCounts, setClientCounts] = useState([]);
-  const [showChart, setShowChart] = useState(false); // Added showChart state
+  const [showChart, setShowChart] = useState(false);
 
   const handleGetChart = () => {
-    // Fetch monthly client counts from backend
     Axios.get("http://localhost:3001/GetNewClientsListssss")
       .then((response) => {
         setClientCounts(response.data);
-        setShowChart(true); // Update showChart state to true after fetching data
+        setShowChart(true);
       })
       .catch((error) => {
         console.error(error);
@@ -19,8 +18,7 @@ const MonthlyClientCountsChart = () => {
   };
 
   useEffect(() => {
-    // Create and update chart
-    if (showChart && chartRef.current) { // Render chart only when showChart is true
+    if (showChart && chartRef.current) {
       const chart = new Chart(chartRef.current, {
         type: "bar",
         data: {
@@ -48,32 +46,27 @@ const MonthlyClientCountsChart = () => {
         },
       });
 
-      // Return function to destroy chart on unmount (optional)
       return () => {
         chart.destroy();
       };
     }
-  }, [clientCounts, showChart]); // Update chart based on showChart state
+  }, [clientCounts, showChart]);
 
   return (
     <div>
-      {!showChart && ( // Render button only when showChart is false
-        <button onClick={handleGetChart}>Get Chart</button>
-      )}
-      {showChart && ( // Render chart and information only when showChart is true
+      {!showChart && <button onClick={handleGetChart}>Get Chart</button>}
+      {showChart && (
         <div>
-                  <button onClick={handleGetChart}>Get Chart</button>
+          <button onClick={handleGetChart}>Get Chart</button>
 
-          {/* Render chart */}
           <div style={{ height: "400px" }}>
             <canvas ref={chartRef} />
           </div>
-          {/* Render information */}
           <div>
-            {/* Render information about the chart data */}
-            <p>Total Clients: {clientCounts.reduce((acc, curr) => acc + curr, 0)}</p>
-            <p>Max Clients in a Day: {Math.max(...clientCounts)}</p>
-            {/* Render other information or statistics as needed */}
+            <p>
+              Total New Clients: {clientCounts.reduce((acc, curr) => acc + curr, 0)}
+            </p>
+            <p>Max Registered Clients in a Day: {Math.max(...clientCounts)}</p>
           </div>
         </div>
       )}

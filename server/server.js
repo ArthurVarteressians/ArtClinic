@@ -160,20 +160,40 @@ app.post("/ManagerLogin", (req, res) => {
       res.status(500).json({ error: "Internal server error" });
     } else {
       if (result.length > 0) {
-        const manager = result[0];
-        res.status(200).json({
-          success: true,
-          message: "Login successful",
-          managerId: manager.id,
-          managerName: manager.name,
-          managerEmail: manager.email,
-        });
+        const user = result[0];
+        let response;
+        if (user.role === "doctor") {
+          // Handle doctor login
+          response = {
+            success: true,
+            message: "Doctor login successful",
+            doctorId: user.id,
+            doctorEmail: user.email,
+          };
+          console.log(response.message);
+        } else if (user.role === "manager") {
+          // Handle manager login
+          response = {
+            success: true,
+            message: "Manager login successful",
+            managerId: user.id,
+            managerEmail: user.email,
+            // Add additional properties specific to managers
+            // ...
+          };
+          console.log(response.message);
+        } else {
+          res.status(401).json({ error: "Invalid role" });
+          return;
+        }
+        res.status(200).json(response);
       } else {
         res.status(401).json({ error: "Invalid email or password" });
       }
     }
   });
 });
+
 //======================Get all client list============//
 
 app.get("/GetClientsLists", (req, res) => {
@@ -358,7 +378,6 @@ app.post("/SubmitQ", async (req, res) => {
     [name, email, phonenumber],
     (error, results) => {
       if (results) {
-
         res.status(200).send("We will call you as soon as possible. Thanks."); // Send success response
       } else {
         console.error("Error");
@@ -367,6 +386,5 @@ app.post("/SubmitQ", async (req, res) => {
     }
   );
 });
-
 
 app.listen(3001, () => console.log("Server is Up on port 3001"));

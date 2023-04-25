@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Axios from "axios";
 import Swal from "sweetalert2";
 import "./MangerLogin.css";
+import MonthlyClientCountsChart from "./ManagerChart";
 
 const Getinfopage = () => {
   const [patientsList, setPatientList] = useState([]);
@@ -52,10 +53,10 @@ const Getinfopage = () => {
     <div>
       <div className="secionOne">
         <div className="getPatientInformationsPage">
-          <h2>Manager Logged In Successfully</h2>
+          <h2>Hello Manager</h2>
           <div className="getInfobtns">
             <button onClick={getPatientInformations}>All Patients Info</button>
-            <button onClick={fetchClientCount}>NEW Patients Count</button>
+            <button onClick={fetchClientCount}>New Patients Info</button>
           </div>
           <div className="MainBoxes">
             <div className="allContent">
@@ -126,8 +127,11 @@ const Getinfopage = () => {
               )}
             </div>
           </div>
+          <MonthlyClientCountsChart />
         </div>
+
       </div>
+
     </div>
   );
 };

@@ -17,6 +17,7 @@ import ManagerLogin from "./Components/ManagerLogin/ManagerLogin";
 import Calendar from "./Components/Scheduling/Calendar";
 import MainAboutSetcin from "./Components/About/MainAboutSetcin";
 import PrivacyandPolicy from "./Components/Privacy&Policy/PrivacyandPolicy";
+import DoctorGetInfo from "./Components/ManagerLogin/DoctorGetInfo";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
     element: <ManagerLogin />,
   },
   {
-    path: "Getinfopage",
+    path: "/Admin/Manager",
     element: <Getinfopage />,
   },
   {
@@ -60,8 +61,10 @@ const router = createBrowserRouter([
     path: "Privacy&Policy",
     element: <PrivacyandPolicy />,
   },
-
-
+  {
+    path: "/Admin/Doctor",
+    element: <DoctorGetInfo />,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
