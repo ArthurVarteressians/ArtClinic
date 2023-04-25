@@ -29,6 +29,8 @@ app.post("/Profile", async (req, res) => {
     req.body;
   if (password) {
     try {
+      const registrationDate = moment(req.body.registrationDate, "MM/DD/YYYY").format("YYYY-MM-DD");
+
       // Check if email or phone number already exist in the database
       db.query(
         "SELECT COUNT(*) as emailCount, COUNT(*) as phoneNumberCount FROM patientslist WHERE email = ? OR phonenumber = ?",
@@ -164,7 +166,6 @@ app.post("/ManagerLogin", async (req, res) => {
         const user = result[0];
         let response;
         if (user.role === "doctor") {
-          // Handle doctor login
           const token = jwt.sign({ id: user.id }, SECRET, {
             expiresIn: "2h",
           });
@@ -173,11 +174,10 @@ app.post("/ManagerLogin", async (req, res) => {
             message: "Doctor login successful",
             doctorId: user.id,
             doctorEmail: user.email,
-            token: token, // Add token to the response
+            token: token, 
           };
           console.log(response.message);
         } else if (user.role === "manager") {
-          // Handle manager login
           const token = jwt.sign({ id: user.id }, SECRET, {
             expiresIn: "2h",
   
@@ -187,9 +187,7 @@ app.post("/ManagerLogin", async (req, res) => {
             message: "Manager login successful",
             managerId: user.id,
             managerEmail: user.email,
-            token: token, // Add token to the response
-            // Add additional properties specific to managers
-            // ...
+            token: token, 
           };
           console.log(response.message);
         } else {

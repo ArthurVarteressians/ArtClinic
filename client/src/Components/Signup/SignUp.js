@@ -60,7 +60,7 @@ function SignUp({ onSignInClick }) {
         if (response.status === 200) {
           // Request was successful
           notify("You signed up successfully", "success");
-
+          localStorage.setItem("Token", response.data.token);
           setTimeout(() => {
             window.location.href = "/Calendar";
           }, 1000);

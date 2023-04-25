@@ -3,7 +3,7 @@ import Axios from "axios";
 import Swal from "sweetalert2";
 import "./MangerLogin.css";
 import MonthlyClientCountsChart from "./ManagerChart";
-
+import { useNavigate } from "react-router-dom";
 const Getinfopage = () => {
   const [patientsList, setPatientList] = useState([]);
   const [newPatientList, setNewPatientList] = useState([]);
@@ -43,17 +43,29 @@ const Getinfopage = () => {
   };
 
   const fetchClientCount = () => {
-    setShowNewPatients(true); // set showNewPatients to true when "NEW Patients Count" button is clicked
+    setShowNewPatients(true); 
     Axios.get("http://localhost:3001/GetNewClientsLists").then((response) => {
       setNewPatientList(response.data);
     });
   };
+
+  const navigate = useNavigate();
+  const handleSignOut = () => {
+      
+    localStorage.removeItem("token");
+  
+  
+    navigate("/Admin");
+  };
+
 
   return (
     <div>
       <div className="secionOne">
         <div className="getPatientInformationsPage">
           <h2>Hello Manager</h2>
+          <button onClick={handleSignOut}>Sign Out</button>
+
           <div className="getInfobtns">
             <button onClick={getPatientInformations}>All Patients Info</button>
             <button onClick={fetchClientCount}>New Patients Info</button>

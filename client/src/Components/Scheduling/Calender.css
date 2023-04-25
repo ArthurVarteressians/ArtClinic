@@ -48,6 +48,16 @@ button {
   cursor: pointer;
 } */
 
+.ScheBox{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+gap: 40px;
+}
+
 button:disabled {
   background-color: #ccc;
   cursor: not-allowed;

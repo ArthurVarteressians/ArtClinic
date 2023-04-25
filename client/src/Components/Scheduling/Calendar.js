@@ -3,6 +3,9 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Calender.css";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function Calendar() {
   //======================
   const [selectedDate, setSelectedDate] = useState(null);
@@ -34,6 +37,7 @@ function Calendar() {
     try {
       if (doctors.length > 0) {
         const token = localStorage.getItem("Token");
+
         if (token) {
           const response = await axios.post(
             "http://localhost:3001/Sched",
@@ -49,7 +53,8 @@ function Calendar() {
               },
             }
           );
-          console.log("Appointment booked successfully:", response.data);
+          toast.success("Appointment booked successfully");
+          // console.log("Appointment booked successfully:", response.data);
         } else {
           console.error("Token not found in localStorage");
         }
@@ -70,7 +75,7 @@ function Calendar() {
   };
 
   return (
-    <div>
+    <div className="ScheBox">
       <div>
         <h2>Select Department</h2>
         <select value={department} onChange={handleDepartmentChange}>
@@ -108,14 +113,19 @@ function Calendar() {
           </div>
         )}
       </div>
-      <h3>Select Appointment Date and Time:</h3>
-      <DatePicker selected={selectedDate} onChange={handleDateChange} />
-      <input
-        type="time"
-        value={selectedTime}
-        onChange={(e) => handleTimeChange(e.target.value)}
-      />
-      <button onClick={handleSubmit}>Book Appointment</button>
+      <div>
+        <h3>Select Appointment Date and Time:</h3>
+        <DatePicker selected={selectedDate} onChange={handleDateChange} />
+        <input
+          type="time"
+          value={selectedTime}
+          onChange={(e) => handleTimeChange(e.target.value)}
+        />
+      </div>
+      <div>
+        <button onClick={handleSubmit}>Book Appointment</button>
+      </div>
+      <ToastContainer />
     </div>
   );
 }

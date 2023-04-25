@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Axios from "axios";
-import { useNavigate } from "react-router-dom"; // Import useNavigate from react-router-dom
+import { useNavigate } from "react-router-dom";
 import "./MangerLogin.css";
 
 const ManagerLogin = () => {
@@ -36,6 +36,8 @@ const ManagerLogin = () => {
       .catch((error) => {
         setError("Invalid email or password. Please try again.");
       });
+
+
   };
   return (
     <div className="MainBoxes">
