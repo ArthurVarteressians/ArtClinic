@@ -281,7 +281,6 @@ function SignIn({ onSignUpClick }) {
   const focusHanlder = (event) => {
     setTouched({ ...touched, [event.target.name]: true });
   };
-
   const submitHandlerForLogin = async (e) => {
     e.preventDefault();
     try {
@@ -298,7 +297,9 @@ function SignIn({ onSignUpClick }) {
       if (response.status === 200) {
         notify("You signed up successfully", "success");
         const token = response.data.token;
-        localStorage.setItem("Token", token);
+        // Store the token in an HttpOnly cookie
+        localStorage.setItem("token", token);
+
         setTimeout(() => {
           window.location.href = "/Calendar";
         }, 1000);

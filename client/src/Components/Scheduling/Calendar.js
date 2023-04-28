@@ -33,31 +33,29 @@ function Calendar() {
     setDepartment(selectedDepartment);
     fetchDoctors(selectedDepartment);
   };
+
+
+  
   const handleSubmit = async () => {
     try {
       if (doctors.length > 0) {
-        const token = localStorage.getItem("Token");
-
-        if (token) {
-          const response = await axios.post(
-            "http://localhost:3001/Sched",
-            {
-              doctorId: doctors[0].doctor_id,
-              date: selectedDate,
-              time: selectedTime,
-              token: token,
+        const token = localStorage.getItem("token");
+        const response = await axios.post(
+          "http://localhost:3001/Sched",
+          {
+            doctorId: doctors[0].doctor_id,
+            date: selectedDate,
+            time: selectedTime,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
             },
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          toast.success("Appointment booked successfully");
-          // console.log("Appointment booked successfully:", response.data);
-        } else {
-          console.error("Token not found in localStorage");
-        }
+          }
+        );
+        toast.success("Appointment booked successfully");
+        console.log(token)
+        // console.log("Appointment booked successfully:", response.data);
       } else {
         console.error("No doctors found in the doctors array");
       }
@@ -65,6 +63,8 @@ function Calendar() {
       console.error("Failed to book appointment:", error);
     }
   };
+  
+  
 
   const handleTimeChange = (time) => {
     setSelectedTime(time);

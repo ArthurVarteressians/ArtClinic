@@ -10,6 +10,7 @@ const moment = require("moment");
 const saltRounds = 10;
 app.use(cors());
 app.use(express.json());
+const cookieParser = require("cookie-parser");
 
 //===========================Clinic DB===================================/
 
@@ -29,7 +30,10 @@ app.post("/Profile", async (req, res) => {
     req.body;
   if (password) {
     try {
-      const registrationDate = moment(req.body.registrationDate, "MM/DD/YYYY").format("YYYY-MM-DD");
+      const registrationDate = moment(
+        req.body.registrationDate,
+        "MM/DD/YYYY"
+      ).format("YYYY-MM-DD");
 
       // Check if email or phone number already exist in the database
       db.query(
@@ -98,7 +102,7 @@ app.post("/Profile", async (req, res) => {
   }
 });
 
-//==============================Client Login======================Main partt
+//==============================Client Login======================Main parttconst SECRET = "1I1d6WhwZWjGn4ijZDpBaGq";
 const SECRET = "1I1d6WhwZWjGn4ijZDpBaGq";
 
 app.post("/ClientsLogins", async (req, res) => {
@@ -130,17 +134,16 @@ app.post("/ClientsLogins", async (req, res) => {
       const token = jwt.sign({ id: results[0].id }, SECRET, {
         expiresIn: "2h",
       });
+
+      console.log(`Token generated successfully: ${token}`);
+
       const patientId = results[0].id; // Retrieve patient_id from the query results
-      return res
-        .status(200)
-        .header("Authorization", "Bearer " + token) // Add the token to the headers
-        .json({
-          success: true,
-          token: token,
-          email: email,
-          patient_id: patientId,
-          redirectUrl: "/calendar",
-        });
+      return res.status(200).json({
+        success: true,
+        token: token,
+        email: email,
+        patient_id: patientId,
+      });
     } else {
       return res
         .status(401)
@@ -151,6 +154,7 @@ app.post("/ClientsLogins", async (req, res) => {
     return res.status(500).send("Server error");
   }
 });
+
 //=======================================
 
 // =================================Manager Logic===============================//const SECRET = "1I1d6WhwZWjGn4ijZDpBaGq"; // Secret for JWT
@@ -174,20 +178,19 @@ app.post("/ManagerLogin", async (req, res) => {
             message: "Doctor login successful",
             doctorId: user.id,
             doctorEmail: user.email,
-            token: token, 
+            token: token,
           };
           console.log(response.message);
         } else if (user.role === "manager") {
           const token = jwt.sign({ id: user.id }, SECRET, {
             expiresIn: "2h",
-  
           });
           response = {
             success: true,
             message: "Manager login successful",
             managerId: user.id,
             managerEmail: user.email,
-            token: token, 
+            token: token,
           };
           console.log(response.message);
         } else {
@@ -296,26 +299,25 @@ app.get("/doctors/:department", (req, res) => {
   });
 });
 
-//==================================//
+//==================================//===================================================================================================================================================================
 
 const verifyToken = (req, res, next) => {
-  const token = req.header("Authorization")?.replace("Bearer ", "");
+  const token = req.headers.authorization.split(" ")[1];
 
   if (!token) {
-    return res.status(403).send("Access denied"); // Return error if token is not present
+    return res.status(403).send("Access denied");
   }
 
   jwt.verify(token, SECRET, (err, decoded) => {
     if (err) {
       console.error("Error verifying JWT token:", err);
-      return res.status(500).send("Server error");
+      return res.status(401).json({ error: "Invalid token" });
     }
-    req.patient_id = decoded.id; // Extract id from token payload
+    req.patient_id = decoded.id;
     next();
   });
 };
 
-// Route handler for /Sched endpoint
 app.post("/Sched", verifyToken, (req, res) => {
   const doctorId = req.body.doctorId;
   const date = req.body.date;
@@ -370,11 +372,12 @@ app.post("/Sched", verifyToken, (req, res) => {
         );
       }
     });
-  } catch (err) {
-    console.error(err);
-    res.status(401).json({ error: "Invalid token" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to store appointment" });
   }
 });
+
 
 //==================================//
 
