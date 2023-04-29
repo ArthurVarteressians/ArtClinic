@@ -4,6 +4,8 @@ import Swal from "sweetalert2";
 import "./MangerLogin.css";
 import MonthlyClientCountsChart from "./ManagerChart";
 import { useNavigate } from "react-router-dom";
+
+
 const Getinfopage = () => {
   const [patientsList, setPatientList] = useState([]);
   const [newPatientList, setNewPatientList] = useState([]);
@@ -43,7 +45,7 @@ const Getinfopage = () => {
   };
 
   const fetchClientCount = () => {
-    setShowNewPatients(true); 
+    setShowNewPatients(true);
     Axios.get("http://localhost:3001/GetNewClientsLists").then((response) => {
       setNewPatientList(response.data);
     });
@@ -51,13 +53,9 @@ const Getinfopage = () => {
 
   const navigate = useNavigate();
   const handleSignOut = () => {
-      
     localStorage.removeItem("token");
-  
-  
     navigate("/Admin");
   };
-
 
   return (
     <div>
@@ -139,11 +137,8 @@ const Getinfopage = () => {
               )}
             </div>
           </div>
-        
         </div>
-
       </div>
-
     </div>
   );
 };

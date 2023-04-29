@@ -378,7 +378,6 @@ app.post("/Sched", verifyToken, (req, res) => {
   }
 });
 
-
 //==================================//
 
 app.post("/SubmitQ", async (req, res) => {
@@ -399,18 +398,64 @@ app.post("/SubmitQ", async (req, res) => {
 });
 
 //==================================================
+const verifyDocToken = (req, res, next) => {
+  const token = req.headers.authorization.split(" ")[1];
 
-// Get appointment details for a specific doctor endpoint
+  if (!token) {
+    return res.status(403).send("Access denied");
+  }
 
-app.get("/api/doctors/:doctor_id", (req, res) => {
-  const { doctor_id } = req.params;
+  jwt.verify(token, SECRET, (err, decoded) => {
+    if (err) {
+      console.error("Error verifying JWT token:", err);
+      return res.status(401).json({ error: "Invalid token" });
+    }
+    req.decodedToken = decoded; // change this line
+    next();
+  });
+};
+
+
+
+app.get("/myTest", verifyDocToken, (req, res) => {
+  const doctor_id = req.decodedToken.id;
+
+  // Query to retrieve the doctor's full name based on their ID
+  const query = `
+    SELECT fullname
+    FROM doctors
+    WHERE doctor_id = ?;
+  `;
+
+  // Execute the query with the doctorId parameter
+  db.query(query, [doctor_id], (error, results) => {
+    if (error) {
+      console.error(error);
+      res.sendStatus(500);
+    } else {
+      if (results && results.length > 0) {
+        const doctorFullName = results[0].fullname;
+        res.json(doctorFullName);
+      } else {
+        res.sendStatus(404); // or handle the error in some other way
+      }
+    }
+  });
+});
+
+
+
+
+app.get("/api/doctors/artt", verifyDocToken, (req, res) => {
+  const { doctor_id } = req;
 
   // Query to retrieve appointment details for a specific doctor
   const query = `
-    SELECT a.appointmentnumber, a.doctor_id, a.patient_id, a.appointment_date, a.status, d.fullname, d.department
+    SELECT a.appointmentnumber, a.doctor_id, a.patient_id, a.appointment_date, a.status, d.fullname, d.department, p.name as name
     FROM appointments a
     JOIN doctors d ON a.doctor_id = d.doctor_id
-    WHERE a.doctor_id = ?;
+    JOIN patientslist p ON a.patient_id = p.id
+    WHERE a.doctor_id = ? AND a.status = 0;
   `;
 
   // Execute the query with the doctorId parameter
@@ -420,6 +465,30 @@ app.get("/api/doctors/:doctor_id", (req, res) => {
       res.sendStatus(500);
     } else {
       res.json(results);
+    }
+  });
+});
+
+//=======================================
+
+app.put("/api/appointments/:appointmentnumber", (req, res) => {
+  const { appointmentnumber } = req.params;
+  const { status } = req.body;
+
+  // Query to update the status of an appointment
+  const query = `
+    UPDATE appointments
+    SET status = ?
+    WHERE appointmentnumber = ?;
+  `;
+
+  // Execute the query with the appointmentId and new status parameters
+  db.query(query, [status, appointmentnumber], (error, results) => {
+    if (error) {
+      console.error(error);
+      res.sendStatus(500);
+    } else {
+      res.sendStatus(200);
     }
   });
 });

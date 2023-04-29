@@ -35,7 +35,6 @@ function Calendar() {
   };
 
 
-  
   const handleSubmit = async () => {
     try {
       if (doctors.length > 0) {
