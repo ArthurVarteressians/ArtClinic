@@ -16,32 +16,27 @@ function Navtest() {
         <div className="navWebVLinks">
           <li>
             <NavLink exact to="/" activeClassName="activeLink">
-              {/* Use activeClassName prop to specify the class for active link */}
               Home
             </NavLink>
           </li>
           <li>
             <NavLink to="/AboutUs" activeClassName="activeLink">
-              {/* Use activeClassName prop to specify the class for active link */}
               About Us
             </NavLink>
           </li>
           <li>
             <NavLink to="/AllDoctors" activeClassName="activeLink">
-              {/* Use activeClassName prop to specify the class for active link */}
               Doctors
             </NavLink>
           </li>
           <li>
             <NavLink to="/ServicesPage" activeClassName="activeLink">
-              {/* Use activeClassName prop to specify the class for active link */}
               Services
             </NavLink>
           </li>
           <li>
             <div className="iconLoginNav">
               <NavLink to="/Profile" activeClassName="activeLink">
-                {/* Use activeClassName prop to specify the class for active link */}
                 <img src={LoginIcon} />
                 <span className="iconNumber">02212</span>
               </NavLink>

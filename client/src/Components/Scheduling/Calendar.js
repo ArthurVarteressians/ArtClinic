@@ -5,6 +5,7 @@ import "./Calender.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 function Calendar() {
   //======================
@@ -15,6 +16,16 @@ function Calendar() {
   const [doctors, setDoctors] = useState([]);
   const [test, setTest] = useState("");
   //=================
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Please reload your page");
+      navigate("/Profile");
+      return;
+    }
+  }, []);
 
   const fetchDoctors = (department) => {
     fetch(`http://localhost:3001/doctors/${department}`)
@@ -34,7 +45,6 @@ function Calendar() {
     fetchDoctors(selectedDepartment);
   };
 
-
   const handleSubmit = async () => {
     try {
       if (doctors.length > 0) {
@@ -53,7 +63,7 @@ function Calendar() {
           }
         );
         toast.success("Appointment booked successfully");
-        console.log(token)
+        console.log(token);
         // console.log("Appointment booked successfully:", response.data);
       } else {
         console.error("No doctors found in the doctors array");
@@ -62,8 +72,6 @@ function Calendar() {
       console.error("Failed to book appointment:", error);
     }
   };
-  
-  
 
   const handleTimeChange = (time) => {
     setSelectedTime(time);
@@ -74,57 +82,63 @@ function Calendar() {
   };
 
   return (
-    <div className="ScheBox">
-      <div>
-        <h2>Select Department</h2>
-        <select value={department} onChange={handleDepartmentChange}>
-          <option value="">Select Department</option>
-          <option value="Dentist">Dentist</option>
-          <option value="Cardiologists">Cardiologists</option>
-          <option value="Neurologist">Neurologist</option>
-          <option value="Internal Medicine">Internal Medicine</option>
-          <option value="Pulmonologist">Pulmonologist</option>
-          <option value="Radiologist">Radiologist</option>
-        </select>
-        {department && (
-          <div>
-            <ul>
-              {doctors.map((doctor) => (
-                <li key={doctor.id}>
-                  <span>
-                    Your Doctor will be:{" "}
-                    <span
-                      style={{
-                        color: "blue",
-                        fontSize: "14px",
-                        fontWeight: "400",
-                        border: "1px solid black",
-                        padding: "2px",
-                        borderRadius: "8px",
-                      }}
-                    >
-                      {doctor.fullname}
+    <div className="allSchedule">
+      <div className="ScheBox">
+        <div className="MainScheSec">
+          <h2>Select Department</h2>
+          <select
+            className="MainselectBox"
+            value={department}
+            onChange={handleDepartmentChange}
+          >
+            <option value="">Select Department</option>
+            <option value="Dentist">Dentist</option>
+            <option value="Cardiologists">Cardiologists</option>
+            <option value="Neurologist">Neurologist</option>
+            <option value="Internal Medicine">Internal Medicine</option>
+            <option value="Pulmonologist">Pulmonologist</option>
+            <option value="Radiologist">Radiologist</option>
+          </select>
+          {department && (
+            <div>
+              <ul>
+                {doctors.map((doctor) => (
+                  <li key={doctor.id}>
+                    <span>
+                      Your Doctor will be:{" "}
+                      <span
+                        style={{
+                          color: "blue",
+                          fontSize: "14px",
+                          fontWeight: "400",
+                          border: "1px solid black",
+                          padding: "2px",
+                          borderRadius: "8px",
+                        }}
+                      >
+                        {doctor.fullname}
+                      </span>
                     </span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+        <div className="MainScheSec">
+          <h3>Select Appointment Date and Time:</h3>
+          <DatePicker selected={selectedDate} onChange={handleDateChange} />
+          <input
+            type="time"
+            value={selectedTime}
+            onChange={(e) => handleTimeChange(e.target.value)}
+          />
+        </div>
+        <div>
+          <button onClick={handleSubmit}>Book Appointment</button>
+        </div>
+        <ToastContainer />
       </div>
-      <div>
-        <h3>Select Appointment Date and Time:</h3>
-        <DatePicker selected={selectedDate} onChange={handleDateChange} />
-        <input
-          type="time"
-          value={selectedTime}
-          onChange={(e) => handleTimeChange(e.target.value)}
-        />
-      </div>
-      <div>
-        <button onClick={handleSubmit}>Book Appointment</button>
-      </div>
-      <ToastContainer />
     </div>
   );
 }

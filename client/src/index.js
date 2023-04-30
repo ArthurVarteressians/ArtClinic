@@ -14,11 +14,12 @@ import MainSignUp from "./Components/Signup/MainSignUp";
 import "./Components/Sass/LandingpageButton.scss";
 import Getinfopage from "./Components/ManagerLogin/Getinfopage";
 import ManagerLogin from "./Components/ManagerLogin/ManagerLogin";
-import Calendar from "./Components/Scheduling/Calendar";
+// import Calendar from "./Components/Scheduling/Calendar";
 import MainAboutSetcin from "./Components/About/MainAboutSetcin";
 import PrivacyandPolicy from "./Components/Privacy&Policy/PrivacyandPolicy";
 import DoctorGetInfo from "./Components/ManagerLogin/DoctorGetInfo";
 import ManagerSection from "./Components/ManagerLogin/ManagerSection";
+import SchedulingPage from "./Components/Scheduling/SchedulingPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
 
   {
     path: "/Calendar",
-    element: <Calendar />,
+    element: <SchedulingPage />,
   },
   {
     path: "AllDoctors",

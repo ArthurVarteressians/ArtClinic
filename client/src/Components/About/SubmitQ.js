@@ -91,7 +91,7 @@ function SubmitQ() {
             value={data.phonenumber}
             onChange={(e) => setData({ ...data, phonenumber: e.target.value })}
           />
-          <button type="submit">Send Call Request</button>
+          <button type="submit">Free Consulting Request</button>
         </form>
       </div>
 

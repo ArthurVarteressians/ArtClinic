@@ -14,14 +14,14 @@ import SignUp from "./Components/Signup/SignUp";
 import Getinfopage from "./Components/ManagerLogin/Getinfopage";
 import { BrowserRouter } from "react-router-dom";
 // import AppointmentForm from "./Components/Scheduling/test";
-import Calendar from "./Components/Scheduling/Calendar";
+// import Calendar from "./Components/Scheduling/Calendar";
 import BookingApp from "./Components/Scheduling/BookingApp ";
 import BarChart from "./Components/ManagerLogin/ManagerChart";
 import AboutMap from "./Components/About/About";
 import MainAboutSetcin from "./Components/About/MainAboutSetcin";
 import SubmitQ from "./Components/About/SubmitQ";
 import ManagerSection from "./Components/ManagerLogin/ManagerSection";
-
+import Main from "./Components/Scheduling/MainScheSec"
 function App() {
   return (
     <div>
@@ -29,8 +29,8 @@ function App() {
       {/* <BookingApp /> */}
       {/* <BarChart /> */}
       {/* <AboutMap /> */}
-      <NavWeb />
-
+      {/* <NavWeb /> */}
+<Main />
       {/* <ManagerSection /> */}
 
       {/* <SubmitQ /> */}

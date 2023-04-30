@@ -1,118 +1,43 @@
-.schedulingSystem {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 97vh;
-}
-
-.Container {
+.ScheBox {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  border: 1px solid #b2b2b2;
+  justify-content: center;
+  margin-top: 35%;
   border-radius: 10px;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-  width: 50%;
-  height: 90vh;
+  box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.76);
 }
 
-h1 {
-  margin-bottom: 20px;
+.MainScheSec {
+  margin: 20px;
+  text-align: center;
+
 }
 
-/* form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-} */
-
-/* label {
-  font-weight: bold;
-  margin-bottom: 5px;
-} */
-
-/* input,
-button {
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: none;
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-} */
-
-/* button {
-  background-color: #4caf50;
-  color: #fff;
-  cursor: pointer;
-} */
-
-.ScheBox{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-
-gap: 40px;
+.MainselectBox {
+  width: 200px;
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+input[type="time"] {
+  width: 100px;
 }
 
-.drp-btn {
-  margin-left: 10px;
-}
-
-.Test {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-.Test h3 {
-  cursor: pointer;
-}
-
-.Test ul {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
+ul {
+  list-style: none;
   padding: 0;
   margin: 0;
-  background-color: #f8f8f8;
-  list-style-type: none;
-  border: 1px solid #ddd;
-  z-index: 1;
-  text-align: center;
 }
 
-.Test li {
-  padding: 10px;
-  cursor: pointer;
+li {
+  margin: 10px;
 }
 
-.Test li:hover {
-  background-color: #ddd;
+.UnderMainGif {
+  height: 380px;
 }
-
-h3 {
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.SubmitApp {
-  margin-top: 10px;
-}
-/* 
-span {
-  color: #4caf50;
+/* .Mainmain{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 } */
