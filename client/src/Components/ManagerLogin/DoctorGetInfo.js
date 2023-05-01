@@ -31,7 +31,7 @@ const DoctorAppointments = () => {
 
 
   const handleGetAppointments = () => {
-    Axios.get(`http://localhost:3001/api/doctors/appointments`, {
+    Axios.get(`http://localhost:3001/api/doctors/artt`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

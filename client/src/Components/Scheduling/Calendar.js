@@ -19,9 +19,9 @@ function Calendar() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('Token');
     if (!token) {
-      toast.error("Please reload your page");
+      toast.error("Session expired! Please login.");
       navigate("/Profile");
       return;
     }
@@ -48,7 +48,7 @@ function Calendar() {
   const handleSubmit = async () => {
     try {
       if (doctors.length > 0) {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("Token",  "Bearer " + token);
         const response = await axios.post(
           "http://localhost:3001/Sched",
           {

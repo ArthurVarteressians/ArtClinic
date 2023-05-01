@@ -62,7 +62,7 @@ function SignUp({ onSignInClick }) {
           notify("You signed up successfully", "success");
           localStorage.setItem("Token", response.data.token);
           setTimeout(() => {
-            window.location.href = "/Calendar";
+            window.location.href = "/Patient-Profile";
           }, 1000);
         }
       } catch (error) {
@@ -302,10 +302,10 @@ function SignIn({ onSignUpClick }) {
         notify("You signed up successfully", "success");
         const token = response.data.token;
         // Store the token in an HttpOnly cookie
-        localStorage.setItem("token", token);
+        localStorage.setItem("Token",  "Bearer " + token);
 
         setTimeout(() => {
-          window.location.href = "/Calendar";
+          window.location.href = "/Patient-Profile";
         }, 1000);
       }
     } catch (error) {

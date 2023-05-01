@@ -19,7 +19,9 @@ import MainAboutSetcin from "./Components/About/MainAboutSetcin";
 import PrivacyandPolicy from "./Components/Privacy&Policy/PrivacyandPolicy";
 import DoctorGetInfo from "./Components/ManagerLogin/DoctorGetInfo";
 import ManagerSection from "./Components/ManagerLogin/ManagerSection";
-import SchedulingPage from "./Components/Scheduling/SchedulingPage";
+import MainScheSec from "./Components/Scheduling/MainScheSec";
+import CardDetails from "./Components/Payment/Payment";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,8 +29,13 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/Calendar",
-    element: <SchedulingPage />,
+    path: "/Payment",
+    element: <CardDetails />,
+  },
+
+  {
+    path: "/Patient-Profile",
+    element: <MainScheSec />,
   },
   {
     path: "AllDoctors",

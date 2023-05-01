@@ -5,6 +5,7 @@ import "./Calender.css";
 import SchedulingNav from "./SchedulingNav";
 import Footer from "../Footer/Footer";
 import Under from "./Under";
+import UserAppointment from "./UserAppontmen/UserApp";
 function Calendar() {
   const [showAppointmentSection, setShowAppointmentSection] = useState(false);
   const [showPaymentSection, setShowPaymentSection] = useState(false);
@@ -43,7 +44,7 @@ function Calendar() {
 
         {showAppointmentSection && <Cal />}
 
-        {showPaymentSection && <Under />}
+        {showPaymentSection && <UserAppointment />}
 
         {showAppointmentHistorySection && <Under />}
       </div>
