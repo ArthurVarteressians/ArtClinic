@@ -76,7 +76,7 @@ app.post("/Profile", async (req, res) => {
                     reject(error);
                   }
                   const token = jwt.sign({ id: results[0].id }, SECRET, {
-                    expiresIn: "2h",
+                    expiresIn: "24h",
                   });
                   // resolve(results);
                   return res
@@ -128,14 +128,13 @@ app.post("/ClientsLogins", async (req, res) => {
         .status(401)
         .json({ success: false, message: "Invalid email or password" });
     }
-
     const hashedPassword = results[0].hashedpassword;
     if (await bcrypt.compare(password, hashedPassword)) {
       const token = jwt.sign({ id: results[0].id }, SECRET, {
-        expiresIn: "2h",
+        expiresIn: "24h",
       });
 
-      console.log(`Token generated successfully: ${token}`);
+      console.log(`token generated successfully: ${token}`);
 
       const patientId = results[0].id; // Retrieve patient_id from the query results
       return res.status(200).json({
@@ -171,7 +170,7 @@ app.post("/ManagerLogin", async (req, res) => {
         let response;
         if (user.role === "doctor") {
           const token = jwt.sign({ id: user.id }, SECRET, {
-            expiresIn: "2h",
+            expiresIn: "24h",
           });
           response = {
             success: true,
@@ -183,7 +182,7 @@ app.post("/ManagerLogin", async (req, res) => {
           console.log(response.message);
         } else if (user.role === "manager") {
           const token = jwt.sign({ id: user.id }, SECRET, {
-            expiresIn: "2h",
+            expiresIn: "24h",
           });
           response = {
             success: true,
@@ -300,24 +299,21 @@ app.get("/doctors/:department", (req, res) => {
 });
 
 //==================================//===================================================================================================================================================================
-
 const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
-
+  const token = req.header("Authorization")?.replace("Bearer ", "");
   if (!token) {
-    return res.status(403).send("Access denied");
+    return res.status(403).send("Access denied"); // Return error if token is not present
   }
-
   jwt.verify(token, SECRET, (err, decoded) => {
     if (err) {
       console.error("Error verifying JWT token:", err);
-      return res.status(401).json({ error: "Invalid token" });
+      return res.status(500).send("Server error");
     }
-    req.patient_id = decoded.id;
+    req.patient_id = decoded.id; // Extract id from token payload
     next();
   });
 };
-
+// Route handler for /Sched endpoint
 app.post("/Sched", verifyToken, (req, res) => {
   const doctorId = req.body.doctorId;
   const date = req.body.date;
@@ -337,14 +333,11 @@ app.post("/Sched", verifyToken, (req, res) => {
         res.status(500).json({ error: "Failed to store appointment" });
       } else {
         const currentAppointmentNumber = results[0].maxAppointmentNumber || 0;
-
         const newAppointmentNumber = currentAppointmentNumber + 1;
-
         const appointmentDate = moment(
           dateTimeString,
           "YYYY-MM-DD HH:mm"
         ).format("YYYY-MM-DD HH:mm:ss");
-
         const query = `INSERT INTO appointments (appointmentnumber, doctor_id, patient_id, appointment_date, registeration_date, update_date, status) VALUES (?, ?, ?, ?, ?, ?, ?)`;
         db.query(
           query,
@@ -372,9 +365,9 @@ app.post("/Sched", verifyToken, (req, res) => {
         );
       }
     });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to store appointment" });
+  } catch (err) {
+    console.error(err);
+    res.status(401).json({ error: "Invalid token" });
   }
 });
 
@@ -415,8 +408,6 @@ const verifyDocToken = (req, res, next) => {
   });
 };
 
-
-
 app.get("/myTest", verifyDocToken, (req, res) => {
   const doctor_id = req.decodedToken.id;
 
@@ -443,9 +434,6 @@ app.get("/myTest", verifyDocToken, (req, res) => {
   });
 });
 
-
-
-
 app.get("/api/doctors/artt", verifyDocToken, (req, res) => {
   const { doctor_id } = req;
 
@@ -458,7 +446,6 @@ app.get("/api/doctors/artt", verifyDocToken, (req, res) => {
     WHERE a.doctor_id = ? AND a.status = 0;
   `;
 
-  // Execute the query with the doctorId parameter
   db.query(query, [doctor_id], (error, results) => {
     if (error) {
       console.error(error);

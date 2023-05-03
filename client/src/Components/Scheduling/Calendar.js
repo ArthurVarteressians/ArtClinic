@@ -5,8 +5,6 @@ import "./Calender.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
-
 function Calendar() {
   //======================
   const [selectedDate, setSelectedDate] = useState(null);
@@ -16,29 +14,16 @@ function Calendar() {
   const [doctors, setDoctors] = useState([]);
   const [test, setTest] = useState("");
   //=================
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const token = localStorage.getItem('Token');
-    if (!token) {
-      toast.error("Session expired! Please login.");
-      navigate("/Profile");
-      return;
-    }
-  }, []);
-
   const fetchDoctors = (department) => {
     fetch(`http://localhost:3001/doctors/${department}`)
       .then((response) => response.json())
       .then((data) => setDoctors(data))
       .catch((err) => console.error("Error fetching doctors:", err));
   };
-
   const handleDoctorChange = (e) => {
     const doctorId = e.target.value;
     setSelectedDoctorId(doctorId);
   };
-
   const handleDepartmentChange = (e) => {
     const selectedDepartment = e.target.value;
     setDepartment(selectedDepartment);
@@ -48,7 +33,7 @@ function Calendar() {
   const handleSubmit = async () => {
     try {
       if (doctors.length > 0) {
-        const token = localStorage.getItem("Token",  "Bearer " + token);
+        const token = localStorage.getItem("token");
         const response = await axios.post(
           "http://localhost:3001/Sched",
           {
@@ -58,13 +43,12 @@ function Calendar() {
           },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: token,
             },
           }
         );
         toast.success("Appointment booked successfully");
-        console.log(token);
-        // console.log("Appointment booked successfully:", response.data);
+        console.log("Appointment booked successfully:", response.data);
       } else {
         console.error("No doctors found in the doctors array");
       }
@@ -76,11 +60,9 @@ function Calendar() {
   const handleTimeChange = (time) => {
     setSelectedTime(time);
   };
-
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
-
   return (
     <div className="allSchedule">
       <div className="ScheBox">

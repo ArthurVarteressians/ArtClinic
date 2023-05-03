@@ -60,7 +60,7 @@ function SignUp({ onSignInClick }) {
         if (response.status === 200) {
           // Request was successful
           notify("You signed up successfully", "success");
-          localStorage.setItem("Token", response.data.token);
+          localStorage.setItem("token", response.data.token);
           setTimeout(() => {
             window.location.href = "/Patient-Profile";
           }, 1000);
@@ -282,9 +282,6 @@ function SignIn({ onSignUpClick }) {
     setTouched({ ...touched, [event.target.name]: true });
   };
 
-
-
-
   const submitHandlerForLogin = async (e) => {
     e.preventDefault();
     try {
@@ -292,18 +289,17 @@ function SignIn({ onSignUpClick }) {
         email: data.email,
         password: data.password,
       };
-
+  
       const response = await axios.post(
         "http://localhost:3001/ClientsLogins",
         loginEnteredData
       );
-
+  
       if (response.status === 200) {
         notify("You signed up successfully", "success");
         const token = response.data.token;
-        // Store the token in an HttpOnly cookie
-        localStorage.setItem("Token",  "Bearer " + token);
-
+        // Store the token in localStorage
+        localStorage.setItem("token", token);
         setTimeout(() => {
           window.location.href = "/Patient-Profile";
         }, 1000);
@@ -312,11 +308,11 @@ function SignIn({ onSignUpClick }) {
       if (error.response) {
         // Server responded with an error
         const { status, data } = error.response;
-        console.log("Token has expired. Please log in again.");
-
+        console.log("token has expired. Please log in again.");
+  
         if (status === 401) {
           notify("Check your inputes!", "error");
-        } else if (data === "Token expired") {
+        } else if (data === "token expired") {
           notify("Try again", "error");
         }
       } else {
@@ -326,7 +322,8 @@ function SignIn({ onSignUpClick }) {
       }
     }
   };
-
+  
+  
   return (
     <div className={styles.mainSignUpSec}>
       <div className={styles.SignUpSecText}>
