@@ -7,9 +7,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
-
-
-
 function Calendar() {
   //======================
   const [selectedDate, setSelectedDate] = useState(null);
@@ -58,7 +55,7 @@ function Calendar() {
           },
           {
             headers: {
-              Authorization: token,
+              Authorization: `Bearer ${token}`,
             },
           }
         );

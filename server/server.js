@@ -102,7 +102,7 @@ app.post("/Profile", async (req, res) => {
   }
 });
 
-//==============================Client Login======================Main parttconst SECRET = "1I1d6WhwZWjGn4ijZDpBaGq";
+//==============================Client Login======================
 const SECRET = "1I1d6WhwZWjGn4ijZDpBaGq";
 
 app.post("/ClientsLogins", async (req, res) => {
@@ -300,11 +300,11 @@ app.get("/doctors/:department", (req, res) => {
 
 //==================================//===================================================================================================================================================================
 const verifyToken = (req, res, next) => {
-  const token = req.header("Authorization")?.replace("Bearer ", "");
-  if (!token) {
+  const token2 = req.headers.authorization.split(" ")[1];
+  if (!token2) {
     return res.status(403).send("Access denied"); // Return error if token is not present
   }
-  jwt.verify(token, SECRET, (err, decoded) => {
+  jwt.verify(token2, SECRET, (err, decoded) => {
     if (err) {
       console.error("Error verifying JWT token:", err);
       return res.status(500).send("Server error");
@@ -437,7 +437,7 @@ app.get("/myTest", verifyDocToken, (req, res) => {
 //================================================
 
 app.get("/api/doctors/artt", verifyDocToken, (req, res) => {
-  const { doctor_id } = req;
+  const doctor_id = req.decodedToken.id;
 
   // Query to retrieve appointment details for a specific doctor
   const query = `
@@ -453,6 +453,7 @@ app.get("/api/doctors/artt", verifyDocToken, (req, res) => {
       console.error(error);
       res.sendStatus(500);
     } else {
+      // console.log(results);
       res.json(results);
     }
   });
