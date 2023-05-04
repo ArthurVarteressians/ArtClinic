@@ -76,7 +76,7 @@ app.post("/Profile", async (req, res) => {
                     reject(error);
                   }
                   const token = jwt.sign({ id: results[0].id }, SECRET, {
-                    expiresIn: "24h",
+                    expiresIn: "2m",
                   });
                   // resolve(results);
                   return res
@@ -131,7 +131,7 @@ app.post("/ClientsLogins", async (req, res) => {
     const hashedPassword = results[0].hashedpassword;
     if (await bcrypt.compare(password, hashedPassword)) {
       const token = jwt.sign({ id: results[0].id }, SECRET, {
-        expiresIn: "24h",
+        expiresIn: "2m",
       });
 
       console.log(`token generated successfully: ${token}`);
@@ -170,7 +170,7 @@ app.post("/ManagerLogin", async (req, res) => {
         let response;
         if (user.role === "doctor") {
           const token = jwt.sign({ id: user.id }, SECRET, {
-            expiresIn: "24h",
+            expiresIn: "2h",
           });
           response = {
             success: true,
@@ -182,7 +182,7 @@ app.post("/ManagerLogin", async (req, res) => {
           console.log(response.message);
         } else if (user.role === "manager") {
           const token = jwt.sign({ id: user.id }, SECRET, {
-            expiresIn: "24h",
+            expiresIn: "2h",
           });
           response = {
             success: true,
@@ -426,13 +426,15 @@ app.get("/myTest", verifyDocToken, (req, res) => {
     } else {
       if (results && results.length > 0) {
         const doctorFullName = results[0].fullname;
-        res.json(doctorFullName);
+        res.send(doctorFullName);
       } else {
         res.sendStatus(404); // or handle the error in some other way
       }
     }
   });
 });
+
+//================================================
 
 app.get("/api/doctors/artt", verifyDocToken, (req, res) => {
   const { doctor_id } = req;

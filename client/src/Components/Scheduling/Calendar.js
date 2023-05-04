@@ -5,6 +5,11 @@ import "./Calender.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+
+
+
+
 function Calendar() {
   //======================
   const [selectedDate, setSelectedDate] = useState(null);
@@ -30,6 +35,16 @@ function Calendar() {
     fetchDoctors(selectedDepartment);
   };
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Please login first!");
+      navigate("/Profile");
+      return;
+    }
+  }, []);
+
   const handleSubmit = async () => {
     try {
       if (doctors.length > 0) {
@@ -48,12 +63,15 @@ function Calendar() {
           }
         );
         toast.success("Appointment booked successfully");
-        console.log("Appointment booked successfully:", response.data);
       } else {
         console.error("No doctors found in the doctors array");
       }
     } catch (error) {
-      console.error("Failed to book appointment:", error);
+      toast.error("Failed to book appointment. Please login again.");
+      setTimeout(() => {
+        localStorage.removeItem("token");
+        navigate("/Profile");
+      }, 2000);
     }
   };
 

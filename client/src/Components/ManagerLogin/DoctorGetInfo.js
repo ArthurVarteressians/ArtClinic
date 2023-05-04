@@ -1,6 +1,8 @@
 import Axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const DoctorAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -9,26 +11,24 @@ const DoctorAppointments = () => {
   const [statusOptions, setStatusOptions] = useState(["0", "1"]);
   const [doctorFullName, setDoctorFullName] = useState("");
 
-
   const myTest = () => {
     Axios.get("http://localhost:3001/myTest", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     })
-
       .then((response) => {
         if (response.status !== 200) {
           throw new Error("Failed to retrieve appointments");
         }
         const data = response.data;
-        console.log(data);
+        setDoctorFullName(data);
+        toast.success(`Welcome Doctor ${data}!`, {
+          autoClose: 1500, 
+        });
       })
       .catch((error) => setError(error.response.data.message));
   };
-
-
-
 
   const handleGetAppointments = () => {
     Axios.get(`http://localhost:3001/api/doctors/artt`, {
@@ -83,11 +83,17 @@ const DoctorAppointments = () => {
       handleStatusChange(appointment.appointmentnumber, appointment.newStatus);
     });
   };
+  useEffect(() => {
+    myTest();
+  }, []);
 
-
+  console.log(doctorFullName);
   return (
     <div>
-    <button onClick={myTest}>Welcome Doctor {doctorFullName}</button>
+      <h3>
+        Doctor <span style={{ fontWeight: "300" }}>{doctorFullName}</span>
+      </h3>
+
       <button onClick={handleSignOut}>Sign Out</button>
       <button onClick={handleGetAppointments}>Get Appointments</button>
       <p>Total Appointments: {totalAppointments}</p>
@@ -128,6 +134,7 @@ const DoctorAppointments = () => {
       ))}
 
       {error && <p>{error}</p>}
+      <ToastContainer />
     </div>
   );
 };
