@@ -66,7 +66,7 @@
 }
 
 .formInput {
- width: 25vw;
+  width: 25vw;
   height: 35px;
   border-radius: 5px;
   padding: 0px 10px;
@@ -148,33 +148,22 @@ input[type="checkbox"]:focus {
   height: 18px;
   width: 18px;
   outline: none;
-  border: 2px solid #004aaa;
+  border: 1px solid #004aaa;
 }
 
 .formButtons {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
-.formButtons button {
+/* .formButtons button {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+  margin-top: 30px;
+} */
 
-
-.formButtons a {
-  color: #1a73e8;
-  text-decoration: none;
-  transition: all 0.1s ease-in;
-  font-weight: 700;
-}
-
-.formButtons a:hover {
-  color: #004aaa;
-}
 
 @media (max-width: 660px) {
 

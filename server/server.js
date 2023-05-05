@@ -76,7 +76,7 @@ app.post("/Profile", async (req, res) => {
                     reject(error);
                   }
                   const token = jwt.sign({ id: results[0].id }, SECRET, {
-                    expiresIn: "2m",
+                    expiresIn: "10m",
                   });
                   // resolve(results);
                   return res
@@ -131,18 +131,22 @@ app.post("/ClientsLogins", async (req, res) => {
     const hashedPassword = results[0].hashedpassword;
     if (await bcrypt.compare(password, hashedPassword)) {
       const token = jwt.sign({ id: results[0].id }, SECRET, {
-        expiresIn: "2m",
+        expiresIn: "10m",
       });
 
       console.log(`token generated successfully: ${token}`);
 
       const patientId = results[0].id; // Retrieve patient_id from the query results
-      return res.status(200).json({
-        success: true,
-        token: token,
-        email: email,
-        patient_id: patientId,
-      });
+      return res
+        .status(200)
+        .header("Authorization", "Bearer " + token)
+
+        .json({
+          success: true,
+          token: "Bearer " + token,
+          email: email,
+          patient_id: patientId,
+        });
     } else {
       return res
         .status(401)
@@ -300,11 +304,11 @@ app.get("/doctors/:department", (req, res) => {
 
 //==================================//===================================================================================================================================================================
 const verifyToken = (req, res, next) => {
-  const token2 = req.headers.authorization.split(" ")[1];
-  if (!token2) {
+  const token = req.headers.authorization.split(" ")[2];
+  if (!token) {
     return res.status(403).send("Access denied"); // Return error if token is not present
   }
-  jwt.verify(token2, SECRET, (err, decoded) => {
+  jwt.verify(token, SECRET, (err, decoded) => {
     if (err) {
       console.error("Error verifying JWT token:", err);
       return res.status(500).send("Server error");

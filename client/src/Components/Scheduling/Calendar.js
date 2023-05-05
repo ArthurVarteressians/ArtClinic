@@ -65,10 +65,10 @@ function Calendar() {
       }
     } catch (error) {
       toast.error("Failed to book appointment. Please login again.");
-      setTimeout(() => {
-        localStorage.removeItem("token");
-        navigate("/Profile");
-      }, 2000);
+      // setTimeout(() => {
+      //   localStorage.removeItem("token");
+      //   navigate("/Profile");
+      // }, 2000);
     }
   };
 

@@ -5,6 +5,7 @@ import { notify } from "./toast";
 import styles from "./SignUp.module.css";
 import validate from "./validate";
 import axios from "axios";
+import { Link } from "react-router-dom";
 function SignUp({ onSignInClick }) {
   const [data, setData] = useState({
     name: "",
@@ -60,7 +61,7 @@ function SignUp({ onSignInClick }) {
         if (response.status === 200) {
           // Request was successful
           notify("You signed up successfully", "success");
-          localStorage.setItem("token", response.data.token);
+           localStorage.setItem("token", response.data.token);
           setTimeout(() => {
             window.location.href = "/Patient-Profile";
           }, 1000);
@@ -217,13 +218,21 @@ function SignUp({ onSignInClick }) {
           </div>
           <div className={styles.formField}>
             <div className={styles.checkBoxContainer}>
-              <label>I Accept Terms Of Privacy & Policy</label>
+              <label>
+                I Accept Terms Of{" "}
+                <Link
+                  to="/Privacy&Policy"
+                  style={{ textDecoration: "underline", color:"#0c70f3" }}
+                >
+                  Privacy & Policy
+                </Link>
+              </label>
               <input
                 type="checkbox"
                 name="isAccepted"
                 value={data.isAccepted}
                 onChange={changeHandler}
-                onFocus={focusHanlder}
+                // onFocus={focusHanlder}
               />
             </div>
             {errors.isAccepted && touched.isAccepted && (
@@ -289,17 +298,17 @@ function SignIn({ onSignUpClick }) {
         email: data.email,
         password: data.password,
       };
-  
+
       const response = await axios.post(
         "http://localhost:3001/ClientsLogins",
         loginEnteredData
       );
-  
+
       if (response.status === 200) {
         notify("You signed up successfully", "success");
         const token = response.data.token;
         // Store the token in localStorage
-        localStorage.setItem("token", token);
+        localStorage.setItem("token", response.data.token);
         setTimeout(() => {
           window.location.href = "/Patient-Profile";
         }, 1000);
@@ -309,7 +318,7 @@ function SignIn({ onSignUpClick }) {
         // Server responded with an error
         const { status, data } = error.response;
         console.log("token has expired. Please log in again.");
-  
+
         if (status === 401) {
           notify("Check your inputes!", "error");
         } else if (data === "token expired") {
@@ -322,8 +331,7 @@ function SignIn({ onSignUpClick }) {
       }
     }
   };
-  
-  
+
   return (
     <div className={styles.mainSignUpSec}>
       <div className={styles.SignUpSecText}>
