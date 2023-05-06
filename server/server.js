@@ -322,31 +322,36 @@ const verifyToken = (req, res, next) => {
 app.post("/checkAvailability", (req, res) => {
   const doctorId = req.body.doctorId;
   const date = req.body.date;
-  const time = req.body.time;
-  const dateTimeString = moment(`${date} ${time}`, "YYYY-MM-DD HH:mm").format(
-    "YYYY-MM-DD HH:mm:ss"
-  );
+  const formattedDate = moment(date).format("YYYY-MM-DD");
 
-  // Check if the selected date and time are available for the doctor
-  const query = `SELECT COUNT(*) AS appointmentCount FROM appointments WHERE doctor_id = ? AND appointment_date = ?`;
-  db.query(query, [doctorId, dateTimeString], (error, results) => {
+  // Retrieve all booked appointment times for the specified doctor on the selected date
+  const query = `SELECT appointment_date FROM appointments WHERE doctor_id = ?`;
+
+  db.query(query, [doctorId], (error, results) => {
     if (error) {
       console.error(error);
-      res
-        .status(500)
-        .json({ error: "Failed to check appointment availability" });
+      res.status(500).json({ error: "Failed to fetch available times" });
     } else {
-      const appointmentCount = results[0].appointmentCount;
-      if (appointmentCount > 0) {
-        // The selected date and time are already booked
-        res.status(409).json({ error: "The selected time is not available" });
-      } else {
-        // The selected date and time are available
-        res.status(200).json({ message: "Time slot is available" });
-      }
+      const bookedTimes = results
+        .filter(
+          (result) =>
+            moment(result.appointment_date).format("YYYY-MM-DD") ===
+            formattedDate
+        )
+        .map((result) => moment(result.appointment_date).format("HH:mm"));
+
+      const availableTimes = getAvailableTimes(bookedTimes);
+      res.status(200).json({ availableTimes });
     }
   });
 });
+
+// Helper function to get available times based on booked times
+function getAvailableTimes(bookedTimes) {
+  const allTimes = ["10:00", "12:00", "14:00", "16:00"];
+  const availableTimes = allTimes.filter((time) => !bookedTimes.includes(time));
+  return availableTimes;
+}
 
 app.post("/Sched", verifyToken, async (req, res) => {
   const doctorId = req.body.doctorId;

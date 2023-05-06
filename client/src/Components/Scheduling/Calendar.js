@@ -8,40 +8,69 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 
 function Calendar() {
-  //======================
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [department, setDepartment] = useState("");
   const [selectedDoctorId, setSelectedDoctorId] = useState("");
   const [doctors, setDoctors] = useState([]);
-  const [test, setTest] = useState("");
-
   const [availableTimes, setAvailableTimes] = useState([]);
-
-  //=================
+  const [isLoading, setIsLoading] = useState(false);
 
   const filterDate = (date) => {
     const day = date.getDay();
     return day !== 0 && day !== 6; // 0 = Sunday, 6 = Saturday
   };
-
   const fetchDoctors = (department) => {
     fetch(`http://localhost:3001/doctors/${department}`)
       .then((response) => response.json())
-      .then((data) => setDoctors(data))
+      .then((data) => {
+        setDoctors(data);
+        if (data.length > 0) {
+          setSelectedDoctorId(data[0].doctor_id);
+        }
+      })
       .catch((err) => console.error("Error fetching doctors:", err));
   };
+
+  const fetchAvailableTimes = async (doctorId, date) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/checkAvailability",
+        {
+          doctorId: doctorId,
+          date: date,
+        }
+      );
+      if (response.status === 200) {
+        setAvailableTimes(response.data.availableTimes);
+      } else {
+        toast.error(response.data.error);
+      }
+    } catch (error) {
+      console.error("Error fetching available times:", error);
+      toast.error("Error fetching available times");
+    }
+  };
+
   const handleDoctorChange = (e) => {
     const doctorId = e.target.value;
     setSelectedDoctorId(doctorId);
   };
+
   const handleDepartmentChange = (e) => {
     const selectedDepartment = e.target.value;
     setDepartment(selectedDepartment);
+    if (selectedDate) {
+      fetchAvailableTimes(
+        selectedDoctorId,
+        selectedDate.toISOString().split("T")[0]
+      );
+    }
     fetchDoctors(selectedDepartment);
   };
 
   const navigate = useNavigate();
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -55,6 +84,11 @@ function Calendar() {
   }, []);
 
   const handleSubmit = async () => {
+    if (!selectedTime) {
+      toast.error("Please select a time");
+      return;
+    }
+
     try {
       if (doctors.length > 0) {
         const token = localStorage.getItem("token");
@@ -91,6 +125,9 @@ function Calendar() {
           );
 
           toast.success("Appointment booked successfully");
+          
+          setSelectedDate("");
+          setSelectedTime("");
         } else {
           toast.error("The selected time is not available");
         }
@@ -104,7 +141,6 @@ function Calendar() {
       } else if (error.response && error.response.status === 401) {
         // Session expired
         toast.error("Session expired. Please log in again!");
-
         setTimeout(() => {
           localStorage.removeItem("token");
           navigate("/Profile");
@@ -124,7 +160,12 @@ function Calendar() {
   };
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    if (selectedDoctorId) {
+      const formattedDate = date.toISOString().split("T")[0];
+      fetchAvailableTimes(selectedDoctorId, formattedDate);
+    }
   };
+
   return (
     <div className="allSchedule">
       <div className="ScheBox">
@@ -175,21 +216,29 @@ function Calendar() {
             selected={selectedDate}
             onChange={handleDateChange}
             filterDate={filterDate} // Exclude weekends
-          />
-
+          />{" "}
           <select
             value={selectedTime}
-            onChange={(e) => setSelectedTime(e.target.value)}
+            onChange={(e) => handleTimeChange(e.target.value)}
           >
             <option value="">Select Time</option>
-            <option value="10:00">10:00</option>
-            <option value="12:00">12:00</option>
-            <option value="14:00">14:00</option>
-            <option value="16:00">16:00</option>
+            {availableTimes.map((time) => (
+              <option key={time} value={time}>
+                {time}
+              </option>
+            ))}
           </select>
         </div>
         <div>
-          <button onClick={handleSubmit}>Book Appointment</button>
+          <button
+            onClick={handleSubmit}
+            disabled={availableTimes.length === 0 || !selectedTime}
+          >
+            Book Appointment
+          </button>
+          {availableTimes.length === 0 && (
+            <p>No available times for the selected date</p>
+          )}
         </div>
         <ToastContainer />
       </div>
