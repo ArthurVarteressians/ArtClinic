@@ -11,6 +11,7 @@ const saltRounds = 10;
 app.use(cors());
 app.use(express.json());
 const cookieParser = require("cookie-parser");
+const axios = require("axios");
 
 //===========================Clinic DB===================================/
 
@@ -81,10 +82,10 @@ app.post("/Profile", async (req, res) => {
                   // resolve(results);
                   return res
                     .status(200)
-                    .header("Authorization", "Bearer " + token)
+                    .header("Authorization", token) // Remove the "Bearer " prefix
                     .json({
                       message: "New patient added",
-                      token: "Bearer " + token,
+                      token: token, // Remove the "Bearer " prefix
                     });
                 }
               );
@@ -139,11 +140,11 @@ app.post("/ClientsLogins", async (req, res) => {
       const patientId = results[0].id; // Retrieve patient_id from the query results
       return res
         .status(200)
-        .header("Authorization", "Bearer " + token)
+        .header("Authorization", token)
 
         .json({
           success: true,
-          token: "Bearer " + token,
+          token: token,
           email: email,
           patient_id: patientId,
         });
@@ -159,7 +160,6 @@ app.post("/ClientsLogins", async (req, res) => {
 });
 
 //=======================================
-
 // =================================Manager Logic===============================//const SECRET = "1I1d6WhwZWjGn4ijZDpBaGq"; // Secret for JWT
 
 app.post("/ManagerLogin", async (req, res) => {
@@ -304,7 +304,8 @@ app.get("/doctors/:department", (req, res) => {
 
 //==================================//===================================================================================================================================================================
 const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[2];
+  const token = req.headers.authorization;
+  console.log(token);
   if (!token) {
     return res.status(403).send("Access denied"); // Return error if token is not present
   }
@@ -317,8 +318,37 @@ const verifyToken = (req, res, next) => {
     next();
   });
 };
-// Route handler for /Sched endpoint
-app.post("/Sched", verifyToken, (req, res) => {
+
+app.post("/checkAvailability", (req, res) => {
+  const doctorId = req.body.doctorId;
+  const date = req.body.date;
+  const time = req.body.time;
+  const dateTimeString = moment(`${date} ${time}`, "YYYY-MM-DD HH:mm").format(
+    "YYYY-MM-DD HH:mm:ss"
+  );
+
+  // Check if the selected date and time are available for the doctor
+  const query = `SELECT COUNT(*) AS appointmentCount FROM appointments WHERE doctor_id = ? AND appointment_date = ?`;
+  db.query(query, [doctorId, dateTimeString], (error, results) => {
+    if (error) {
+      console.error(error);
+      res
+        .status(500)
+        .json({ error: "Failed to check appointment availability" });
+    } else {
+      const appointmentCount = results[0].appointmentCount;
+      if (appointmentCount > 0) {
+        // The selected date and time are already booked
+        res.status(409).json({ error: "The selected time is not available" });
+      } else {
+        // The selected date and time are available
+        res.status(200).json({ message: "Time slot is available" });
+      }
+    }
+  });
+});
+
+app.post("/Sched", verifyToken, async (req, res) => {
   const doctorId = req.body.doctorId;
   const date = req.body.date;
   const time = req.body.time;
@@ -328,54 +358,71 @@ app.post("/Sched", verifyToken, (req, res) => {
   const updateDate = new Date();
   const status = 0;
   const patientId = req.patient_id;
+
   try {
-    const getCurrentAppointmentNumberQuery =
-      "SELECT MAX(appointmentnumber) as maxAppointmentNumber FROM appointments";
-    db.query(getCurrentAppointmentNumberQuery, (error, results) => {
-      if (error) {
-        console.error(error);
-        res.status(500).json({ error: "Failed to store appointment" });
-      } else {
-        const currentAppointmentNumber = results[0].maxAppointmentNumber || 0;
-        const newAppointmentNumber = currentAppointmentNumber + 1;
-        const appointmentDate = moment(
-          dateTimeString,
-          "YYYY-MM-DD HH:mm"
-        ).format("YYYY-MM-DD HH:mm:ss");
-        const query = `INSERT INTO appointments (appointmentnumber, doctor_id, patient_id, appointment_date, registeration_date, update_date, status) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-        db.query(
-          query,
-          [
-            newAppointmentNumber,
-            doctorId,
-            patientId,
-            appointmentDate,
-            registrationDate,
-            updateDate,
-            status,
-          ],
-          (error, results) => {
-            if (error) {
-              console.error(error);
-              res.status(500).json({ error: "Failed to store appointment" });
-            } else {
-              const appointmentId = results.insertId;
-              res.status(201).json({
-                id: appointmentId,
-                message: "Appointment booked successfully",
-              });
-            }
-          }
-        );
+    // Check if the selected date and time are available
+    const availabilityResponse = await axios.post(
+      "http://localhost:3001/checkAvailability",
+      {
+        doctorId,
+        date,
+        time,
       }
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(401).json({ error: "Invalid token" });
+    );
+
+    if (availabilityResponse.status === 200) {
+      const getCurrentAppointmentNumberQuery =
+        "SELECT MAX(appointmentnumber) as maxAppointmentNumber FROM appointments";
+      db.query(getCurrentAppointmentNumberQuery, (error, results) => {
+        if (error) {
+          console.error(error);
+          res.status(500).json({ error: "Failed to store appointment" });
+        } else {
+          const currentAppointmentNumber = results[0].maxAppointmentNumber || 0;
+          const newAppointmentNumber = currentAppointmentNumber + 1;
+          const appointmentDate = moment(
+            dateTimeString,
+            "YYYY-MM-DD HH:mm:ss"
+          ).format("YYYY-MM-DD HH:mm:ss");
+          const query = `INSERT INTO appointments (appointmentnumber, doctor_id, patient_id, appointment_date, registeration_date, update_date, status) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+          db.query(
+            query,
+            [
+              newAppointmentNumber,
+              doctorId,
+              patientId,
+              appointmentDate,
+              registrationDate,
+              updateDate,
+              status,
+            ],
+            (error, results) => {
+              if (error) {
+                console.error(error);
+                res.status(500).json({ error: "Failed to store appointment" });
+              } else {
+                const appointmentId = results.insertId;
+                res.status(201).json({
+                  id: appointmentId,
+                  message: "Appointment booked successfully",
+                });
+              }
+            }
+          );
+        }
+      });
+    } else {
+      res.status(409).json({ error: "The selected time is not available" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to check appointment availability" });
   }
 });
 
 //==================================//
+
+//==================
 
 app.post("/SubmitQ", async (req, res) => {
   const { name, email, phonenumber } = req.body;
@@ -485,6 +532,16 @@ app.put("/api/appointments/:appointmentnumber", (req, res) => {
       res.sendStatus(200);
     }
   });
+});
+
+//=======================================================
+
+app.get("/availability", async (req, res) => {
+  const { doctorId, date, time } = req.query;
+
+  console.log(doctorId);
+  // console.log(date);
+  console.log(time);
 });
 
 app.listen(3001, () => console.log("Server is Up on port 3001"));

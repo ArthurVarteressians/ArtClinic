@@ -15,7 +15,16 @@ function Calendar() {
   const [selectedDoctorId, setSelectedDoctorId] = useState("");
   const [doctors, setDoctors] = useState([]);
   const [test, setTest] = useState("");
+
+  const [availableTimes, setAvailableTimes] = useState([]);
+
   //=================
+
+  const filterDate = (date) => {
+    const day = date.getDay();
+    return day !== 0 && day !== 6; // 0 = Sunday, 6 = Saturday
+  };
+
   const fetchDoctors = (department) => {
     fetch(`http://localhost:3001/doctors/${department}`)
       .then((response) => response.json())
@@ -37,7 +46,10 @@ function Calendar() {
     const token = localStorage.getItem("token");
     if (!token) {
       toast.error("Please login first!");
-      navigate("/Profile");
+      setTimeout(() => {
+        localStorage.removeItem("token");
+        navigate("/Profile");
+      }, 2000);
       return;
     }
   }, []);
@@ -46,8 +58,10 @@ function Calendar() {
     try {
       if (doctors.length > 0) {
         const token = localStorage.getItem("token");
-        const response = await axios.post(
-          "http://localhost:3001/Sched",
+
+        // Check if the selected time is available
+        const availabilityResponse = await axios.post(
+          "http://localhost:3001/checkAvailability",
           {
             doctorId: doctors[0].doctor_id,
             date: selectedDate,
@@ -55,20 +69,53 @@ function Calendar() {
           },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: token,
             },
           }
         );
-        toast.success("Appointment booked successfully");
+
+        if (availabilityResponse.status === 200) {
+          // The selected time is available, proceed with booking the appointment
+          const response = await axios.post(
+            "http://localhost:3001/Sched",
+            {
+              doctorId: doctors[0].doctor_id,
+              date: selectedDate,
+              time: selectedTime,
+            },
+            {
+              headers: {
+                Authorization: token,
+              },
+            }
+          );
+
+          toast.success("Appointment booked successfully");
+        } else {
+          toast.error("The selected time is not available");
+        }
       } else {
         console.error("No doctors found in the doctors array");
       }
     } catch (error) {
-      toast.error("Failed to book appointment. Please login again.");
-      // setTimeout(() => {
-      //   localStorage.removeItem("token");
-      //   navigate("/Profile");
-      // }, 2000);
+      if (error.response && error.response.status === 409) {
+        // The selected time is not available
+        toast.error("The selected time is not available!");
+      } else if (error.response && error.response.status === 401) {
+        // Session expired
+        toast.error("Session expired. Please log in again!");
+
+        setTimeout(() => {
+          localStorage.removeItem("token");
+          navigate("/Profile");
+        }, 2000);
+      } else {
+        toast.error("Please log in again!");
+        setTimeout(() => {
+          localStorage.removeItem("token");
+          navigate("/Profile");
+        }, 2000);
+      }
     }
   };
 
@@ -124,12 +171,22 @@ function Calendar() {
         </div>
         <div className="MainScheSec">
           <h3>Select Appointment Date and Time:</h3>
-          <DatePicker selected={selectedDate} onChange={handleDateChange} />
-          <input
-            type="time"
-            value={selectedTime}
-            onChange={(e) => handleTimeChange(e.target.value)}
+          <DatePicker
+            selected={selectedDate}
+            onChange={handleDateChange}
+            filterDate={filterDate} // Exclude weekends
           />
+
+          <select
+            value={selectedTime}
+            onChange={(e) => setSelectedTime(e.target.value)}
+          >
+            <option value="">Select Time</option>
+            <option value="10:00">10:00</option>
+            <option value="12:00">12:00</option>
+            <option value="14:00">14:00</option>
+            <option value="16:00">16:00</option>
+          </select>
         </div>
         <div>
           <button onClick={handleSubmit}>Book Appointment</button>
