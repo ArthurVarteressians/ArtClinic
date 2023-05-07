@@ -4,27 +4,30 @@ import Swal from "sweetalert2";
 import "./MangerLogin.css";
 import MonthlyClientCountsChart from "./ManagerChart";
 import { useNavigate } from "react-router-dom";
-
+import ManagerNav from "./ManagerNav/ManagerNav";
 
 const Getinfopage = () => {
   const [patientsList, setPatientList] = useState([]);
   const [newPatientList, setNewPatientList] = useState([]);
-  const [showNewPatients, setShowNewPatients] = useState(false); // added state for showing/hiding new patients
+  const [callReqList, setCallReqList] = useState([]);
+  const [showAllPatients, setShowAllPatients] = useState(false);
+  const [showNewPatients, setShowNewPatients] = useState(false);
+  const [showConsultingRequests, setShowConsultingRequests] = useState(false);
 
   const getPatientInformations = () => {
-    setShowNewPatients(false); // set showNewPatients to false when "All Patients Info" button is clicked
     Axios.get("http://localhost:3001/GetClientsLists").then((response) => {
       setPatientList(response.data);
+      setShowAllPatients(true);
+      setShowNewPatients(false);
+      setShowConsultingRequests(false);
     });
   };
 
   const deletePatient = (id) => {
     Axios.delete(`http://localhost:3001/GetClientsLists/${id}`).then(
       (response) => {
-        setPatientList(
-          patientsList.filter((val) => {
-            return val.id !== id;
-          })
+        setPatientList((prevList) =>
+          prevList.filter((val) => val.id !== id)
         );
         Swal.fire("Success", "Your item is deleted!", "success");
       }
@@ -45,9 +48,20 @@ const Getinfopage = () => {
   };
 
   const fetchClientCount = () => {
-    setShowNewPatients(true);
     Axios.get("http://localhost:3001/GetNewClientsLists").then((response) => {
       setNewPatientList(response.data);
+      setShowAllPatients(false);
+      setShowNewPatients(true);
+      setShowConsultingRequests(false);
+    });
+  };
+
+  const fetchConsultingReq = () => {
+    Axios.get("http://localhost:3001/ConsultingReq").then((response) => {
+      setCallReqList(response.data);
+      setShowAllPatients(false);
+      setShowNewPatients(false);
+      setShowConsultingRequests(true);
     });
   };
 
@@ -59,87 +73,111 @@ const Getinfopage = () => {
 
   return (
     <div>
-      <div className="secionOne">
+      <ManagerNav />
+      <div className="sectionOne">
         <div className="getPatientInformationsPage">
-          <h2>Hello Manager</h2>
-          <button onClick={handleSignOut}>Sign Out</button>
+          <h2>Welcome Manager</h2>
 
           <div className="getInfobtns">
             <button onClick={getPatientInformations}>All Patients Info</button>
             <button onClick={fetchClientCount}>New Patients Info</button>
+            <button onClick={fetchConsultingReq}>Consulting Requests</button>
           </div>
+
           <div className="MainBoxes">
-            <div className="allContent">
-              {showNewPatients ? (
-                <div className="SecPartFormanager">
-                  {newPatientList.map((val) => {
-                    return (
-                      <div className="patientManagerInfo" key={val.id}>
-                        <div className="patientManagerInfoSection">
-                          <div>
-                            <div style={{ fontWeight: "bold" }}> Name</div>
-                            {val.name}
-                          </div>
-                          <div>
-                            <div style={{ fontWeight: "bold" }}> Email</div>
-                            {val.email}
-                          </div>
-                          <div>
-                            <div style={{ fontWeight: "bold" }}> Age</div>
-                            {val.age}
-                          </div>
-                          <div>
-                            <div style={{ fontWeight: "bold" }}>
-                              Phone Number
-                            </div>
-                            {val.phonenumber}
-                          </div>
-                        </div>
+            {showAllPatients && (
+              <div className="SecPartFormanager">
+                {patientsList.map((val) => (
+                  <div className="patientManagerInfo" key={val.id}>
+                    <div className="patientManagerInfoSection">
+                      <div>
+                        <div style={{ fontWeight: "bold" }}> Name</div>
+                        {val.name}
                       </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div>
-                  {patientsList.map((val) => {
-                    return (
-                      <div className="patientManagerInfo" key={val.id}>
-                        <div className="patientManagerInfoSection">
-                          <div>
-                            <div style={{ fontWeight: "bold" }}> Name</div>
-                            {val.name}
-                          </div>
-                          <div>
-                            <div style={{ fontWeight: "bold" }}> Email</div>
-                            {val.email}
-                          </div>
-                          <div>
-                            <div style={{ fontWeight: "bold" }}> Age</div>
-                            {val.age}
-                          </div>
-                          <div>
-                            <div style={{ fontWeight: "bold" }}>
-                              Phone Number
-                            </div>
-                            {val.phonenumber}
-                          </div>
-                          <button
-                            onClick={() => confirmDelete(val.id)}
-                            className="managerDeleteBtn"
-                          >
-                            Delete
-                          </button>
-                        </div>
+                      <div>
+                        <div style={{ fontWeight: "bold" }}> Email</div>
+                        {val.email}
                       </div>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
+                      <div>
+                        <div style={{ fontWeight: "bold" }}> Age</div>
+                        {val.age}
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: "bold" }}> Phone Number</div>
+                        {val.phonenumber}
+                      </div>
+                      <button
+                        onClick={() => confirmDelete(val.id)}
+                        className="managerDeleteBtn"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {showNewPatients && (
+              <div>
+                {newPatientList.map((val) => (
+                  <div className="patientManagerInfo" key={val.id}>
+                    <div className="patientManagerInfoSection">
+                      <div>
+                        <div style={{ fontWeight: "bold" }}> Name</div>
+                        {val.name}
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: "bold" }}> Email</div>
+                        {val.email}
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: "bold" }}> Age</div>
+                        {val.age}
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: "bold" }}> Phone Number</div>
+                        {val.phonenumber}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {showConsultingRequests && (
+              <div>
+                {callReqList.map((val) => (
+                  <div className="patientManagerInfo" key={val.id}>
+                    <div className="patientManagerInfoSection">
+                      <div>
+                        <div style={{ fontWeight: "bold" }}> Name</div>
+                        {val.name}
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: "bold" }}> Email</div>
+                        {val.email}
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: "bold" }}> Phone Number</div>
+                        {val.phonenumber}
+                      </div>
+                      <button
+                        onClick={() => confirmDelete(val.id)}
+                        className="managerDeleteBtn"
+                      >
+                        Update
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 };
+
 export default Getinfopage;

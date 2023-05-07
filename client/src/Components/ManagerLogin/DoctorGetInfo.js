@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import ManagerNav from "./ManagerNav/ManagerNav";
+import Footer from "../Footer/Footer";
 const DoctorAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState(null);
@@ -24,7 +25,7 @@ const DoctorAppointments = () => {
         const data = response.data;
         setDoctorFullName(data);
         toast.success(`Welcome Doctor ${data}!`, {
-          autoClose: 1500, 
+          autoClose: 1500,
         });
       })
       .catch((error) => setError(error.response.data.message));
@@ -48,11 +49,6 @@ const DoctorAppointments = () => {
       .catch((error) => setError(error.response.data.message));
   };
 
-  const navigate = useNavigate();
-  const handleSignOut = () => {
-    localStorage.removeItem("token");
-    navigate("/Admin");
-  };
 
   const handleStatusChange = (appointmentnumber, newStatus) => {
     // Make a PUT request to update the status of the appointment with the given ID
@@ -90,51 +86,56 @@ const DoctorAppointments = () => {
   console.log(doctorFullName);
   return (
     <div>
-      <h3>
-        Doctor <span style={{ fontWeight: "300" }}>{doctorFullName}</span>
-      </h3>
+      <ManagerNav />
+      <div style={{minHeight:"91vh"}}>
+        <h3>
+          Doctor <span style={{ fontWeight: "300" }}>{doctorFullName}</span>
+        </h3>
 
-      <button onClick={handleSignOut}>Sign Out</button>
-      <button onClick={handleGetAppointments}>Get Appointments</button>
-      <p>Total Appointments: {totalAppointments}</p>
-      <br />
-      {appointments.map((appointment) => (
-        <div key={appointment.appointmentnumber}>
-          <p>App: {appointment.appointmentnumber}</p>
-          <p>
-            <span style={{ fontWeight: "bold" }}>Patient full name:</span>{" "}
-            {appointment.name}
-          </p>
-          <p>
-            <span style={{ fontWeight: "lighter" }}> Appointment Date:</span>{" "}
-            {appointment.appointment_date}
-          </p>
-          <p>Status: {appointment.status}</p>
-          <br />
-          <br />
+        <button onClick={handleGetAppointments}>Get Appointments</button>
+        <p>Total Appointments: {totalAppointments}</p>
+        <br />
+        {appointments.map((appointment) => (
+          <div key={appointment.appointmentnumber}>
+            <p>App: {appointment.appointmentnumber}</p>
+            <p>
+              <span style={{ fontWeight: "bold" }}>Patient full name:</span>{" "}
+              {appointment.name}
+            </p>
+            <p>
+              <span style={{ fontWeight: "lighter" }}> Appointment Date:</span>{" "}
+              {appointment.appointment_date}
+            </p>
+            <p>Status: {appointment.status}</p>
+            <br />
+            <br />
 
-          <label htmlFor={`status-${appointment.appointmentnumber}`}>
-            Update Status:
-            <select
-              id={`status-${appointment.appointmentnumber}`}
-              value={appointment.newStatus}
-              onChange={(event) => (appointment.newStatus = event.target.value)}
-            >
-              {statusOptions.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </label>
-          <div>
-            <button type="submit">Update Statuses</button>
+            <label htmlFor={`status-${appointment.appointmentnumber}`}>
+              Update Status:
+              <select
+                id={`status-${appointment.appointmentnumber}`}
+                value={appointment.newStatus}
+                onChange={(event) =>
+                  (appointment.newStatus = event.target.value)
+                }
+              >
+                {statusOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div>
+              <button type="submit">Update Statuses</button>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
 
-      {error && <p>{error}</p>}
-      <ToastContainer />
+        {error && <p>{error}</p>}
+        <ToastContainer />
+      </div>
+      <Footer />
     </div>
   );
 };

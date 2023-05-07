@@ -7,36 +7,42 @@
     align-items: flex-start;
 }
 
-.getPatientInformationsPage {
-    width: 100vw;
-}
-.ChartSectionss{
+.ChartSectionss {
     background-color: rgba(173, 173, 173, 0.096);
 
 }
+
 .MainBoxes {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 100%;
-    
+    min-height: 91vh;
+}
+
+
+.SecPartFormanager {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .chartBtn {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
 .mainSignUpBodySection {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     margin-top: 20px;
-    width: 100%;
+    flex-direction: column;
+    width: 40%;
+    
 }
 
 .allContent {
@@ -49,10 +55,10 @@
     flex-direction: column;
     margin-top: 20px;
     align-items: center;
-    width: 50%;
     border-radius: 10px;
     box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.76);
     padding: 20px;
+    width: 100%;
     background-color: rgba(230, 230, 230, 0.658)
 }
 
@@ -65,23 +71,35 @@
 
 .patientManagerInfo {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     border-radius: 10px;
     margin: 20px;
+    width: 96vw;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
     background-color: rgba(99, 78, 55, 0.24);
-}
-
-.patientManagerInfoSection {
-    width: 100%;
+  }
+  
+  .patientManagerInfoSection {
     display: flex;
+    width: inherit;
+    justify-content: space-between;
     align-items: center;
     padding: 10px;
-    gap: 15px;
-    justify-content: space-between;
-    text-align: center;
     font-size: 1.3vw;
-}
+  }
+  
+  .patientManagerInfoSection > div {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .patientManagerInfoSection > div > div {
+    font-weight: bold;
+    width: 250px; /* Adjust the width as needed */
+  }
+  
 
 .managerDeleteBtn {
     margin: 0;

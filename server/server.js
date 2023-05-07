@@ -159,7 +159,22 @@ app.post("/ClientsLogins", async (req, res) => {
   }
 });
 
-//=======================================
+//=======================================ConsultingReq
+app.get("/ConsultingReq", (req, res) => {
+  const query =
+    "SELECT name, phonenumber, email  FROM callrequests WHERE status = 0;";
+  db.query(query, (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: "Failed to get count of clients" });
+    } else {
+      const totalClients = result[0].total_clients;
+      res.send(result);
+    }
+  });
+});
+
+
 // =================================Manager Logic===============================//const SECRET = "1I1d6WhwZWjGn4ijZDpBaGq"; // Secret for JWT
 
 app.post("/ManagerLogin", async (req, res) => {
