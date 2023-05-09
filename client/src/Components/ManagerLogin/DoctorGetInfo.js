@@ -12,8 +12,8 @@ const DoctorAppointments = () => {
   const [statusOptions, setStatusOptions] = useState(["0", "1"]);
   const [doctorFullName, setDoctorFullName] = useState("");
 
-  const myTest = () => {
-    Axios.get("http://localhost:3001/myTest", {
+  const getDoctorName = () => {
+    Axios.get("http://localhost:3001/getDoctorName", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -49,9 +49,7 @@ const DoctorAppointments = () => {
       .catch((error) => setError(error.response.data.message));
   };
 
-
   const handleStatusChange = (appointmentnumber, newStatus) => {
-    // Make a PUT request to update the status of the appointment with the given ID
     Axios.put(`http://localhost:3001/api/appointments/${appointmentnumber}`, {
       status: newStatus,
     })
@@ -59,7 +57,6 @@ const DoctorAppointments = () => {
         if (response.status !== 200) {
           throw new Error("Failed to update appointment status");
         }
-        // Update the appointments list with the updated appointment status
         const updatedAppointments = appointments.map((appointment) => {
           if (appointment.appointmentnumber === appointmentnumber) {
             return { ...appointment, status: newStatus };
@@ -74,20 +71,18 @@ const DoctorAppointments = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    // Iterate over the appointments list and update the status of each appointment
     appointments.forEach((appointment) => {
       handleStatusChange(appointment.appointmentnumber, appointment.newStatus);
     });
   };
   useEffect(() => {
-    myTest();
+    getDoctorName();
   }, []);
 
-  console.log(doctorFullName);
   return (
     <div>
       <ManagerNav />
-      <div style={{minHeight:"91vh"}}>
+      <div style={{ minHeight: "91vh" }}>
         <h3>
           Doctor <span style={{ fontWeight: "300" }}>{doctorFullName}</span>
         </h3>

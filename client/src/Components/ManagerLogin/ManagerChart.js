@@ -8,7 +8,7 @@ const MonthlyClientCountsChart = () => {
   const [showChart, setShowChart] = useState(false);
 
   const handleGetChart = () => {
-    Axios.get("http://localhost:3001/GetNewClientsListssss")
+    Axios.get("http://localhost:3001/GetNewClientsChartList")
       .then((response) => {
         setClientCounts(response.data);
         setShowChart(true);
@@ -26,9 +26,9 @@ const MonthlyClientCountsChart = () => {
           labels: Array.from({ length: clientCounts.length }, (_, i) => i + 1),
           datasets: [
             {
-              label: "Monthly Client Counts",
+              label: "Current Month New Client Counts",
               data: clientCounts,
-              backgroundColor: "rgba(75, 192, 192, 0.2)",
+              backgroundColor: "rgba(75, 192, 192, 0.4)",
               borderColor: "rgba(75, 192, 192, 1)",
               borderWidth: 1,
             },
@@ -41,7 +41,7 @@ const MonthlyClientCountsChart = () => {
             y: {
               type: "linear",
               beginAtZero: true,
-              max: Math.max(...clientCounts) + 10,
+              max: Math.max(...clientCounts) + 5,
             },
           },
         },

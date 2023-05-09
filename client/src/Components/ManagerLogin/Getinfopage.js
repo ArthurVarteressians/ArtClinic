@@ -24,14 +24,22 @@ const Getinfopage = () => {
   };
 
   const deletePatient = (id) => {
-    Axios.delete(`http://localhost:3001/GetClientsLists/${id}`).then(
-      (response) => {
-        setPatientList((prevList) =>
-          prevList.filter((val) => val.id !== id)
-        );
-        Swal.fire("Success", "Your item is deleted!", "success");
-      }
-    );
+    console.log("Deleting patient with ID:", id); // Log the ID parameter
+
+    Axios.delete(`http://localhost:3001/GetClientsLists/${id}`)
+      .then((response) => {
+        if (response.data.error) {
+          console.log(response.data.error);
+          Swal.fire("Error", "Failed to delete item.", "error");
+        } else {
+          setPatientList((prevList) => prevList.filter((val) => val.id !== id));
+          Swal.fire("Success", "Your item is deleted!", "success");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire("Error", "Failed to delete item.", "error");
+      });
   };
 
   const confirmDelete = (id) => {
@@ -46,6 +54,18 @@ const Getinfopage = () => {
       }
     });
   };
+  const confirmDelete2 = (id2) => {
+    Swal.fire({
+      title: "Do you want to delete?",
+      showDenyButton: true,
+      confirmButtonText: "Cancel",
+      denyButtonText: `Yes, delete it`,
+    }).then((result) => {
+      if (result.isDenied) {
+        deleteConsultingRequest(id2);
+      }
+    });
+  };
 
   const fetchClientCount = () => {
     Axios.get("http://localhost:3001/GetNewClientsLists").then((response) => {
@@ -56,13 +76,32 @@ const Getinfopage = () => {
     });
   };
 
-  const fetchConsultingReq = () => {
+  const fetchConsultingRequest = () => {
     Axios.get("http://localhost:3001/ConsultingReq").then((response) => {
-      setCallReqList(response.data);
+      setCallReqList(response.data); // <-- Update this line
       setShowAllPatients(false);
       setShowNewPatients(false);
       setShowConsultingRequests(true);
     });
+  };
+
+  const deleteConsultingRequest = (id2) => {
+    console.log("Deleting consulting request with ID:", id2); // Log the ID parameter
+
+    Axios.delete(`http://localhost:3001/ConsultingReq/${id2}`)
+      .then((response) => {
+        if (response.data.error) {
+          console.log(response.data.error);
+          Swal.fire("Error", "Failed to delete item.", "error");
+        } else {
+          setCallReqList((prevList) => prevList.filter((val) => val.id2 !== id2));
+          Swal.fire("Success", "Your item is deleted!", "success");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire("Error", "Failed to delete item.", "error");
+      });
   };
 
   const navigate = useNavigate();
@@ -81,10 +120,12 @@ const Getinfopage = () => {
           <div className="getInfobtns">
             <button onClick={getPatientInformations}>All Patients Info</button>
             <button onClick={fetchClientCount}>New Patients Info</button>
-            <button onClick={fetchConsultingReq}>Consulting Requests</button>
+            <button onClick={fetchConsultingRequest}>
+              Consulting Requests
+            </button>
           </div>
 
-          <div className="MainBoxes">
+          <div className="MainBoxess">
             {showAllPatients && (
               <div className="SecPartFormanager">
                 {patientsList.map((val) => (
@@ -163,7 +204,7 @@ const Getinfopage = () => {
                         {val.phonenumber}
                       </div>
                       <button
-                        onClick={() => confirmDelete(val.id)}
+                        onClick={() => confirmDelete2(val.id2)}
                         className="managerDeleteBtn"
                       >
                         Update

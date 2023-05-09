@@ -8,7 +8,11 @@
 }
 
 .ChartSectionss {
-    background-color: rgba(173, 173, 173, 0.096);
+    background-color: rgba(173, 173, 173, 0.075);
+}
+
+.getPatientInformationsPage {
+    background-color: rgba(173, 173, 173, 0.205);
 
 }
 
@@ -18,8 +22,16 @@
     align-items: center;
     flex-direction: column;
     min-height: 91vh;
+    background-image: url("./Img/b19.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
+.MainBoxess {
+    min-height: 30vh;
+
+}
 
 .SecPartFormanager {
     margin-top: 30px;
@@ -42,7 +54,7 @@
     margin-top: 20px;
     flex-direction: column;
     width: 40%;
-    
+
 }
 
 .allContent {
@@ -73,33 +85,33 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border-radius: 10px;
     margin: 20px;
     width: 96vw;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
-    background-color: rgba(99, 78, 55, 0.24);
-  }
-  
-  .patientManagerInfoSection {
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.568);
+    background-color: rgba(78, 75, 72, 0.144);
+}
+
+.patientManagerInfoSection {
     display: flex;
     width: inherit;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
     font-size: 1.3vw;
-  }
-  
-  .patientManagerInfoSection > div {
+}
+
+.patientManagerInfoSection>div {
     display: flex;
     flex-direction: column;
     text-align: center;
-  }
-  
-  .patientManagerInfoSection > div > div {
+}
+
+.patientManagerInfoSection>div>div {
     font-weight: bold;
-    width: 250px; /* Adjust the width as needed */
-  }
-  
+    width: 250px;
+}
+
 
 .managerDeleteBtn {
     margin: 0;
@@ -118,16 +130,32 @@
         display: flex;
         flex-direction: column;
         background-color: aqua;
+
+    }
+
+    .SecPartFormanager {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .MainBoxess {
+        display: flex;
+        justify-content: center;
     }
 
     .patientManagerInfoSection {
-        width: 100%;
         display: flex;
+        width: inherit;
+        justify-content: center;
         flex-direction: column;
-        font-size: 3.5vw;
+        font-size: 2.5vw;
         gap: 3px;
+        padding: 5px;
     }
-
+    .patientManagerInfo{
+        width: 60%;
+    }
     .managerDeleteBtn {
         font-size: 2.3vw;
     }
