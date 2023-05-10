@@ -1,40 +1,122 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
+import "./UserApp.css";
 
 const UserAppointment = () => {
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState(null);
 
-  const myTest = () => {
+  useEffect(() => {
+    fetchAppointmentHistory();
+  }, []);
+
+  const fetchAppointmentHistory = () => {
     Axios.get("http://localhost:3001/PatientAppointmentHistory", {
       headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: localStorage.getItem("token"),
       },
     })
       .then((response) => {
         if (response.status !== 200) {
-          throw new Error("Failed to retrieve appointments");
+          throw new Error("Failed to retrieve appointment history");
         }
-        const data = response.data;
-        console.log(data);
+        setAppointments(response.data);
       })
       .catch((error) => setError(error.response.data.message));
   };
 
-
   return (
-    <div>
-      {appointments.map((appointment) => (
-        <div key={appointment.appointmentnumber}>
-          <h2>Appointment Number: {appointment.appointmentnumber}</h2>
-          <p>Doctor ID: {appointment.doctor_id}</p>
-          <p>Patient ID: {appointment.patient_id}</p>
-          <p>Appointment Date: {appointment.appointment_date}</p>
-          <p>Registration Date: {appointment.registeration_date}</p>
-          <p>Update Date: {appointment.update_date}</p>
-          <p>Status: {appointment.status}</p>
-        </div>
-      ))}
+    <div className="mainAppointmenthisttorySection">
+      <div>
+        {appointments.map((appointment, index) => (
+          <div key={appointment.appointmentnumber} className="grtidTest">
+            <h2>Appointment Number: {index + 1}</h2>
+            <h5>
+              Doctor Full Name:
+              <span
+                style={{
+                  color: "blue",
+                  fontSize: "14px",
+                  fontWeight: "400",
+                  padding: "2px",
+                  borderRadius: "8px",
+                }}
+              >
+                {appointment.fullname}{" "}
+              </span>
+            </h5>
+            <h5>
+              Department:
+              <span
+                style={{
+                  color: "blue",
+                  fontSize: "14px",
+                  fontWeight: "400",
+                  padding: "2px",
+                  borderRadius: "8px",
+                }}
+              >
+                {appointment.department}{" "}
+              </span>
+            </h5>
+            <h5>
+              Patient ID:
+              <span
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "300",
+                  padding: "2px",
+                  borderRadius: "8px",
+                }}
+              >
+                {appointment.patient_id}{" "}
+              </span>
+            </h5>
+            <h5>
+              Appointment Date:
+              <span
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "300",
+                  padding: "2px",
+                  borderRadius: "8px",
+                }}
+              >
+                {appointment.appointment_date}{" "}
+              </span>
+            </h5>
+            <h5>
+              Registration Date:
+              <span
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "300",
+                  padding: "2px",
+                  borderRadius: "8px",
+                }}
+              >
+                {appointment.registeration_date}{" "}
+              </span>
+            </h5>
+
+            <p  className={`status ${
+        appointment.appointment_status === 1 ? "closed" : "in-progress"
+      }`}>
+              Status:
+              <span
+                style={{
+                  fontSize: "14px",
+                  fontWeight: "400",
+                  padding: "2px",
+                  borderRadius: "8px",
+                }}
+              >
+                {appointment.appointment_status ===1 ? "Close" : "In Progress"}{" "}
+              </span>
+            </p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -44,9 +44,9 @@ function Calendar() {
 
         {showAppointmentSection && <Cal />}
 
-        {showPaymentSection && <UserAppointment />}
+        {showPaymentSection && <Under />}
 
-        {showAppointmentHistorySection && <Under />}
+        {showAppointmentHistorySection && <UserAppointment />}
       </div>
       <Footer />
     </>

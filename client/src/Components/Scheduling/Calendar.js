@@ -109,7 +109,25 @@ function Calendar() {
         );
 
         if (availabilityResponse.status === 200) {
-          // The selected time is available, proceed with booking the appointment
+          const openAppointmentResponse = await axios.get(
+            "http://localhost:3001/checkOpenAppointment",
+            {
+              headers: {
+                Authorization: token,
+              },
+            }
+          );
+          if (
+            openAppointmentResponse.status === 200 &&
+            openAppointmentResponse.data.hasOpenAppointment
+          ) {
+            toast.error("You already have an open appointment!");
+            setDepartment("");
+            setSelectedDate("");
+            setSelectedTime("");
+            return;
+          }
+
           const response = await axios.post(
             "http://localhost:3001/Sched",
             {
@@ -125,7 +143,7 @@ function Calendar() {
           );
 
           toast.success("Appointment booked successfully");
-          
+          setDepartment("");
           setSelectedDate("");
           setSelectedTime("");
         } else {
@@ -159,9 +177,12 @@ function Calendar() {
     setSelectedTime(time);
   };
   const handleDateChange = (date) => {
-    setSelectedDate(date);
+    const timeZoneOffset = date.getTimezoneOffset() * 60000; // Get the time zone offset in milliseconds
+    const adjustedDate = new Date(date.getTime() - timeZoneOffset); // Adjust the date based on the time zone offset
+    setSelectedDate(adjustedDate);
+
     if (selectedDoctorId) {
-      const formattedDate = date.toISOString().split("T")[0];
+      const formattedDate = adjustedDate.toISOString().split("T")[0];
       fetchAvailableTimes(selectedDoctorId, formattedDate);
     }
   };
@@ -216,6 +237,7 @@ function Calendar() {
             selected={selectedDate}
             onChange={handleDateChange}
             filterDate={filterDate} // Exclude weekends
+            minDate={new Date()}
           />{" "}
           <select
             value={selectedTime}

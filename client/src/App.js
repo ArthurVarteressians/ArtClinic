@@ -13,7 +13,6 @@ import Getinfopage from "./Components/ManagerLogin/Getinfopage";
 import { BrowserRouter } from "react-router-dom";
 // import AppointmentForm from "./Components/Scheduling/test";
 // import Calendar from "./Components/Scheduling/Calendar";
-import BookingApp from "./Components/Scheduling/BookingApp ";
 import BarChart from "./Components/ManagerLogin/ManagerChart";
 import AboutMap from "./Components/About/About";
 import MainAboutSetcin from "./Components/About/MainAboutSetcin";

@@ -13,7 +13,7 @@ function SchedulingNav() {
   return (
     <div className="navWebV">
       <div className="navWebVContainer">
-        <NavLink exact to="#" activeClassName="activeLink">
+        <NavLink exact to="/" activeClassName="activeLink">
           <img src={Logo} alt="Logo" />
         </NavLink>
 

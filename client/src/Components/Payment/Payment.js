@@ -1,91 +1,56 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Payment.css";
-import Footer from "../Footer/Footer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCreditCard,
+  faCalendarAlt,
+  faLock,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
 import SchedulingNav from "../Scheduling/SchedulingNav";
+import Footer from "../Footer/Footer";
+import { NavLink } from "react-router-dom";
 
-const CardDetails = () => {
-  const [cardNumber, setCardNumber] = useState("");
-  const [cardName, setCardName] = useState("");
-  const [cardExpiry, setCardExpiry] = useState("");
-  const [cardCvv, setCardCvv] = useState("");
-
-  const handleCardNumberChange = (event) => {
-    setCardNumber(event.target.value);
-  };
-
-  const handleCardNameChange = (event) => {
-    setCardName(event.target.value);
-  };
-
-  const handleCardExpiryChange = (event) => {
-    setCardExpiry(event.target.value);
-  };
-
-  const handleCardCvvChange = (event) => {
-    setCardCvv(event.target.value);
-  };
-
+function CardDetails() {
   return (
-    <>
+    <div>
       <SchedulingNav />
-      <div className="PaymentSec">
-        <form className="payment-form">
-          <div className="form-group">
-            <label htmlFor="cardNumber">Card Number</label>
-            <input
-              type="text"
-              className="form-control"
-              id="cardNumber"
-              placeholder="Enter card number"
-              value={cardNumber}
-              onChange={handleCardNumberChange}
-            />
+      <div className="paymentSec">
+        <NavLink to="/Patient-Profile">
+          <button>Back</button>
+        </NavLink>
+
+        <div className="payment-card">
+          <div className="name">
+            <label> Card Holder Full Name</label>
+            <input type="text" placeholder="Your name" />
+            <FontAwesomeIcon icon={faUser} className="icon" />
           </div>
-          <div className="form-group">
-            <label htmlFor="cardName">Cardholder Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="cardName"
-              placeholder="Enter cardholder name"
-              value={cardName}
-              onChange={handleCardNameChange}
-            />
+          <div className="card-number">
+            <label> Card Number</label>
+            <input type="text" placeholder="xxxx-xxxx-xxxx-xxxx" />
+            <FontAwesomeIcon icon={faCreditCard} className="icon" />
           </div>
-          <div className="form-row">
-            <div className="form-group col-md-6">
-              <label htmlFor="cardExpiry">Expiration Date</label>
-              <input
-                type="text"
-                className="form-control form-control-sm"
-                id="cardExpiry"
-                placeholder="MM/YY"
-                value={cardExpiry}
-                onChange={handleCardExpiryChange}
-              />
+          <div className="card-details">
+            <div className="expiry-date">
+              <label>Expiry Date</label>
+              <input type="text" placeholder="MM/YY" />
+              <FontAwesomeIcon icon={faCalendarAlt} className="icon" />
             </div>
-            <div className="form-group col-md-6 cvv-container">
-              <label htmlFor="cardCvv">CVV</label>
-              <input
-                type="text"
-                className="form-control form-control-sm"
-                id="cardCvv"
-                placeholder="Enter CVV"
-                value={cardCvv}
-                onChange={handleCardCvvChange}
-              />
+
+            <div className="security-code">
+              <label>Security Code</label>
+              <input type="text" placeholder="CVV" />
+              <FontAwesomeIcon icon={faLock} className="icon" />
             </div>
           </div>
-          <div className="text-center">
-            <button className="btn btn-primary" >
-              Submit Payment
-            </button>
-          </div>
-        </form>
+
+          <button>Pay Now</button>
+        </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
-};
+}
 
 export default CardDetails;

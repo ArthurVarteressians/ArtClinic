@@ -10,10 +10,9 @@ const moment = require("moment");
 const saltRounds = 10;
 app.use(cors());
 app.use(express.json());
-const cookieParser = require("cookie-parser");
 const axios = require("axios");
 const db = require("./database");
-
+const PORT = 3001;
 //===========================Clinic DB===================================
 const SECRET = "1I1d6WhwZWjGn4ijZDpBaGq";
 const query = util.promisify(db.query).bind(db);
@@ -56,28 +55,13 @@ app.use("/GetClientsLists", managerDeleteClient);
 //===================================Manager Call Requests Delete=================================
 const managerDeleteCallRequests = require("./routes/managerDeleteCallRequests");
 app.use("/ConsultingReq", managerDeleteCallRequests);
-//==================================//
+//==================================Department Change Handler=================================
+const departmentChange = require("./routes/departmentChange");
+app.use("/doctors", departmentChange);
 
-app.get("/doctors/:department", (req, res) => {
-  const department = req.params.department;
-  const query = `SELECT * FROM artclinic.doctors WHERE department = ?`;
-  db.query(query, [department], (error, results) => {
-    if (error) {
-      res.status(500).json({ error: "Failed to fetch doctors" });
-    } else {
-      if (results.length > 0) {
-        res.status(200).json(results);
-      } else {
-        res.status(404).json({ error: "No doctors found" });
-      }
-    }
-  });
-});
-
-//==================================//===================================================================================================================================================================
+//==================================Scheduling Part=================================
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
-  console.log(token);
   if (!token) {
     return res.status(403).send("Access denied");
   }
@@ -123,6 +107,39 @@ function getAvailableTimes(bookedTimes) {
   return availableTimes;
 }
 
+// Assuming you're using Express.js and MySQL for your backend
+
+// Endpoint to check if the patient has an open appointment
+
+//=================================================
+app.get("/checkOpenAppointment",verifyToken, (req, res) => {
+  const { authorization } = req.headers;
+
+  // Check if the authorization token is present
+  if (!authorization) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  const patientId = req.patient_id;
+console.log(patientId);
+  const query =
+    "SELECT * FROM appointments WHERE patient_id = ? AND appointment_status = 0";
+  db.query(query, [patientId], (error, results) => {
+    if (error) {
+      console.error("Error checking open appointment:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    if (results.length > 0) {
+      return res.json({ hasOpenAppointment: true });
+    }
+
+    return res.json({ hasOpenAppointment: false });
+  });
+});
+
+
+//=============================
 app.post("/Sched", verifyToken, async (req, res) => {
   const doctorId = req.body.doctorId;
   const date = req.body.date;
@@ -131,7 +148,7 @@ app.post("/Sched", verifyToken, async (req, res) => {
   const appointmentNumber = 0;
   const registrationDate = new Date();
   const updateDate = new Date();
-  const status = 0;
+  const appointment_status = 0;
   const patientId = req.patient_id;
 
   try {
@@ -158,7 +175,7 @@ app.post("/Sched", verifyToken, async (req, res) => {
             dateTimeString,
             "YYYY-MM-DD HH:mm:ss"
           ).format("YYYY-MM-DD HH:mm:ss");
-          const query = `INSERT INTO appointments (appointmentnumber, doctor_id, patient_id, appointment_date, registeration_date, update_date, status) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+          const query = `INSERT INTO appointments (appointmentnumber, doctor_id, patient_id, appointment_date, registeration_date, update_date, appointment_status) VALUES (?, ?, ?, ?, ?, ?, ?)`;
           db.query(
             query,
             [
@@ -168,7 +185,7 @@ app.post("/Sched", verifyToken, async (req, res) => {
               appointmentDate,
               registrationDate,
               updateDate,
-              status,
+              appointment_status,
             ],
             (error, results) => {
               if (error) {
@@ -196,4 +213,30 @@ app.post("/Sched", verifyToken, async (req, res) => {
 
 //=======================================================
 
-app.listen(3001, () => console.log("Server is Up on port 3001"));
+
+app.get("/PatientAppointmentHistory", verifyToken, (req, res) => {
+  const patientId = req.patient_id;
+
+  // Retrieve appointment history for the patient
+  db.query(
+    `SELECT a.appointmentnumber, d.fullname, d.doctor_id, d.department, a.patient_id, a.appointment_date, a.registeration_date, a.update_date, a.appointment_status 
+    FROM appointments AS a
+    JOIN doctors AS d ON a.doctor_id = d.doctor_id
+    WHERE a.patient_id = ?`,
+    [patientId],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+        res.sendStatus(500);
+        return;
+      }
+
+      res.json(result);
+    }
+  );
+});
+
+
+
+
+app.listen(PORT, () => console.log(`Server is Up on port ${PORT}`));
