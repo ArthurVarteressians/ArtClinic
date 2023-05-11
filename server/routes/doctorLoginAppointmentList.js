@@ -25,11 +25,11 @@ router.get("/", verifyDocToken, (req, res) => {
   const doctor_id = req.decodedToken.id;
 
   const query = `
-      SELECT a.appointmentnumber, a.doctor_id, a.patient_id, a.appointment_date, a.status, d.fullname, d.department, p.name as name
+      SELECT a.appointmentnumber, a.doctor_id, a.patient_id, a.appointment_date, a.appointment_status, d.fullname, d.department, p.name as name
       FROM appointments a
       JOIN doctors d ON a.doctor_id = d.doctor_id
       JOIN patientslist p ON a.patient_id = p.id
-      WHERE a.doctor_id = ? AND a.status = 0;
+      WHERE a.doctor_id = ? AND a.appointment_status = 0;
     `;
 
   db.query(query, [doctor_id], (error, results) => {

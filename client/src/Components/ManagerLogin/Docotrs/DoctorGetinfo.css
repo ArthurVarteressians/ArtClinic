@@ -1,0 +1,75 @@
+.mainDoctorsprofile {
+    background-image: url("b18.png");
+    background-position: center;
+    background-size: cover;
+    min-height: 91vh;
+}
+
+.mainDoctorsProfileBTN {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.statusHeader {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.mainDoctorsprofile h2 {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.76);
+    min-width: 40%;
+    margin: 20px 0px;
+}
+
+.closed-appointments {
+    background-color: rgba(219, 219, 219, 0.571);
+    max-width: 80%;
+    margin: auto;
+    padding: 30px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.appointment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.appointment-card {
+    background-color: rgba(89, 89, 89, 0.155);
+    padding: 20px;
+    border-radius: 5px;
+    border: 1px solid rgb(182, 182, 182);
+}
+
+.label {
+    font-weight: 400;
+}
+
+.value {
+    font-weight: 600;
+}
+
+.status-closed {
+    background-color: rgba(0, 128, 0, 0.475);
+    font-size: 12px;
+    font-weight: 300;
+    padding: 0px 5px;
+    border-radius: 3px;
+}
+
+
+
+  
+
+  
+
+  
+

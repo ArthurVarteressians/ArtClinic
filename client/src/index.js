@@ -17,7 +17,7 @@ import ManagerLogin from "./Components/ManagerLogin/ManagerLogin";
 // import Calendar from "./Components/Scheduling/Calendar";
 import MainAboutSetcin from "./Components/About/MainAboutSetcin";
 import PrivacyandPolicy from "./Components/Privacy&Policy/PrivacyandPolicy";
-import DoctorGetInfo from "./Components/ManagerLogin/DoctorGetInfo";
+import DoctorGetInfo from "./Components/ManagerLogin/Docotrs/DoctorGetInfo";
 import ManagerSection from "./Components/ManagerLogin/ManagerSection";
 import MainScheSec from "./Components/Scheduling/MainScheSec";
 import CardDetails from "./Components/Payment/Payment";
