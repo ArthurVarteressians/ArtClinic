@@ -21,7 +21,7 @@ import DoctorGetInfo from "./Components/ManagerLogin/Docotrs/DoctorGetInfo";
 import ManagerSection from "./Components/ManagerLogin/ManagerSection";
 import MainScheSec from "./Components/Scheduling/MainScheSec";
 import CardDetails from "./Components/Payment/Payment";
-
+// REACT_APP_RECAPTCHA_SITE_KEY = "6LfRNwgmAAAAAN8Y1IYfVYy7a8pgapket83JSxRK";
 const router = createBrowserRouter([
   {
     path: "/",

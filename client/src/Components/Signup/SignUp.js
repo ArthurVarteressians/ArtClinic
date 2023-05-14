@@ -6,6 +6,9 @@ import styles from "./SignUp.module.css";
 import validate from "./validate";
 import axios from "axios";
 import { Link } from "react-router-dom";
+
+import ReCAPTCHA from "react-google-recaptcha";
+
 function SignUp({ onSignInClick }) {
   const [data, setData] = useState({
     name: "",
@@ -19,6 +22,12 @@ function SignUp({ onSignInClick }) {
   const [errors, setErrors] = useState({});
   const [touched, setTouched] = useState({});
   const [registrationDate, setRegistrationDate] = useState(null);
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+
+  // const handleCaptchaVerify = (response) => {
+  //   // Callback function triggered when reCAPTCHA is successfully verified
+  //   setIsCaptchaVerified(true);
+  // };
 
   useEffect(() => {
     setErrors(validate(data, "signup"));
@@ -42,7 +51,6 @@ function SignUp({ onSignInClick }) {
     const formattedDate = currentDate.toLocaleDateString();
 
     if (!Object.keys(errors).length) {
-      // Retrieve entered information here
       const enteredData = {
         name: data.name,
         lastname: data.lastname,
@@ -61,7 +69,7 @@ function SignUp({ onSignInClick }) {
         if (response.status === 200) {
           // Request was successful
           notify("You signed up successfully", "success");
-           localStorage.setItem("token", response.data.token);
+          localStorage.setItem("token", response.data.token);
           setTimeout(() => {
             window.location.href = "/Patient-Profile";
           }, 1000);
@@ -167,7 +175,7 @@ function SignUp({ onSignInClick }) {
                   : styles.formInput
               }
               id="phonenumber"
-              type="tel"
+              type="number"
               name="phonenumber"
               value={data.phonenumber}
               onChange={changeHandler}
@@ -222,7 +230,7 @@ function SignUp({ onSignInClick }) {
                 I Accept Terms Of{" "}
                 <Link
                   to="/Privacy&Policy"
-                  style={{ textDecoration: "underline", color:"#0c70f3" }}
+                  style={{ textDecoration: "underline", color: "#0c70f3" }}
                 >
                   Privacy & Policy
                 </Link>
@@ -238,6 +246,11 @@ function SignUp({ onSignInClick }) {
             {errors.isAccepted && touched.isAccepted && (
               <span>{errors.isAccepted}</span>
             )}
+            <ReCAPTCHA
+              sitekey="6Ld0BAwmAAAAAKmgFmJaKfws1Q8JWmb0IGg0IUwc"
+              theme="light"
+              size="invisible"
+            />
             <button type="submit">Sign Up</button>
           </div>
 
@@ -268,6 +281,8 @@ function SignUp({ onSignInClick }) {
 //===================================================Sign IN=======================================
 
 function SignIn({ onSignUpClick }) {
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -278,6 +293,8 @@ function SignIn({ onSignUpClick }) {
     email: false,
     password: false,
   });
+
+
 
   useEffect(() => {
     setErrors(validate(data, "login"));
@@ -381,6 +398,12 @@ function SignIn({ onSignUpClick }) {
               <span>{errors.loginpassword}</span>
             )}
           </div>
+            <ReCAPTCHA
+              sitekey="6Ld0BAwmAAAAAKmgFmJaKfws1Q8JWmb0IGg0IUwc"
+              theme="light"
+              size="invisible"
+            />
+
           <div className={styles.formButtons}>
             <button type="submit">Login</button>
           </div>

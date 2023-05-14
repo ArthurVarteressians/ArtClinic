@@ -7,19 +7,33 @@ const validate = (data) => {
     delete errors.name;
   }
 
-  if (!data.phonenumber || !data.phonenumber.trim()) {
-    errors.phonenumber = "Phone number required!";
-  } else {
-    delete errors.phonenumber;
-  }
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!data.email) {
-    errors.email = "Email required!";
-  } else if (!/\S+@\S+\.\S+/.test(data.email)) {
-    errors.email = "Email address is invalid!";
+    errors.email = "Email is required!";
+  } else if (!emailPattern.test(data.email)) {
+    errors.email = "Invalid email address!";
   } else {
     delete errors.email;
   }
+  
+
+
+  if (!data.age || data.age < 1 || data.age > 120) {
+    errors.age = "Please enter coorect information!";
+  } else {
+    delete errors.age;
+  }
+  
+
+  if (!data.phonenumber || !data.phonenumber.trim()) {
+    errors.phonenumber = "Phone number required!";
+  } else if (!/^\d{9,12}$/.test(data.phonenumber)) {
+    errors.phonenumber = "Phone number must be a 9 to 12-digit number!";
+  } else {
+    delete errors.phonenumber;
+  }
+  
 
   if (!data.password) {
     errors.password = "Password is required!";

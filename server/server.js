@@ -100,7 +100,8 @@ app.get("/api/doctors/closedAppointments", verifyDocToken, (req, res) => {
     SELECT a.appointmentnumber, 
            DATE_FORMAT(a.appointment_date, '%Y-%m-%d %H:%i:%s') AS appointment_date, 
            a.appointment_status,
-           p.name
+           p.name,
+           p.phonenumber
     FROM appointments a
     JOIN patientslist p ON a.patient_id = p.id
     WHERE a.doctor_id = ? AND a.appointment_status = 1
@@ -128,6 +129,32 @@ app.put("/api/appointments/:appointments", (req, res) => {
       return res.status(500).json({ error: "Internal server error" });
     }
     res.sendStatus(200);
+  });
+});
+
+app.get("/patientInformation", verifyToken, (req, res) => {
+  const patient_id = req.patient_id;
+  const query = `
+    SELECT name, phoneNumber, email
+    FROM patientslist
+    WHERE id = ?;
+  `;
+  db.query(query, [patient_id], (error, results) => {
+    if (error) {
+      console.error(error);
+      res.sendStatus(500);
+    } else {
+      if (results && results.length > 0) {
+        const patientInfo = {
+          name: results[0].name,
+          phoneNumber: results[0].phoneNumber,
+          email: results[0].email,
+        };
+        res.send(patientInfo);
+      } else {
+        res.sendStatus(404);
+      }
+    }
   });
 });
 

@@ -129,7 +129,7 @@ const DoctorAppointments = () => {
       <div>
         <div className="mainDoctorsprofile">
           <h3>
-            Doctor <span style={{ fontWeight: "300" }}>{doctorFullName}</span>
+            Doctor <span style={{ fontWeight: "500" }}>{doctorFullName}</span>
           </h3>
           <div className="mainDoctorsProfileBTN">
             <button onClick={handleGetAppointments}>
@@ -148,16 +148,31 @@ const DoctorAppointments = () => {
                 </div>
                 <div className="grid-container">
                   <div className="appointments">
-                    <p>Total Appointments: {totalAppointments}</p>
+                    <p style={{ paddingLeft: "10px", fontSize: "large" }}>
+                      Total Open Appointments:{" "}
+                      <span style={{ fontWeight: "800" }}>
+                        {totalAppointments}
+                      </span>
+                    </p>
                     <div className="appointment-grid">
                       {appointments.map((appointment) => (
                         <div
                           className="appointment-card"
                           key={appointment.appointmentnumber}
                         >
-                          <p>App: {appointment.appointmentnumber}</p>
                           <p>
-                            <span className="label">Patient full name:</span>{" "}
+                            Appointment Number:{" "}
+                            <span
+                              style={{
+                                textDecoration: "underline",
+                                fontWeight: "600",
+                              }}
+                            >
+                              {appointment.appointmentnumber}{" "}
+                            </span>{" "}
+                          </p>
+                          <p>
+                            <span className="label">Patient Full Name:</span>{" "}
                             <span className="value">{appointment.name}</span>
                           </p>
                           <p>
@@ -174,15 +189,19 @@ const DoctorAppointments = () => {
                               })}
                             </span>
                           </p>
+
                           <p>
-                            <span className="label">Status:</span>{" "}
-                            <span className="value">{appointment.status}</span>
+                            <span className="label">Patient Phone Number:</span>{" "}
+                            <span className="value">
+                              {appointment.phonenumber}
+                            </span>
                           </p>
-                          <br />
+
                           <label
                             htmlFor={`status-${appointment.appointmentnumber}`}
+                            className="changeStatusDropDown"
                           >
-                            Update Status:
+                            Change Status:{" "}
                             <select
                               id={`status-${appointment.appointmentnumber}`}
                               value={appointment.newStatus}
@@ -196,6 +215,10 @@ const DoctorAppointments = () => {
                                       : prevAppointment
                                   )
                                 );
+                              }}
+                              style={{
+                                backgroundColor: "rgba(255, 255, 255, 0.386)",
+                                fontWeight: "bold",
                               }}
                             >
                               {statusOptions.map((option) => (
@@ -225,17 +248,35 @@ const DoctorAppointments = () => {
                 </div>
               </>
             ) : (
-              <div>
+              <div className="ClosedSection">
                 {" "}
                 <div className="statusHeader">
                   <h2>Closed Appointments</h2>
                 </div>
                 <div className="closed-appointments">
-                  <p>Total Closed Appointments: {totalAppointments}</p>
+                  <p>
+                    Total Closed Appointments:{" "}
+                    <span style={{ fontWeight: "800" }}>
+                      {totalAppointments}
+                    </span>{" "}
+                  </p>
                   <div className="appointment-grid">
                     {appointments.map((appointment) => (
                       <div className="appointment-card" key={appointment.id}>
                         <div>
+                          <p>
+                            <span className="label">
+                              Appointment Number:
+                            </span>{" "}
+                            <span
+                              style={{
+                                textDecoration: "underline",
+                                fontWeight: "600",
+                              }}
+                            >
+                              {appointment.appointmentnumber}{" "}
+                            </span>{" "}
+                          </p>
                           <p>
                             <span className="label">Patient full name:</span>{" "}
                             <span className="value">{appointment.name}</span>
@@ -255,6 +296,13 @@ const DoctorAppointments = () => {
                                 minute: "2-digit",
                                 hour12: true,
                               })}
+                            </span>
+                          </p>
+
+                          <p>
+                            <span className="label">Patient Phone Number:</span>{" "}
+                            <span className="value">
+                              {appointment.phonenumber}
                             </span>
                           </p>
                           <p>

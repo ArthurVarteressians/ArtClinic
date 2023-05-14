@@ -159,7 +159,6 @@ input[type="checkbox"]:focus {
 
 @media (max-width: 660px) {
 
-
   .formContainer h2 {
     font-size: small;
   }
@@ -184,4 +183,21 @@ input[type="checkbox"]:focus {
     font-size: x-small;
 
   }
+}
+
+.countrySelect {
+  position: relative;
+}
+
+.countryInfo {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+
+.countryPrefix {
+  margin-left: 5px;
 }
