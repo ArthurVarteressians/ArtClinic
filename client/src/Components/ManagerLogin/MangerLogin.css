@@ -7,10 +7,6 @@
     align-items: flex-start;
 }
 
-.ChartSectionss {
-    background-color: rgba(173, 173, 173, 0.075);
-}
-
 .getPatientInformationsPage {
     background-color: rgba(173, 173, 173, 0.205);
 
@@ -41,11 +37,7 @@
     flex-direction: column;
 }
 
-.chartBtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 
 .mainSignUpBodySection {
     display: flex;
@@ -153,9 +145,11 @@
         gap: 3px;
         padding: 5px;
     }
-    .patientManagerInfo{
+
+    .patientManagerInfo {
         width: 60%;
     }
+
     .managerDeleteBtn {
         font-size: 2.3vw;
     }

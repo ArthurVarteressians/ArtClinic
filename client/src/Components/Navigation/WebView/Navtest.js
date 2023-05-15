@@ -9,7 +9,6 @@ function Navtest() {
     <div className="navWebV">
       <div className="navWebVContainer">
         <NavLink exact to="/" activeClassName="activeLink">
-          {/* Use activeClassName prop to specify the class for active link */}
           <img src={Logo} alt="Logo" />
         </NavLink>
 

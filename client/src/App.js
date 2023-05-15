@@ -9,7 +9,7 @@ import MainSignUp from "./Components/Signup/MainSignUp";
 import ManagerLogin from "./Components/ManagerLogin/ManagerLogin";
 import NavWeb from "./Components/Navigation/WebView/NavWeb";
 import Navtest from "./Components/Navigation/WebView/Navtest";
-import Getinfopage from "./Components/ManagerLogin/Getinfopage";
+import Getinfopage from "./Components/ManagerLogin/Getinfopage/Getinfopage";
 import { BrowserRouter } from "react-router-dom";
 // import AppointmentForm from "./Components/Scheduling/test";
 // import Calendar from "./Components/Scheduling/Calendar";
@@ -18,7 +18,11 @@ import AboutMap from "./Components/About/About";
 import MainAboutSetcin from "./Components/About/MainAboutSetcin";
 import SubmitQ from "./Components/About/SubmitQ";
 import ManagerSection from "./Components/ManagerLogin/ManagerSection";
-import Main from "./Components/Scheduling/MainScheSec"
+import Main from "./Components/Scheduling/MainScheSec";
+import MainTest from "./Components/ManagerLogin/AllSections/MainTest";
+import GetPatientInformations from "./Components/ManagerLogin/Getinfopage/Patientlist/GetPatientInformations";
+import MonthlyClientCountsChart from "./Components/ManagerLogin/Getinfopage/Chart/ManagerChart";
+import CallRequests from "./Components/ManagerLogin/Getinfopage/CallRequests/CallRequests";
 function App() {
   return (
     <div>
@@ -26,10 +30,14 @@ function App() {
       {/* <BookingApp /> */}
       {/* <BarChart /> */}
       {/* <AboutMap /> */}
-      <NavWeb />
-{/* <Main /> */}
+      {/* <MonthlyClientCountsChart /> */}
+      <CallRequests />
+      {/* <Getinfopage /> */}
+      {/* <GetPatientInformations /> */}
+       {/* <NavWeb /> */}
+      {/* <MainTest  /> */}
+      {/* <Main /> */}
       {/* <ManagerSection /> */}
-
       {/* <SubmitQ /> */}
       {/* <ManagerLogin /> */}
       {/* <Calendar /> */}

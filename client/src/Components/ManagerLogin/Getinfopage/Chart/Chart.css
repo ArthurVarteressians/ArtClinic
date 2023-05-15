@@ -1,0 +1,8 @@
+.ChartSectionss {
+    background-color: rgba(173, 173, 173, 0.075);
+}
+.chartBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

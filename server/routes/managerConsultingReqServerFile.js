@@ -1,11 +1,10 @@
-
 const express = require("express");
 const router = express.Router();
 const db = require("../database");
 
 router.get("/", (req, res) => {
   const query =
-    "SELECT name, phonenumber, email  FROM callrequests WHERE status = 0;";
+    "SELECT id,name, phonenumber, email  FROM callrequests WHERE status = 0;";
   db.query(query, (err, result) => {
     if (err) {
       console.error(err);
