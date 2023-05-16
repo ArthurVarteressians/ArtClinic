@@ -1,0 +1,20 @@
+.subheader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .subheader button {
+    font-size: 16px;
+    padding: 10px 20px;
+    background-color: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+  }
+  
+  .subheader button.active {
+    font-weight: bold;
+    color: #000;
+  }
+  

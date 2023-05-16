@@ -1,14 +1,13 @@
-import ProtectedRoute from './ProtectedRoute';
-
-function App() {
+import FullManagerSecion from "./AllSections/MainTest";
+import ManagerNav from "./ManagerNav/ManagerNav";
+import Footer from "../Footer/Footer";
+function ManagerDashbord() {
   return (
-    <div className="App">
-      <Router>
-        <Switch>
-          <Route path="/Admin" exact component={ManagerLogin} />
-          <ProtectedRoute path="/Getinfopage" component={Getinfopage} />
-        </Switch>
-      </Router>
+    <div>
+      <ManagerNav />
+      <FullManagerSecion />
+      <Footer />
     </div>
   );
 }
+export default ManagerDashbord;

@@ -10,33 +10,42 @@ function SubmitQ() {
     email: "",
     phonenumber: "",
   });
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Check if all fields are entered
     if (!data.name || !data.email || !data.phonenumber) {
       toast.error("Please enter all fields.");
     } else {
       try {
-        const response = await Axios.post(
-          "http://localhost:3001/SubmitQ",
-          data
-        );
-        toast.success(
-          "Your call request submitted successfully. We will call you as soon as possible."
-        );
-        // Reset the form fields
-        setData({
-          name: "",
-          email: "",
-          phonenumber: "",
+        // Check if the client has already submitted a call request
+        const response = await Axios.get("http://localhost:3001/SubmitQ", {
+          params: {
+            email: data.email,
+            phonenumber: data.phonenumber,
+          },
         });
+  
+        if (response.status === 200 && response.data === "Duplicate email or phone number") {
+          toast.error("You have already submitted a call request.");
+        } else if (response.status === 200 && response.data === "No duplicate entries") {
+          // If the client hasn't submitted a call request, proceed with form submission
+          const submitResponse = await Axios.post("http://localhost:3001/SubmitQ", data);
+          toast.success("Your call request submitted successfully. We will call you as soon as possible.");
+          // Reset the form fields
+          setData({
+            name: "",
+            email: "",
+            phonenumber: "",
+          });
+        } else {
+          toast.error("Error checking duplicate entries.");
+        }
       } catch (error) {
         console.error(error);
         toast.error("Error submitting form. Please try again.");
       }
     }
   };
+  
 
   return (
     <div className="AllSubmit">
@@ -59,9 +68,10 @@ function SubmitQ() {
         </p>
         <p>
           Getting in touch with us is easy. Clients can fill out the form below,
-          send us an a call request, or call us at <span style={{ fontWeight: "bold" }}>02212</span>. Our team is available
-          during business hours to promptly respond to inquiries and provide
-          assistance.
+          send us an a call request, or call us at{" "}
+          <span style={{ fontWeight: "bold" }}>02212</span>. Our team is
+          available during business hours to promptly respond to inquiries and
+          provide assistance.
         </p>
       </div>
       <div className="submitQinputs">
@@ -86,7 +96,7 @@ function SubmitQ() {
           <label htmlFor="phonenumber">Phone Number</label>
           <input
             id="phonenumber"
-            type="tel"
+            type="number"
             name="phonenumber"
             value={data.phonenumber}
             onChange={(e) => setData({ ...data, phonenumber: e.target.value })}

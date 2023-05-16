@@ -1,42 +1,43 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import React, { useState } from "react";
+import CallRequests from "../Getinfopage/CallRequests/CallRequests";
+import MonthlyClientCountsChart from "../Getinfopage/Chart/ManagerChart";
+import GetPatientInformations from "../Getinfopage/Patientlist/GetPatientInformations";
+import "./FullManagerSection.css";
+function FullManagerSecion() {
+  const [activeComponent, setActiveComponent] = useState(null);
 
-export default function BasicMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = (component) => {
+    setActiveComponent(component);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   return (
     <div>
-      <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        Dashboard
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
-      </Menu>
+      <div className="subheader">
+        <button
+          className={activeComponent === "callRequests" ? "active" : ""}
+          onClick={() => handleClick("callRequests")}
+        >
+          Call Requests
+        </button>
+        <button
+          className={activeComponent === "monthlyClientCounts" ? "active" : ""}
+          onClick={() => handleClick("monthlyClientCounts")}
+        >
+          Monthly Client Counts
+        </button>
+        <button
+          className={activeComponent === "patientInformations" ? "active" : ""}
+          onClick={() => handleClick("patientInformations")}
+        >
+          Patient Information
+        </button>
+      </div>
+
+      {activeComponent === "callRequests" && <CallRequests />}
+      {activeComponent === "monthlyClientCounts" && (
+        <MonthlyClientCountsChart />
+      )}
+      {activeComponent === "patientInformations" && <GetPatientInformations />}
     </div>
   );
 }
+export default FullManagerSecion;

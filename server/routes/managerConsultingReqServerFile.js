@@ -4,7 +4,7 @@ const db = require("../database");
 
 router.get("/", (req, res) => {
   const query =
-    "SELECT id,name, phonenumber, email  FROM callrequests WHERE status = 0;";
+    "SELECT id,name, phonenumber, email, submission_time  FROM callrequests WHERE status = 0;";
   db.query(query, (err, result) => {
     if (err) {
       console.error(err);

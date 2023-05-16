@@ -23,6 +23,7 @@ import MainTest from "./Components/ManagerLogin/AllSections/MainTest";
 import GetPatientInformations from "./Components/ManagerLogin/Getinfopage/Patientlist/GetPatientInformations";
 import MonthlyClientCountsChart from "./Components/ManagerLogin/Getinfopage/Chart/ManagerChart";
 import CallRequests from "./Components/ManagerLogin/Getinfopage/CallRequests/CallRequests";
+import ManagerDashbord from "./Components/ManagerLogin/App";
 function App() {
   return (
     <div>
@@ -31,10 +32,11 @@ function App() {
       {/* <BarChart /> */}
       {/* <AboutMap /> */}
       {/* <MonthlyClientCountsChart /> */}
-      <CallRequests />
+      {/* <CallRequests /> */}
       {/* <Getinfopage /> */}
       {/* <GetPatientInformations /> */}
-       {/* <NavWeb /> */}
+      {/* <NavWeb /> */}
+      <ManagerDashbord />
       {/* <MainTest  /> */}
       {/* <Main /> */}
       {/* <ManagerSection /> */}

@@ -16,7 +16,7 @@ const CallRequests = () => {
   };
   const deleteConsultingRequest = (id) => {
     console.log("Deleting consulting request with ID:", id); // Log the ID parameter
-  
+
     Axios.delete(`http://localhost:3001/ConsultingReq/${id}`)
       .then((response) => {
         if (response.data.error) {
@@ -46,19 +46,6 @@ const CallRequests = () => {
     });
   };
 
-  const confirmDelete2 = (id2) => {
-    Swal.fire({
-      title: "Do you want to delete?",
-      showDenyButton: true,
-      confirmButtonText: "Cancel",
-      denyButtonText: `Yes, delete it`,
-    }).then((result) => {
-      if (result.isDenied) {
-        deleteConsultingRequest(id2);
-      }
-    });
-  };
-
   return (
     <div className="callRequests">
       <div className="getInfobtns">
@@ -70,6 +57,9 @@ const CallRequests = () => {
           {callReqList.map((val) => (
             <div className="patientInfo" key={val.id}>
               <div>
+                <strong>Request ID:</strong> {val.id}
+              </div>
+              <div>
                 <strong>Name:</strong> {val.name}
               </div>
               <div>
@@ -77,6 +67,11 @@ const CallRequests = () => {
               </div>
               <div>
                 <strong>Phone Number:</strong> {val.phonenumber}
+              </div>
+
+              <div>
+                <strong>Call Requested On:</strong>{" "}
+                {new Date(val.submission_time).toLocaleString()}
               </div>
               <button onClick={() => confirmDelete(val.id)}>Delete</button>
             </div>
