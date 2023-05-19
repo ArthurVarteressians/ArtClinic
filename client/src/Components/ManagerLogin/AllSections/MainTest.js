@@ -3,12 +3,18 @@ import CallRequests from "../Getinfopage/CallRequests/CallRequests";
 import MonthlyClientCountsChart from "../Getinfopage/Chart/ManagerChart";
 import GetPatientInformations from "../Getinfopage/Patientlist/GetPatientInformations";
 import "./FullManagerSection.css";
+
 function FullManagerSecion() {
   const [activeComponent, setActiveComponent] = useState(null);
 
   const handleClick = (component) => {
     setActiveComponent(component);
   };
+
+  const handlePatientInformationClick = () => {
+    setActiveComponent("patientInformations");
+  };
+
   return (
     <div>
       <div className="subheader">
@@ -26,7 +32,7 @@ function FullManagerSecion() {
         </button>
         <button
           className={activeComponent === "patientInformations" ? "active" : ""}
-          onClick={() => handleClick("patientInformations")}
+          onClick={handlePatientInformationClick}
         >
           Patient Information
         </button>
@@ -40,4 +46,5 @@ function FullManagerSecion() {
     </div>
   );
 }
+
 export default FullManagerSecion;

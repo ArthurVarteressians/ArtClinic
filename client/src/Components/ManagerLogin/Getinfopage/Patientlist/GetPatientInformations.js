@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import Swal from "sweetalert2";
 import "./Getinfopage.css";
@@ -7,11 +7,20 @@ const GetPatientInformations = () => {
   const [patientsList, setPatientList] = useState([]);
   const [showPatientsGrid, setShowPatientsGrid] = useState(false);
 
+  useEffect(() => {
+    getPatientInformations();
+  }, []);
+
   const getPatientInformations = () => {
-    Axios.get("http://localhost:3001/GetClientsLists").then((response) => {
-      setPatientList(response.data);
-      setShowPatientsGrid(true);
-    });
+    Axios.get("http://localhost:3001/GetClientsLists")
+      .then((response) => {
+        setPatientList(response.data);
+        setShowPatientsGrid(true);
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire("Error", "Failed to fetch patient information.", "error");
+      });
   };
 
   const deletePatient = (id) => {
@@ -48,8 +57,6 @@ const GetPatientInformations = () => {
 
   return (
     <div className="getPatientInformations">
-      <button onClick={getPatientInformations}>See All Patients </button>
-
       {showPatientsGrid && (
         <div className="patientsGrid">
           {patientsList.map((val) => (

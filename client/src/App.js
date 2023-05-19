@@ -35,8 +35,8 @@ function App() {
       {/* <CallRequests /> */}
       {/* <Getinfopage /> */}
       {/* <GetPatientInformations /> */}
-      {/* <NavWeb /> */}
-      <ManagerDashbord />
+      <NavWeb />
+      {/* <ManagerDashbord /> */}
       {/* <MainTest  /> */}
       {/* <Main /> */}
       {/* <ManagerSection /> */}

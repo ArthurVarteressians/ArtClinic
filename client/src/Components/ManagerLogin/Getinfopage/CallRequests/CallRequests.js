@@ -48,9 +48,9 @@ const CallRequests = () => {
 
   return (
     <div className="callRequests">
-      <div className="getInfobtns">
+      {/* <div className="getInfobtns">
         <button onClick={getCallRequests}>Consulting Requests</button>
-      </div>
+      </div> */}
 
       {callReqList.length > 0 && (
         <div className="patientsGrid">
