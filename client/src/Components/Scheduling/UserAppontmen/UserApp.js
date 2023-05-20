@@ -60,19 +60,6 @@ const UserAppointment = () => {
               </span>
             </h5>
             <h5>
-              Patient ID:
-              <span
-                style={{
-                  fontSize: "14px",
-                  fontWeight: "300",
-                  padding: "2px",
-                  borderRadius: "8px",
-                }}
-              >
-                {appointment.patient_id}{" "}
-              </span>
-            </h5>
-            <h5>
               Appointment Date:
               <span
                 style={{
@@ -99,9 +86,11 @@ const UserAppointment = () => {
               </span>
             </h5>
 
-            <p  className={`status ${
-        appointment.appointment_status === 1 ? "closed" : "in-progress"
-      }`}>
+            <p
+              className={`status ${
+                appointment.appointment_status === 1 ? "closed" : "in-progress"
+              }`}
+            >
               Status:
               <span
                 style={{
@@ -111,7 +100,7 @@ const UserAppointment = () => {
                   borderRadius: "8px",
                 }}
               >
-                {appointment.appointment_status ===1 ? "Close" : "In Progress"}{" "}
+                {appointment.appointment_status === 1 ? "Close" : "In Progress"}{" "}
               </span>
             </p>
           </div>

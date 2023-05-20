@@ -1,6 +1,11 @@
+/* .managerSectionBody{
+  min-height: 91vh;
+  background-color: #33333333;
+} */
+
 .subheader {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     margin-bottom: 20px;
   }
   

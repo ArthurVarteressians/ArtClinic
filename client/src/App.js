@@ -24,6 +24,7 @@ import GetPatientInformations from "./Components/ManagerLogin/Getinfopage/Patien
 import MonthlyClientCountsChart from "./Components/ManagerLogin/Getinfopage/Chart/ManagerChart";
 import CallRequests from "./Components/ManagerLogin/Getinfopage/CallRequests/CallRequests";
 import ManagerDashbord from "./Components/ManagerLogin/App";
+import Calendar from "./Components/ManagerLogin/AppointmentChart/Calendar";
 function App() {
   return (
     <div>
@@ -35,7 +36,9 @@ function App() {
       {/* <CallRequests /> */}
       {/* <Getinfopage /> */}
       {/* <GetPatientInformations /> */}
-      <NavWeb />
+      {/* <NavWeb /> */}
+
+      <Calendar />
       {/* <ManagerDashbord /> */}
       {/* <MainTest  /> */}
       {/* <Main /> */}

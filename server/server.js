@@ -61,6 +61,20 @@ app.use("/doctors", departmentChange);
 
 //==================================Scheduling Part=================================
 
+
+
+
+
+const appointmentCountsRouter = require("./routes/appointmentCounts");
+// ...
+app.use("/appointmentCounts", appointmentCountsRouter);
+
+//===============
+
+
+
+
+
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
@@ -135,7 +149,7 @@ app.put("/api/appointments/:appointments", (req, res) => {
 app.get("/patientInformation", verifyToken, (req, res) => {
   const patient_id = req.patient_id;
   const query = `
-    SELECT name, phoneNumber, email
+    SELECT id, name, phoneNumber, email
     FROM patientslist
     WHERE id = ?;
   `;
@@ -146,6 +160,7 @@ app.get("/patientInformation", verifyToken, (req, res) => {
     } else {
       if (results && results.length > 0) {
         const patientInfo = {
+          id: results[0].id,
           name: results[0].name,
           phoneNumber: results[0].phoneNumber,
           email: results[0].email,
@@ -157,6 +172,7 @@ app.get("/patientInformation", verifyToken, (req, res) => {
     }
   });
 });
+
 
 //=======================
 

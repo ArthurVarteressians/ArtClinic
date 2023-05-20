@@ -15,6 +15,7 @@ function Calendar() {
   const [patientName, setPatientName] = useState("");
   const [patientPhonenumber, setPatientPhonenumber] = useState("");
   const [patientEmail, setPatientEmail] = useState("");
+  const [patientId,setPatientID] = useState("");
   const [error, setError] = useState(null);
 
   const handleAppointmentClick = () => {
@@ -49,6 +50,7 @@ function Calendar() {
         setPatientName(data.name);
         setPatientPhonenumber(data.phoneNumber);
         setPatientEmail(data.email);
+        setPatientID(data.id)
       })
       .catch((error) => setError(error.response.data.message));
   };
@@ -62,38 +64,50 @@ function Calendar() {
       <SchedulingNav />
       <div className="Mainmain">
         <div className="Mainmain__left">
-        <div className="mainPatientInfoSec">
-          <p>
-            <span
-              style={{
-                fontWeight: "bold",
-              }}
-            >
-              Welcome dear:{" "}
-            </span>
-            {patientName}
-          </p>
-          <p>
-            <span
-              style={{
-                fontWeight: "bold",
-              }}
-            >
-              Phone Number:{" "}
-            </span>
-            {patientPhonenumber}
-          </p>
-          <p>
-            <span
-              style={{
-                fontWeight: "bold",
-              }}
-            >
-              Email:{" "}
-            </span>
-            {patientEmail}
-          </p>
-        </div>        </div>
+          <div className="mainPatientInfoSec">
+            <p>
+              <span
+                style={{
+                  fontWeight: "bold",
+                }}
+              >
+                Welcome dear:{" "}
+              </span>
+              {patientName}
+            </p>
+            <p>
+              <span
+                style={{
+                  fontWeight: "bold",
+                }}
+              >
+                Phone Number:{" "}
+              </span>
+              {patientPhonenumber}
+            </p>
+            <p>
+              <span
+                style={{
+                  fontWeight: "bold",
+                }}
+              >
+                Email:{" "}
+              </span>
+              {patientEmail}
+            </p>
+
+            <p>
+              <span
+                style={{
+                  fontWeight: "bold",
+                }}
+              >
+                Patient  ID:{" "}
+              </span>
+              {patientId}
+            </p>
+          </div>{" "}
+        </div>
 
         <div className="SchedulingBtns">
           <button onClick={handleAppointmentClick}>Make an Appointment</button>
