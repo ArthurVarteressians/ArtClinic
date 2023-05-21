@@ -1,7 +1,7 @@
 .ChartSectionssForApp {
   display: flex;
   justify-content: space-between;
-  background-color: rgba(255, 255, 255, 0.95) !important;
+  background-color: rgba(255, 255, 255, 0.85) !important;
   padding: 10px;
 }
 

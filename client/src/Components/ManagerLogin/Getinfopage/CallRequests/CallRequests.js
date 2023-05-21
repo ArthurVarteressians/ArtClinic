@@ -48,32 +48,32 @@ const CallRequests = () => {
 
   return (
     <div className="callRequests">
-      {/* <div className="getInfobtns">
-        <button onClick={getCallRequests}>Consulting Requests</button>
-      </div> */}
-
       {callReqList.length > 0 && (
         <div className="patientsGrid">
           {callReqList.map((val) => (
             <div className="patientInfo" key={val.id}>
               <div>
-                <strong>Request ID:</strong> {val.id}
+                <strong>Request ID: </strong> {val.id}
               </div>
               <div>
-                <strong>Name:</strong> {val.name}
+                <strong>Name: </strong> {val.name}
               </div>
               <div>
-                <strong>Email:</strong> {val.email}
+                <strong>Email: </strong> {val.email}
               </div>
               <div>
-                <strong>Phone Number:</strong> {val.phonenumber}
+                <strong>Phone Number: </strong> {val.phonenumber}
               </div>
-
               <div>
                 <strong>Call Requested On:</strong>{" "}
                 {new Date(val.submission_time).toLocaleString()}
               </div>
-              <button onClick={() => confirmDelete(val.id)}>Delete</button>
+              <button style={{marginLeft:"40%"}}
+                onClick={() => confirmDelete(val.id)}
+                className="deleteBtn"
+              >
+                Delete
+              </button>
             </div>
           ))}
         </div>

@@ -6,6 +6,7 @@ import "./Getinfopage.css";
 const GetPatientInformations = () => {
   const [patientsList, setPatientList] = useState([]);
   const [showPatientsGrid, setShowPatientsGrid] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => {
     getPatientInformations();
@@ -55,19 +56,44 @@ const GetPatientInformations = () => {
     });
   };
 
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  };
+
+  const filterPatients = (patients, searchValue) => {
+    if (!searchValue) {
+      return patients;
+    }
+
+    const searchTerm = searchValue.toLowerCase();
+
+    return patients.filter(
+      (patient) =>
+        patient.id.toString().includes(searchTerm) ||
+        patient.phonenumber.includes(searchTerm)
+    );
+  };
+
+  const filteredPatients = filterPatients(patientsList, searchValue);
+
   return (
     <div className="getPatientInformations">
+      <div className="searchBar">
+        <input
+          type="text"
+          placeholder="Search by ID or Phone Number"
+          value={searchValue}
+          onChange={handleSearchChange}
+        />
+      </div>
       {showPatientsGrid && (
         <div className="patientsGrid">
-          {patientsList.map((val) => (
+          {filteredPatients.map((val) => (
             <div className="patientInfo" key={val.id}>
               <div className="showPatientInfo">
                 <p>
                   <span style={{ fontWeight: "bold" }}>Patient ID: </span>
-                  <span style={{ textDecoration: "underline" }}>
-                    {" "}
-                    {val.id}{" "}
-                  </span>
+                  <span style={{ textDecoration: "underline" }}>{val.id}</span>
                 </p>
                 <p>
                   <span style={{ fontWeight: "bold" }}>Name: </span>

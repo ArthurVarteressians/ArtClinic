@@ -37,9 +37,6 @@ app.use("/api/doctors/openAppointments", doctorAppointmentList);
 // =================================Doctors Login Toast===============================
 const doctorLoginToast = require("./routes/doctorLoginToast");
 app.use("/getDoctorName", doctorLoginToast);
-// =================================Doctors Client Status Updates===============================
-// const doctorAppoitmentUpdate = require("./routes/doctorAppoitmentUpdate");
-// app.use("/api/appointments/:appointmentnumber", doctorAppoitmentUpdate);
 // =================================Manager Get All Client Lists===============================
 const managerGetClientsLists = require("./routes/managerGetClientsLists");
 app.use("/GetClientsLists", managerGetClientsLists);
@@ -58,57 +55,27 @@ app.use("/ConsultingReq", managerDeleteCallRequests);
 //==================================Department Change Handler=================================
 const departmentChange = require("./routes/departmentChange");
 app.use("/doctors", departmentChange);
-
-//==================================Scheduling Part=================================
-
-
-app.get("/doctorsss", (req, res) => {
-  db.query("SELECT * FROM doctors", (error, results) => {
-    if (error) {
-      console.error("Error retrieving doctors:", error);
-      res.status(500).json({ error: "Failed to retrieve doctors" });
-    } else {
-      res.json(results);
-    }
-  });
-});
-
-
-// GET /appointments?doctorId=:doctorId
-app.get("/appointmentss", (req, res) => {
-  const { doctorId } = req.query;
-
-  // Construct the SQL query to join the tables
-  const query = `
-    SELECT a.*, d.fullname AS doctor_name, p.name AS patient_name, p.phonenumber AS patient_phone_number
-    FROM appointments AS a
-    JOIN doctors AS d ON a.doctor_id = d.doctor_id
-    JOIN patientslist AS p ON a.patient_id = p.id
-    WHERE a.doctor_id = ?
-  `;
-
-  db.query(query, [doctorId], (error, results) => {
-    if (error) {
-      console.error(error);
-      res.status(500).json({ error: "An error occurred while fetching appointments." });
-    } else {
-      res.json(results);
-    }
-  });
-});
-
-
-
+//===============================Manager Report New Patient Counts==============================
 const appointmentCountsRouter = require("./routes/appointmentCounts");
-// ...
 app.use("/appointmentCounts", appointmentCountsRouter);
-
+//===============================Manager Report Doctor List ==============================
+const doctorsRouter = require("./routes/managerDoctorsList");
+app.use("/getDoctorsList", doctorsRouter);
+//===============================Manager Report Doctor Appointment Counts==============================
+const appointmentsRouter = require("./routes/managerAppointmentReport");
+app.use("/appointmentss", appointmentsRouter);
+//===============================================Check Available Time For Scheduling==============================
+const availabilityRouter = require("./routes/availability");
+app.use("/checkAvailability", availabilityRouter);
+//===============================================Update Patient Status In Doctors Sections==============================
+const statusUpdateDoc = require("./routes/updateStatusInDoctorSection");
+app.use("/api/appointments", statusUpdateDoc);
+//===============================================Doctor Dashbord Appointments Info==============================
+const doctorsDashbordAppointment = require("./routes/doctorsDashbordAppointment");
+app.use("/api/doctors", doctorsDashbordAppointment);
 //===============
 
-
-
-
-
+//=======================================================Clinet Part===============================================
 const verifyToken = (req, res, next) => {
   const token = req.headers.authorization;
   if (!token) {
@@ -124,152 +91,8 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-const verifyDocToken = (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
+//==================================================Scheduling part
 
-  if (!token) {
-    return res.status(403).send("Access denied");
-  }
-
-  jwt.verify(token, SECRET, (err, decoded) => {
-    if (err) {
-      console.error("Error verifying JWT token:", err);
-      return res.status(401).json({ error: "Invalid token" });
-    }
-    req.decodedToken = decoded;
-    next();
-  });
-};
-//=======================
-
-app.get("/api/doctors/closedAppointments", verifyDocToken, (req, res) => {
-  const doctor_id = req.decodedToken.id;
-  const query = `
-    SELECT a.appointmentnumber, 
-           DATE_FORMAT(a.appointment_date, '%Y-%m-%d %H:%i:%s') AS appointment_date, 
-           a.appointment_status,
-           p.name,
-           p.phonenumber
-    FROM appointments a
-    JOIN patientslist p ON a.patient_id = p.id
-    WHERE a.doctor_id = ? AND a.appointment_status = 1
-  `;
-  db.query(query, [doctor_id], (error, results) => {
-    if (error) {
-      console.error("Error retrieving closed appointments:", error);
-      return res.status(500).json({ error: "Internal server error" });
-    }
-    res.json(results);
-  });
-});
-
-///===============================
-
-app.put("/api/appointments/:appointments", (req, res) => {
-  const appointmentnumber = req.params.appointments;
-  const { status } = req.body;
-
-  const query =
-    "UPDATE appointments SET appointment_status = ? WHERE appointmentnumber = ?";
-  db.query(query, [status, appointmentnumber], (error, results) => {
-    if (error) {
-      console.error("Error updating appointment status:", error);
-      return res.status(500).json({ error: "Internal server error" });
-    }
-    res.sendStatus(200);
-  });
-});
-
-app.get("/patientInformation", verifyToken, (req, res) => {
-  const patient_id = req.patient_id;
-  const query = `
-    SELECT id, name, phoneNumber, email
-    FROM patientslist
-    WHERE id = ?;
-  `;
-  db.query(query, [patient_id], (error, results) => {
-    if (error) {
-      console.error(error);
-      res.sendStatus(500);
-    } else {
-      if (results && results.length > 0) {
-        const patientInfo = {
-          id: results[0].id,
-          name: results[0].name,
-          phoneNumber: results[0].phoneNumber,
-          email: results[0].email,
-        };
-        res.send(patientInfo);
-      } else {
-        res.sendStatus(404);
-      }
-    }
-  });
-});
-
-
-//=======================
-
-app.post("/checkAvailability", (req, res) => {
-  const doctorId = req.body.doctorId;
-  const date = req.body.date;
-  const formattedDate = moment(date).format("YYYY-MM-DD");
-
-  const query = `SELECT appointment_date FROM appointments WHERE doctor_id = ?`;
-
-  db.query(query, [doctorId], (error, results) => {
-    if (error) {
-      console.error(error);
-      res.status(500).json({ error: "Failed to fetch available times" });
-    } else {
-      const bookedTimes = results
-        .filter(
-          (result) =>
-            moment(result.appointment_date).format("YYYY-MM-DD") ===
-            formattedDate
-        )
-        .map((result) => moment(result.appointment_date).format("HH:mm"));
-
-      const availableTimes = getAvailableTimes(bookedTimes);
-      res.status(200).json({ availableTimes });
-    }
-  });
-});
-
-function getAvailableTimes(bookedTimes) {
-  const allTimes = ["10:00", "12:00", "14:00", "16:00"];
-  const availableTimes = allTimes.filter((time) => !bookedTimes.includes(time));
-  return availableTimes;
-}
-
-//=================================================
-app.get("/checkOpenAppointment", verifyToken, (req, res) => {
-  const { authorization } = req.headers;
-
-  // Check if the authorization token is present
-  if (!authorization) {
-    return res.status(401).json({ error: "Unauthorized" });
-  }
-
-  const patientId = req.patient_id;
-  console.log(patientId);
-  const query =
-    "SELECT * FROM appointments WHERE patient_id = ? AND appointment_status = 0";
-  db.query(query, [patientId], (error, results) => {
-    if (error) {
-      console.error("Error checking open appointment:", error);
-      return res.status(500).json({ error: "Internal server error" });
-    }
-
-    if (results.length > 0) {
-      return res.json({ hasOpenAppointment: true });
-    }
-
-    return res.json({ hasOpenAppointment: false });
-  });
-});
-
-//=============================
 app.post("/Sched", verifyToken, async (req, res) => {
   const doctorId = req.body.doctorId;
   const date = req.body.date;
@@ -341,7 +164,62 @@ app.post("/Sched", verifyToken, async (req, res) => {
   }
 });
 
-//=======================================================
+//==================================================Patient Dashbord Info showing
+
+app.get("/patientInformation", verifyToken, (req, res) => {
+  const patient_id = req.patient_id;
+  const query = `
+    SELECT id, name, phoneNumber, email
+    FROM patientslist
+    WHERE id = ?;
+  `;
+  db.query(query, [patient_id], (error, results) => {
+    if (error) {
+      console.error(error);
+      res.sendStatus(500);
+    } else {
+      if (results && results.length > 0) {
+        const patientInfo = {
+          id: results[0].id,
+          name: results[0].name,
+          phoneNumber: results[0].phoneNumber,
+          email: results[0].email,
+        };
+        res.send(patientInfo);
+      } else {
+        res.sendStatus(404);
+      }
+    }
+  });
+});
+
+////==================================================Patient Dashbord Appointment Requesting Logic
+app.get("/checkOpenAppointment", verifyToken, (req, res) => {
+  const { authorization } = req.headers;
+
+  // Check if the authorization token is present
+  if (!authorization) {
+    return res.status(401).json({ error: "Unauthorized" });
+  }
+
+  const patientId = req.patient_id;
+  console.log(patientId);
+  const query =
+    "SELECT * FROM appointments WHERE patient_id = ? AND appointment_status = 0";
+  db.query(query, [patientId], (error, results) => {
+    if (error) {
+      console.error("Error checking open appointment:", error);
+      return res.status(500).json({ error: "Internal server error" });
+    }
+
+    if (results.length > 0) {
+      return res.json({ hasOpenAppointment: true });
+    }
+
+    return res.json({ hasOpenAppointment: false });
+  });
+});
+////==================================================Patient Dashbord Appointment History
 
 app.get("/PatientAppointmentHistory", verifyToken, (req, res) => {
   const patientId = req.patient_id;
@@ -364,5 +242,7 @@ app.get("/PatientAppointmentHistory", verifyToken, (req, res) => {
     }
   );
 });
+
+///===============================PORT======================
 
 app.listen(PORT, () => console.log(`Server is Up on port ${PORT}`));

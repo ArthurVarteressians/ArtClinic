@@ -5,6 +5,7 @@ import "./MangerLogin.css";
 import Navtest from "../Navigation/WebView/Navtest";
 import Footer from "../Footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
+import ReCAPTCHA from "react-google-recaptcha";
 import "react-toastify/dist/ReactToastify.css";
 const ManagerLogin = () => {
   const [patientsList, setPatientList] = useState([]);
@@ -74,6 +75,12 @@ const ManagerLogin = () => {
           </div>
         </div>
       </div>
+
+      <ReCAPTCHA
+        sitekey="6Ld0BAwmAAAAAKmgFmJaKfws1Q8JWmb0IGg0IUwc"
+        theme="light"
+        size="invisible"
+      />
       <Footer />
     </div>
   );

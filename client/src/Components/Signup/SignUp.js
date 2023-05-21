@@ -24,11 +24,6 @@ function SignUp({ onSignInClick }) {
   const [registrationDate, setRegistrationDate] = useState(null);
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
 
-  // const handleCaptchaVerify = (response) => {
-  //   // Callback function triggered when reCAPTCHA is successfully verified
-  //   setIsCaptchaVerified(true);
-  // };
-
   useEffect(() => {
     setErrors(validate(data, "signup"));
   }, [data, touched]);
@@ -324,7 +319,6 @@ function SignIn({ onSignUpClick }) {
       if (response.status === 200) {
         notify("You signed up successfully", "success");
         const token = response.data.token;
-        // Store the token in localStorage
         localStorage.setItem("token", response.data.token);
         setTimeout(() => {
           window.location.href = "/Patient-Profile";
@@ -332,7 +326,6 @@ function SignIn({ onSignUpClick }) {
       }
     } catch (error) {
       if (error.response) {
-        // Server responded with an error
         const { status, data } = error.response;
         console.log("token has expired. Please log in again.");
 
@@ -342,7 +335,6 @@ function SignIn({ onSignUpClick }) {
           notify("Try again", "error");
         }
       } else {
-        // Network error or other client-side error, handle it as appropriate
         console.error("Error:", error.message);
         toast.error("An error occurred. Please try again later.");
       }
@@ -447,5 +439,3 @@ function SignUpOrSignIn() {
 }
 
 export default SignUpOrSignIn;
-
-// !/\S+@\S+\.\S+/.test(data.email)

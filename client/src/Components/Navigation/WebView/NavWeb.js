@@ -6,7 +6,7 @@ import { Link as ScrollLink } from "react-scroll";
 import { Link as RouterLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import ReCAPTCHA from "react-google-recaptcha";
 import Mainpage from "../../Mainpage/Mainpage";
 import Services from "../../ServicesLanding/WebView/ServicesLanding";
 import LandingFaqsAll from "../../FAQS/LandingFaqsAll";
@@ -105,6 +105,11 @@ function NavWeb() {
       </div>
       <div id="section3">
         <LandingFaqsAll />
+        <ReCAPTCHA
+        sitekey="6Ld0BAwmAAAAAKmgFmJaKfws1Q8JWmb0IGg0IUwc"
+        theme="light"
+        size="invisible"
+      />
         <Footer />
       </div>
     </div>

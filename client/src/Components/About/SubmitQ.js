@@ -3,6 +3,7 @@ import Axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./submitQ.css";
+import ReCAPTCHA from "react-google-recaptcha";
 
 function SubmitQ() {
   const [data, setData] = useState({
@@ -23,13 +24,24 @@ function SubmitQ() {
             phonenumber: data.phonenumber,
           },
         });
-  
-        if (response.status === 200 && response.data === "Duplicate email or phone number") {
+
+        if (
+          response.status === 200 &&
+          response.data === "Duplicate email or phone number"
+        ) {
           toast.error("You have already submitted a call request.");
-        } else if (response.status === 200 && response.data === "No duplicate entries") {
+        } else if (
+          response.status === 200 &&
+          response.data === "No duplicate entries"
+        ) {
           // If the client hasn't submitted a call request, proceed with form submission
-          const submitResponse = await Axios.post("http://localhost:3001/SubmitQ", data);
-          toast.success("Your call request submitted successfully. We will call you as soon as possible.");
+          const submitResponse = await Axios.post(
+            "http://localhost:3001/SubmitQ",
+            data
+          );
+          toast.success(
+            "Your call request submitted successfully. We will call you as soon as possible."
+          );
           // Reset the form fields
           setData({
             name: "",
@@ -45,7 +57,6 @@ function SubmitQ() {
       }
     }
   };
-  
 
   return (
     <div className="AllSubmit">
@@ -104,7 +115,11 @@ function SubmitQ() {
           <button type="submit">Free Consulting Request</button>
         </form>
       </div>
-
+      <ReCAPTCHA
+        sitekey="6Ld0BAwmAAAAAKmgFmJaKfws1Q8JWmb0IGg0IUwc"
+        theme="light"
+        size="invisible"
+      />
       <ToastContainer />
     </div>
   );
