@@ -15,12 +15,20 @@
   }
   
   .appointment-card .in-progress {
-    color: #fff;
-    background-color: blue;
+  
+    font-size: 12px;
+    font-weight: 300;
+    padding: 0px 5px;
+    border-radius: 3px;    
+    
+    background-color: rgba(0, 98, 255, 0.387);
   }
   
   .appointment-card .closed {
-    color: #fff;
-    background-color: green;
+    background-color: rgba(0, 128, 0, 0.475);
+    font-size: 12px;
+    font-weight: 300;
+    padding: 0px 5px;
+    border-radius: 3px;
   }
   

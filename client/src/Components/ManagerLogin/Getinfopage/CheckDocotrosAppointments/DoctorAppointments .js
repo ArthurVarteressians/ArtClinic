@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import "./DoctorAppointments.css"
+import "./DoctorAppointments.css";
 const DoctorAppointments = () => {
   const [doctors, setDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState("");
@@ -50,9 +50,10 @@ const DoctorAppointments = () => {
     });
   };
 
-
   return (
-    <div>
+    <div
+      style={{ padding: "10px", backgroundColor: "rgba(255, 255, 255, 0.1)" }}
+    >
       <h2>Doctor Appointments</h2>
       <select value={selectedDoctor} onChange={handleDoctorChange}>
         <option value="">Select a Doctor</option>
@@ -75,19 +76,36 @@ const DoctorAppointments = () => {
                 key={appointment.appointmentNumber}
                 className="appointment-card"
               >
-                <div className="card-header">
-                  <h3>Appointment Number: {appointment.appointmentNumber}</h3>
-                </div>
                 <div className="card-body">
-                  <p>Patient ID: {appointment.patient_id}</p>
-                  <p>Patient Name: {appointment.patient_name}</p>
                   <p>
-                    Patient Phone Number: {appointment.patient_phone_number}
+                    <span className="label">Patient ID: </span>
+                    <span className="value"> {appointment.patient_id}</span>
                   </p>
-                  <p>Appointment Date: {formatDate(appointment.appointment_date)}</p>
-                  <p>Update Date: {formatDate(appointment.update_date)}</p>
+
                   <p>
-                    Appointment Status:{" "}
+                    <span className="label">Patient full name:</span>{" "}
+                    <span className="value">{appointment.patient_name}</span>
+                  </p>
+                  <p>
+                    <span className="label">Patient Phone Number:</span>{" "}
+                    <span className="value">
+                      {appointment.patient_phone_number}
+                    </span>
+                  </p>
+                  <p>
+                    <span className="label"> Appointment Date: </span>{" "}
+                    <span className="value">
+                      {formatDate(appointment.appointment_date)}
+                    </span>
+                  </p>
+                  <p>
+                    <span className="label">Update Date: </span>{" "}
+                    <span className="value">
+                      {formatDate(appointment.update_date)}
+                    </span>
+                  </p>
+                  <p>
+                    <span className="label"> Appointment Status: </span>{" "}
                     {appointment.appointment_status === 0 ? (
                       <span className="in-progress">In Progress</span>
                     ) : (
@@ -100,7 +118,7 @@ const DoctorAppointments = () => {
           </div>
         </div>
       ) : (
-        <p>No appointments found.</p>
+        <p>Please select the Doctor.</p>
       )}
     </div>
   );

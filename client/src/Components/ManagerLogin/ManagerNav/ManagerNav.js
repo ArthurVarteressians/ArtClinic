@@ -16,7 +16,6 @@ function ManagerNav() {
         </NavLink>
 
         <div className="navWebVLinks">
-
           <li>
             <div className="iconLoginNav">
               <NavLink
