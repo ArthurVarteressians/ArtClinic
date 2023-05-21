@@ -1,0 +1,26 @@
+.appointment-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .appointment-card .card-header {
+    background-color: #f2f2f2;
+    padding: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .appointment-card .card-body {
+    padding: 5px;
+  }
+  
+  .appointment-card .in-progress {
+    color: #fff;
+    background-color: blue;
+  }
+  
+  .appointment-card .closed {
+    color: #fff;
+    background-color: green;
+  }
+  

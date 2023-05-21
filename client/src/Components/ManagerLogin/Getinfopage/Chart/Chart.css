@@ -1,8 +1,12 @@
 .ChartSectionss {
     background-color: rgba(173, 173, 173, 0.075);
+    padding: 10px;
 }
-.chartBtn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.ChartSectionss h2{
+    text-align: center;
+}
+
+.NewRegCountText{
+    padding: 5px;
 }

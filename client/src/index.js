@@ -12,17 +12,13 @@ import Mainpage from "./Components/Mainpage/Mainpage";
 import Services from "./Components/ServiceSe/Services.js";
 import MainSignUp from "./Components/Signup/MainSignUp";
 import "./Components/Sass/LandingpageButton.scss";
-import Getinfopage from "./Components/ManagerLogin/Getinfopage";
 import ManagerLogin from "./Components/ManagerLogin/ManagerLogin";
-// import Calendar from "./Components/Scheduling/Calendar";
 import MainAboutSetcin from "./Components/About/MainAboutSetcin";
 import PrivacyandPolicy from "./Components/Privacy&Policy/PrivacyandPolicy";
 import DoctorGetInfo from "./Components/ManagerLogin/Docotrs/DoctorGetInfo";
-import ManagerSection from "./Components/ManagerLogin/ManagerSection";
 import MainScheSec from "./Components/Scheduling/MainScheSec";
 import CardDetails from "./Components/Payment/Payment";
 import FullManagerSecion from "./Components/ManagerLogin/AllSections/MainTest";
-// REACT_APP_RECAPTCHA_SITE_KEY = "6LfRNwgmAAAAAN8Y1IYfVYy7a8pgapket83JSxRK";
 const router = createBrowserRouter([
   {
     path: "/",

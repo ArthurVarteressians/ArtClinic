@@ -1,14 +1,13 @@
 import React from "react";
-import AppointmentCounts from "./AppointmentCounts";
 import AppointmentCountsChart from "./AppointmentCountsChart";
+import MonthlyClientCountsChart from "../Getinfopage/Chart/ManagerChart";
 
 function Calendar() {
   return (
     <>
-      <div className="Mainmain">
-        {/* <AppointmentCounts /> */}
-        <AppointmentCountsChart />
-      </div>
+        <MonthlyClientCountsChart />
+        <hr/>
+         <AppointmentCountsChart />
     </>
   );
 }
