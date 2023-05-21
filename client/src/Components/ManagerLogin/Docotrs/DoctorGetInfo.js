@@ -7,6 +7,7 @@ import ManagerNav from "../ManagerNav/ManagerNav";
 import Footer from "../../Footer/Footer";
 import Swal from "sweetalert2";
 import "./DoctorGetinfo.css";
+
 const DoctorAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState(null);
@@ -14,8 +15,13 @@ const DoctorAppointments = () => {
   const [statusOptions, setStatusOptions] = useState(["0", "1"]);
   const [doctorFullName, setDoctorFullName] = useState("");
   const [showOpenAppointments, setShowOpenAppointments] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   const handleStatusChange = (appointmentnumber, newStatus) => {
+    if (newStatus !== "1") {
+      toast.error("For closing appointment, please change status to 1");
+      return;
+    }
     Swal.fire({
       title: "Confirmation",
       text: "Are you sure you want to update the appointment status?",
@@ -45,7 +51,7 @@ const DoctorAppointments = () => {
                 appointment.appointmentnumber !== appointmentnumber
             );
             setAppointments(updatedAppointments);
-            setTotalAppointments(totalAppointments - 1); // Update total appointments
+            setTotalAppointments((prevTotal) => prevTotal - 1);
           })
           .catch((error) => setError(error.response.data.message));
       }
@@ -123,6 +129,26 @@ const DoctorAppointments = () => {
     getDoctorName();
   }, []);
 
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  };
+
+  const filterAppointments = (appointments, searchValue) => {
+    if (!searchValue) {
+      return appointments;
+    }
+
+    const searchTerm = searchValue.toLowerCase();
+
+    return appointments.filter(
+      (appointment) =>
+        appointment.appointmentnumber.toString().includes(searchTerm) ||
+        appointment.phonenumber.includes(searchTerm)
+    );
+  };
+
+  const filteredAppointments = filterAppointments(appointments, searchValue);
+
   return (
     <div>
       <ManagerNav />
@@ -141,6 +167,14 @@ const DoctorAppointments = () => {
           </div>
 
           <div>
+            <div className="searchBar">
+              <input
+                type="text"
+                placeholder="Search by ID or Phone Number"
+                value={searchValue}
+                onChange={handleSearchChange}
+              />
+            </div>
             {showOpenAppointments ? (
               <>
                 <div className="statusHeader">
@@ -155,7 +189,7 @@ const DoctorAppointments = () => {
                       </span>
                     </p>
                     <div className="appointment-grid">
-                      {appointments.map((appointment) => (
+                      {filteredAppointments.map((appointment) => (
                         <div
                           className="appointment-card"
                           key={appointment.appointmentnumber}
@@ -261,13 +295,11 @@ const DoctorAppointments = () => {
                     </span>{" "}
                   </p>
                   <div className="appointment-grid">
-                    {appointments.map((appointment) => (
+                    {filteredAppointments.map((appointment) => (
                       <div className="appointment-card" key={appointment.id}>
                         <div>
                           <p>
-                            <span className="label">
-                              Appointment Number:
-                            </span>{" "}
+                            <span className="label">Appointment Number:</span>{" "}
                             <span
                               style={{
                                 textDecoration: "underline",
