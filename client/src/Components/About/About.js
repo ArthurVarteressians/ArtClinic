@@ -8,7 +8,7 @@ const AboutMap = () => {
   useEffect(() => {
     const delayToShowMap = setTimeout(() => {
       setShowMap(true);
-    }, ); // Set delay time in milliseconds here
+    });
 
     return () => {
       clearTimeout(delayToShowMap);
@@ -29,9 +29,7 @@ const AboutMap = () => {
         <div className="mapInAbout">
           <LoadScript
             googleMapsApiKey="AIzaSyDvIyx1Zog-TxltpeOh3VKklQQifU-ZptI"
-            onLoad={() => {
-              // Handle map load event
-            }}
+            onLoad={() => {}}
           >
             <GoogleMap
               mapContainerStyle={{ height: "700px" }}

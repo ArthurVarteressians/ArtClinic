@@ -18,7 +18,7 @@ function Calendar() {
 
   const filterDate = (date) => {
     const day = date.getDay();
-    return day !== 0 && day !== 6; // 0 = Sunday, 6 = Saturday
+    return day !== 0 && day !== 6; 
   };
   const fetchDoctors = (department) => {
     fetch(`http://localhost:3001/doctors/${department}`)

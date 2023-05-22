@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import React, { useState, useEffect } from "react";
 import { notify } from "./toast";
 import styles from "./SignUp.module.css";
 import validate from "./validate";
@@ -289,8 +289,6 @@ function SignIn({ onSignUpClick }) {
     password: false,
   });
 
-
-
   useEffect(() => {
     setErrors(validate(data, "login"));
   }, [data, touched]);
@@ -390,11 +388,11 @@ function SignIn({ onSignUpClick }) {
               <span>{errors.loginpassword}</span>
             )}
           </div>
-            <ReCAPTCHA
-              sitekey="6Ld0BAwmAAAAAKmgFmJaKfws1Q8JWmb0IGg0IUwc"
-              theme="light"
-              size="invisible"
-            />
+          <ReCAPTCHA
+            sitekey="6Ld0BAwmAAAAAKmgFmJaKfws1Q8JWmb0IGg0IUwc"
+            theme="light"
+            size="invisible"
+          />
 
           <div className={styles.formButtons}>
             <button type="submit">Login</button>

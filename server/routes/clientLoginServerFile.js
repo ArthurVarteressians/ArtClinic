@@ -12,7 +12,9 @@ router.post("/", async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    const results = await query("SELECT * FROM patientslist WHERE email = ?", [email]);
+    const results = await query("SELECT * FROM patientslist WHERE email = ?", [
+      email,
+    ]);
 
     if (results.length === 0) {
       return res
@@ -31,16 +33,13 @@ router.post("/", async (req, res) => {
 
       console.log(`Token generated successfully: ${token}`);
 
-      const patientId = results[0].id; 
-      return res
-        .status(200)
-        .header("Authorization", token)
-        .json({
-          success: true,
-          token: token,
-          email: email,
-          patient_id: patientId,
-        });
+      const patientId = results[0].id;
+      return res.status(200).header("Authorization", token).json({
+        success: true,
+        token: token,
+        email: email,
+        patient_id: patientId,
+      });
     } else {
       return res
         .status(401)
