@@ -8,135 +8,83 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    height: auto;
-  }
-  
-  .ServicesLpageBody {
+    /* height: 100vh; */
+}
+
+.ServicesLpageBody {
     display: flex;
     align-items: center;
     flex-direction: column;
     text-align: center;
-    margin-top: 30px;
-  }
-  
-  .ServicesLContainer {
+    margin-top: 36px;
+}
+
+.ServicesLContainer {
     display: flex;
     justify-content: center;
-    padding-top: 15px;
-  }
-  
-  .ServicesLContent img {
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-self: center;
-    color: #00facc;
-  }
-  
-  .ServicesLService {
+    padding-top: 2px;
+}
+
+.ServicesLService {
     background-color: #ffffff4b;
-    max-width: 25%;
-    font-size: large;
     height: 250px;
     border: 1px solid rgba(0, 0, 0, 0.24);
     border-radius: 7px;
-    margin: 15px 15px 10px 15px;
+    margin: 12px;
     display: flex;
     padding: 15px 5px;
-  }
-  
-  .ServicesLService .ServicesLContent img {
-    margin-top: 10px;
-    width: 14%;
-    display: flex;
+}
+
+.ServicesLService .ServicesLContent img {
+    max-width: 15%;
     margin: auto;
-  }
-  
-  /* .ServicesLService .ServicesLContent h2 {
-    margin-top: 10px;
-    text-align: center;
-    font-size: larger;
-  }
-  
-  .ServicesLService .ServicesLContent p {
-    margin-top: 10px;
-    align-items: justify;
-    text-justify: inherit;
-    font-size: 1.2vw;
-  } */
-  
+}
+
 .ServicesLContent h2 {
-    font-size: clamp(14px, 2vw, 24px); /* Adjust as needed */
+    font-size: clamp(14px, 2vw, 24px);
     line-height: 1.2;
-  }
-  
-  .ServicesLContent p {
-    font-size: clamp(1.4rem, 1.5vw, 2rem); /* Adjust as needed */
+}
+
+.ServicesLContent p {
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
     line-height: 1.5;
-  }
-  
-  @media (min-width: 1024px) {
-    .ServicesLContent h2 {
-      font-size: 28px; /* Maximum font size for larger screens */
+}
+
+
+.ServicesLpageBody button {
+    margin-top: 5px;
+}
+
+
+@media (min-width: 1024px) {
+    .ServicesLService {
+        max-width: 30%;
     }
-  
-    .ServicesLContent p {
-      font-size: 20px; /* Maximum font size for larger screens */
+}
+
+@media (max-width: 768px) {
+    .ServicesLWeb {
+        height: auto;
     }
-  }
-  
-  
-  
-  .landingServicesDivider {
+
+    .ServicesLContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ServicesLService {
+        width: 70vw;
+        max-width: none;
+        margin: 10px 0;
+        padding: 10px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.landingServicesDivider {
     border: 1px solid rgba(0, 0, 0, 0.164);
     border-radius: 40px;
     width: 40%;
-  }
-  
-  .ServicesLpageBody button {
-    margin-top: 10px;
-  }
-  
-  @media (max-width: 768px) {
-    .ServicesLWeb {
-      height: auto;
-      min-height: 100vh;
-    }
-  
-    .ServicesLpageBody {
-      margin-top: 10px;
-    }
-  
-    .ServicesLContainer {
-      display: flex;
-      flex-direction: column;
-    }
-  
-    .ServicesLService {
-      width: 70vw;
-      margin: 10px 0;
-      padding: 10px;
-      height: auto;
-      display: flex;
-      flex-direction: column;
-    }
-  
-    .ServicesLService .ServicesLContent img {
-      width: 50px;
-      margin-bottom: 10px;
-    }
-  
-    .ServicesLService .ServicesLContent h2 {
-      margin-top: 0;
-    }
-  
-    .ServicesLpageBody button {
-      margin-top: 20px;
-    }
-  }
-  
-  .ServicesLContent p {
-    text-align: center;
-    /* margin-top: 70px; */
-  }
-  
+}
