@@ -24,7 +24,7 @@ const Services = () => {
             <div className="ServicesLService">
               <div className="ServicesLContent">
                 <img src={img1} alt="It's one of our clinic Services " />
-                <h2>Years of experience</h2>
+                <h4>Years of experience</h4>
                 <p>
                   With a wealth of experience in our field, we bring expertise
                   and knowledge to every service we provide
@@ -34,7 +34,7 @@ const Services = () => {
             <div className="ServicesLService">
               <div className="ServicesLContent">
                 <img src={img2} alt="It's one of our clinic Services " />
-                <h2>Modern equipment</h2>
+                <h4>Modern equipment</h4>
                 <p>
                   Our advanced technology and equipment ensure
                   precise and efficient services, delivering optimal results for
@@ -45,7 +45,7 @@ const Services = () => {
             <div className="ServicesLService">
               <div className="ServicesLContent">
                 <img src={img3} alt="It's one of our clinic Services " />
-                <h2>Caring Personnel</h2>
+                <h4>Caring Personnel</h4>
                 <p>
                   Our compassionate team provides personalized care Your
                   well-being is our top priority

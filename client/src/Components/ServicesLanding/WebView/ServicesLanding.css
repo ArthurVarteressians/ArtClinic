@@ -36,7 +36,7 @@
 }
 
 .ServicesLService .ServicesLContent img {
-    width: 50px;
+    width: 18%;
     margin: auto;
 }
 
@@ -58,6 +58,10 @@
 @media (min-width: 768px) {
     .ServicesLContainer {
         max-width: 90%;
+    }
+    .ServicesLService .ServicesLContent img {
+        width: 60px;
+        margin: auto;
     }
 }
 

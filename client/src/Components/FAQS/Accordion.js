@@ -8,7 +8,7 @@ function Accordion({ title, content }) {
   return (
     <div className="accordion">
       <button className="accordion__button" onClick={handleToggle}>
-        <h3 className="accordion__title">{title}</h3>
+        <p className="accordion__title">{title}</p>
         <span
           className={`accordion__icon ${
             isExpanded ? "accordion__icon--expanded" : ""

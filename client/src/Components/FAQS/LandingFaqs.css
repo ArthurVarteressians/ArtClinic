@@ -2,31 +2,20 @@
     background-image: url("./b6.png");
     background-position: center;
     background-size: cover;
-    height: 85vh;
+    height: 90vh;
     background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-}
-
-h3 {
-    box-shadow: 0 0 0 !important;
-    width: 100%;
-    text-align: left;
-    border: 0 !important;
-    border-radius: 0 !important;
-    padding: 5px !important;
 }
 
 .faq-section {
-    width: 50%;
+    width: 60%;
 }
 
-.faq-section h2 {
-    /* font-size: 25px; */
-    margin-bottom: 5%;
+.faq-section h1 {
+    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -51,11 +40,6 @@ h3 {
     text-align: left;
     cursor: pointer;
     margin: 0 !important;
-}
-
-.accordion__title {
-    margin: 0;
-    font-size: 18px;
 }
 
 .accordion__icon {
@@ -95,4 +79,12 @@ h3 {
     padding: 10px;
     transition: 0.3s ease-out;
     font-size: 15px;
+}
+
+
+@media (max-width: 768px) {
+    .accordion__content--expanded {
+        font-size: 12px;
+
+    }
 }

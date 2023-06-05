@@ -5,7 +5,7 @@ export default function LandingFaqs({ FaqsDatas }) {
   return (
     <div className="faqMainSection">
       <div className="faq-section">
-        <h2>Frequently Asked Questions</h2>
+        <h1>Frequently Asked Questions</h1>
 
         {FaqsDatas.map((FaqsData) => (
           <Accordion
