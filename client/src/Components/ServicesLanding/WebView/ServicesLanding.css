@@ -27,16 +27,16 @@
 
 .ServicesLService {
     background-color: #ffffff4b;
-    height: 250px;
     border: 1px solid rgba(0, 0, 0, 0.24);
     border-radius: 7px;
+    width: 100%;
     margin: 12px;
     display: flex;
     padding: 15px 5px;
 }
 
 .ServicesLService .ServicesLContent img {
-    max-width: 15%;
+    width: 50px;
     margin: auto;
 }
 
@@ -55,10 +55,9 @@
     margin-top: 5px;
 }
 
-
-@media (min-width: 1024px) {
-    .ServicesLService {
-        max-width: 30%;
+@media (min-width: 768px) {
+    .ServicesLContainer {
+        max-width: 90%;
     }
 }
 
