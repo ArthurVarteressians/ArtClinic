@@ -20,7 +20,7 @@
 .service3,
 .service4,
 .service5 {
-    width: 60%;
+    width: 65%;
     display: flex;
     border-radius: 10px;
     box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.76);
@@ -29,12 +29,10 @@
     align-items: center;
 }
 
-
 .service3,
 .service5 {
     justify-content: end;
 }
-
 
 .servicesWebMain img {
     width: 30vw;
@@ -43,7 +41,7 @@
 }
 
 .servicesWebMain p {
-    font-size: 1.2vw;
-    padding: 15px;
+    padding: 10px;
     font-weight: 300;
+    font-size: 1.4vw !important;
 }

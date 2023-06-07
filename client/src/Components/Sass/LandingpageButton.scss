@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
   font-family: "Poppins";
@@ -8,7 +9,7 @@ body {
 
 button {
   text-align: center !important;
-  font-size: 1.5vw !important;
+  font-size: 1.6vw !important;
   border-radius: 7px !important;
   background-color: #3acfe9c5 !important;
   padding: 5px !important;
@@ -22,23 +23,24 @@ button:hover {
   background-color: rgba(88, 243, 222, 0.486) !important;
 }
 
-
-
 label {
-  font-weight: 400;
-  font-size: 1.5vw;
-}
-
-h1, h2, h3, h5, h6 {
-  font-size: clamp(24px, 2vw, 28px) !important;
-  line-height: 1.2;
-}
-
-p {
-  font-size: clamp(1rem, 1.5vw, 1.5rem) !important;
+  font-size: clamp(14px, 1.2vw, 16px);
   line-height: 1.5;
 }
 
+p {
+  font-size: clamp(14px, 1.5vw, 18px);
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h5,
+h6 {
+  font-size: clamp(24px, 2vw, 28px) !important;
+  line-height: 1.2;
+}
 
 .scroll-to-top {
   scroll-behavior: auto !important;

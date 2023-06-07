@@ -7,12 +7,13 @@
 }
 
 .submitQinputs form {
-    margin: auto;
+    margin:  20px auto;
     display: flex;
     flex-direction: column;
-    width: 30%;
+    max-width: 48%;
 }
-.submitQinputs input{
+
+.submitQinputs input {
     border: 1px solid silver;
     background-color: rgba(255, 255, 255, 0.548) !important;
     border-radius: 7px;
@@ -31,12 +32,11 @@
     border: 1px solid black;
     padding: 10px;
     margin: 20px auto;
-    width: 60%;
+    width: 65%;
     border-radius: 10px;
     box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.493);
 }
 
-.AllSubmit button{
-    
-    margin:  10px auto;
+.AllSubmit button {
+    margin: 20px auto;
 }

@@ -1,4 +1,4 @@
-.sec-padding {
+/* .sec-padding {
     padding: 0.5rem 5rem 0.3rem 5rem;
 }
 
@@ -6,6 +6,7 @@
     scroll-behavior: auto !important;
     scroll-margin-top: 0 !important;
 }
+
 .footer {
     background: rgba(148, 227, 227, 0.507);
 }
@@ -33,10 +34,11 @@
     color: rgb(52, 170, 224);
 }
 
-.sb-footer-links-div h4{
+.sb-footer-links-div h4 {
     font-weight: 900;
 }
-.sb-footer-links-div p{
+
+.sb-footer-links-div p {
     font-weight: 200;
     font-size: 15px !important;
 }
@@ -55,7 +57,7 @@ a {
     margin-bottom: 0.9rem;
 }
 
-.socialMedia i{
+.socialMedia i {
     font-size: 20px;
 }
 
@@ -78,12 +80,12 @@ a {
     flex-direction: row;
 }
 
-.sb-footer-below p{
+.sb-footer-below p {
     font-size: smaller !important;
 }
 
 .sb-footer-below-links div p {
-    font-size: 10px ;
+    font-size: 10px;
     font-weight: 400;
     margin-left: 0.9rem;
     color: rgb(46, 124, 241);
@@ -95,16 +97,16 @@ hr {
 }
 
 .sb-footer-copyright p {
-    font-size: 10px ;
+    font-size: 10px;
     font-weight: 400;
     line-height: 15px;
     color: rgb(46, 124, 241);
- 
+
 }
 
 @media screen and (max-width:850px) {
     .sb-footer h1 {
-        font-size: 44px ;
+        font-size: 44px;
         line-height: 50px;
     }
 
@@ -120,7 +122,7 @@ hr {
 
 @media screen and (max-width:550px) {
     .sb-footer h1 {
-        font-size: 34px ;
+        font-size: 34px;
         line-height: 42px;
     }
 
@@ -155,11 +157,11 @@ hr {
 
 @media screen and (max-width:400px) {
     h4 {
-        font-size: large !important;
+        font-size: large;
     }
 
     p {
-        font-size: 10px !important;
+        font-size: 10px;
 
     }
 
@@ -167,4 +169,4 @@ hr {
         font-size: 27px;
         line-height: 38px;
     }
-}
+} */

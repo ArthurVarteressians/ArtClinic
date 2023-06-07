@@ -8,7 +8,7 @@ const AboutMap = () => {
   useEffect(() => {
     const delayToShowMap = setTimeout(() => {
       setShowMap(true);
-    });
+    }, 1000);
 
     return () => {
       clearTimeout(delayToShowMap);
@@ -20,7 +20,7 @@ const AboutMap = () => {
 
   const mapOptions = {
     disableDefaultUI: true,
-    zoomControl: true,
+    zoomControl: true
   };
 
   return (
@@ -32,7 +32,7 @@ const AboutMap = () => {
             onLoad={() => {}}
           >
             <GoogleMap
-              mapContainerStyle={{ height: "700px" }}
+              mapContainerStyle={{ height: "100%" }}
               center={mapCenter}
               zoom={zoomLevel}
               options={mapOptions}
