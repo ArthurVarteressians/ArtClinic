@@ -16,10 +16,8 @@
 
 .LandingpageTexts {
     display: flex;
-    flex-direction: row;
     width: 90%;
     justify-content: space-between;
-    
 }
 
 .LandingpageTexts2 {
@@ -29,5 +27,31 @@
     text-align: center;
     padding: 10px;
     background-color: rgba(226, 226, 226, 0.486);
-    font-size: 1.17vw;
+}
+
+
+@media (max-width: 768px) {
+
+    .mainPageStructure {
+        height: 60vh;
+    }
+
+    .LandingpageTexts {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mainLangdingPageSec {
+        height: 60vh;
+    }
+
+    .LandingpageTexts2 {
+        width: 75%;
+        margin-top: 15px;
+        background-color: rgba(226, 226, 226, 0.766);
+    }
+
+    .LandingpageTexts2 p {
+        font-size: 2.8vw;
+    }
 }
