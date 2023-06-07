@@ -11,7 +11,7 @@
 }
 
 .faq-section {
-    width: 60%;
+    width: 40%;
 }
 
 .faq-section h1 {
@@ -33,7 +33,6 @@
     align-items: center;
     background-color: #f7f7f7 !important;
     color: #333;
-    font-size: 16px;
     padding: 5px;
     width: 100%;
     border: none;
@@ -43,7 +42,7 @@
 }
 
 .accordion__icon {
-    font-size: 20px;
+    font-size: 18px;
     transition: transform 0.4s ease;
     color: #333;
 }
@@ -70,7 +69,6 @@
     transition: 0.2s ease-out;
     height: 0;
     padding: 0 15px;
-    font-size: 13px;
 }
 
 .accordion__content--expanded {
@@ -78,13 +76,16 @@
     height: auto;
     padding: 10px;
     transition: 0.3s ease-out;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 
 @media (max-width: 768px) {
     .accordion__content--expanded {
-        font-size: 12px;
+        font-size: 11px;
+    }
 
+    .faq-section {
+        width: 80vw;
     }
 }

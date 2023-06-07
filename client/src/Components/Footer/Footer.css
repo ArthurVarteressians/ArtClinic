@@ -108,6 +108,8 @@ hr {
     font-size: 44px;
     line-height: 50px;
   }
+
+
 }
 
 @media screen and (max-width: 550px) {
@@ -139,5 +141,11 @@ hr {
   .sb-footer h1 {
     font-size: 27px;
     line-height: 38px;
+  }
+}
+
+@media screen and (max-width: 250px) {
+  .socialMedia i {
+    font-size: x-small;
   }
 }
