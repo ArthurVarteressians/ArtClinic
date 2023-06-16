@@ -33,7 +33,7 @@
 @media (max-width: 768px) {
 
     .mainPageStructure {
-        height: 60vh;
+        height: 85vh;
     }
 
     .LandingpageTexts {
@@ -42,7 +42,7 @@
     }
 
     .mainLangdingPageSec {
-        height: 60vh;
+        height: 100vh;
     }
 
     .LandingpageTexts2 {

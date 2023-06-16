@@ -56,7 +56,7 @@
 
 @media (max-width: 768px) {
     .ServicesLWeb {
-        height: auto;
+        height: 150vh;
     }
 
     .ServicesLContainer {

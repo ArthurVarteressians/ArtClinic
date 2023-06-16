@@ -3,11 +3,12 @@ import AboutMap from "./About";
 import Navtest from "../Navigation/WebView/Navtest";
 import Footer from "../Footer/Footer";
 import SubmitQ from "./SubmitQ";
+import NavigationForSections from "../Navigation/NavigationForSections";
 
 function MainAboutSetcin() {
   return (
     <div>
-      <Navtest />
+      <NavigationForSections />
       <AboutMap />
       <SubmitQ />
       <Footer />
