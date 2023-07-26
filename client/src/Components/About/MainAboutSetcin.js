@@ -1,6 +1,5 @@
 import React from "react";
 import AboutMap from "./About";
-import Navtest from "../Navigation/WebView/Navtest";
 import Footer from "../Footer/Footer";
 import SubmitQ from "./SubmitQ";
 import NavigationForSections from "../Navigation/NavigationForSections";

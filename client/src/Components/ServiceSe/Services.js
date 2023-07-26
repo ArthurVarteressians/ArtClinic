@@ -1,11 +1,11 @@
 import React from "react";
 import Footer from "../Footer/Footer";
 import ServicesWeb from "./ServiceWeb/ServicesWeb";
-import Navtest from "../Navigation/WebView/Navtest";
+import NavigationForSections from "../Navigation/NavigationForSections";
 function Services() {
   return (
     <div>
-      <Navtest />
+      <NavigationForSections />
       <ServicesWeb />
       <Footer />
     </div>

@@ -1,12 +1,12 @@
 import React from "react";
 import Signup from "./SignUp";
 import Footer from "../Footer/Footer";
-import Navtest from "../Navigation/WebView/Navtest";
+import NavigationForSections from "../Navigation/NavigationForSections";
 
 const MainSignUp = () => {
   return (
     <div>
-      <Navtest />
+      <NavigationForSections />
       <Signup />
       <Footer />
     </div>

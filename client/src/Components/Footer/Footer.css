@@ -17,11 +17,10 @@
 }
 
 .sb-footer-links {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rem;
   align-items: flex-start;
-  flex-wrap: wrap;
   text-align: left;
   width: 100%;
 }
@@ -104,45 +103,45 @@ hr {
 }
 
 @media screen and (max-width: 850px) {
-  .sb-footer h1 {
-    font-size: 44px;
-    line-height: 50px;
-  }
-
-
-}
-
-@media screen and (max-width: 550px) {
-  .sb-footer h1 {
-    font-size: 34px;
-    line-height: 42px;
-  }
-
-  .sb-footer-links div {
-    margin: 1rem 0;
+  .sb-footer-links {
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
   }
 
   .sb-footer-below {
-    flex-direction: column;
-    justify-content: left;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .sb-footer {
+    text-align: center;
+  }
+
+  .sb-footer-links {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .sb-footer-links-div {
+    width: 100%;
+    margin-bottom: 1rem;
   }
 
   .sb-footer-below-links {
-    flex-direction: column;
-  }
-
-  .sb-footer-below-links p {
-    margin-left: 0;
     margin-top: 1rem;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .sb-footer h1 {
-    font-size: 27px;
-    line-height: 38px;
+  .sb-footer h4 {
+    font-size: 20px;
+  }
+
+  .sb-footer-links {
+    grid-template-columns: 1fr;
   }
 }
+
 
 @media screen and (max-width: 250px) {
   .socialMedia i {
