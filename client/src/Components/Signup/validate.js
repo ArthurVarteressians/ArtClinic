@@ -16,15 +16,12 @@ const validate = (data) => {
   } else {
     delete errors.email;
   }
-  
-
 
   if (!data.age || data.age < 1 || data.age > 120) {
     errors.age = "Please enter coorect information!";
   } else {
     delete errors.age;
   }
-  
 
   if (!data.phonenumber || !data.phonenumber.trim()) {
     errors.phonenumber = "Phone number required!";
@@ -33,7 +30,6 @@ const validate = (data) => {
   } else {
     delete errors.phonenumber;
   }
-  
 
   if (!data.password) {
     errors.password = "Password is required!";

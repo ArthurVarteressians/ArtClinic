@@ -37,10 +37,8 @@
   flex-direction: column;
   justify-content: space-evenly;
   color: black;
-  width: 80%;
-  padding: 20px;
-  margin: 20px;
-  height: 110vh;
+  width: 70%;
+  padding: 30px;
   border-radius: 10px;
   box-shadow: 1px 1px 10px 3px rgba(0, 0, 0, 0.76);
 }
@@ -56,6 +54,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 15px;
 }
 
 .formField label {
@@ -157,34 +156,6 @@ input[type="checkbox"]:focus {
   align-items: center;
 }
 
-@media (max-width: 660px) {
-
-  .formContainer h2 {
-    font-size: small;
-  }
-
-  .formContainer span {
-    font-size: x-small;
-  }
-
-  .formContainer label {
-    font-size: x-small;
-    margin-top: 10px;
-  }
-
-  .formInput {
-    width: 90%;
-    font-size: x-small;
-
-  }
-
-  .uncompleted {
-    width: 90%;
-    font-size: x-small;
-
-  }
-}
-
 .countrySelect {
   position: relative;
 }
@@ -200,4 +171,72 @@ input[type="checkbox"]:focus {
 
 .countryPrefix {
   margin-left: 5px;
+}
+
+
+@media screen and (max-width:660px) {
+  .mainSignUpSec {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+
+  .header {
+    padding: 4px;
+    margin: 0;
+  }
+
+  .SignUpSecText {
+    padding: 5px;
+    margin: 10px;
+    width: 85vw;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .formContainer {
+    padding: 5px;
+    margin: 5px;
+  }
+
+  .formField {
+    padding: 2px;
+  }
+
+  input:not([type="checkbox"]) {
+    width: 80%;
+  }
+
+  input[type='checkbox'] {
+    width: 15px;
+    height: 15px;
+  }
+
+  input[type="checkbox"]:checked {
+    width: 15px;
+    height: 15px;
+  }
+
+  input[type="checkbox"]:focus {
+    height: 15px;
+    width: 15px;
+
+  }
+
+  .container button {
+    width: 25%;
+    font-size: clamp(12px, 2vw, 16px);
+    padding: 2px;
+  }
+
+  .formField label {
+    font-size: clamp(12px, 2vw, 16px);
+  }
+
+  .formField span {
+    font-size: clamp(12px, 2vw, 16px);
+
+  }
 }

@@ -50,7 +50,7 @@ function NavWeb() {
               to="section2"
               spy={true}
               smooth={true}
-              offset={-35}
+              offset={-20}
               duration={500}
               activeClass="active"
               onClick={() => handleLinkClick(0)}
@@ -63,7 +63,7 @@ function NavWeb() {
               to="section3"
               spy={true}
               smooth={true}
-              offset={-25}
+              offset={-20}
               duration={500}
               activeClass="active"
               onClick={() => handleLinkClick(0)}

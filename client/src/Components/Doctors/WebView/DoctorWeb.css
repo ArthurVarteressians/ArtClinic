@@ -39,12 +39,13 @@
 
 .doctorsWebcard h1,
 h2,
+h4,
 h5 {
-    font-size: 1.5vw !important;
+    font-size: clamp(18px, 2vw, 12px) !important;
 }
 
 .doctorsWebcard p {
-    font-size: 1vw !important;
+    font-size: clamp(12px, 2vw, 16px) !important;
 }
 
 .imgBox {
@@ -120,7 +121,5 @@ h5 {
         height: 100%;
         padding-top: 40px;
         gap: 30px 10px;
-
     }
-
 }

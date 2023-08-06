@@ -7,7 +7,7 @@
 }
 
 .submitQinputs form {
-    margin:  20px auto;
+    margin: 20px auto;
     display: flex;
     flex-direction: column;
     max-width: 40%;
@@ -39,4 +39,13 @@
 
 .AllSubmit button {
     margin: 20px auto;
+}
+
+@media screen and (max-width:660px) {
+    .submitQinputs button{
+        width:75%;
+        font-size: clamp(8px, 2vw, 16px);
+        padding: 4px;
+        color: black;
+      }
 }

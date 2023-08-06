@@ -47,7 +47,7 @@ const ManagerLogin = () => {
 
       <div className="MainBoxes">
         <div className="mainSignUpBodySection">
-          <h2>Admins Login</h2>
+          <h2>Admin Login</h2>
           <div className="mainSignUpBody">
             <label htmlFor="email">Email</label>
             <input

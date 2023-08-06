@@ -251,15 +251,15 @@ function SignUp({ onSignInClick }) {
 
           <div
             style={{
-              fontSize: "1.2vw",
-              fontWeight: "bold",
               display: "flex",
               justifyContent: "space-between",
               flexDirection: "row",
               alignItems: "center",
             }}
           >
-            <span style={{ fontSize: "1.2vw", fontWeight: "bold" }}>
+            <span
+              style={{ fontSize: "clamp(8px, 2vw, 14px)", fontWeight: "bold" }}
+            >
               Already have an account?
             </span>
             <button style={{ margin: "0" }} onClick={onSignInClick}>
@@ -399,7 +399,7 @@ function SignIn({ onSignUpClick }) {
           </div>
           <div
             style={{
-              fontSize: "1.2vw",
+              fontSize: "clamp(8px, 2vw, 14px)s",
               fontWeight: "bold",
               display: "flex",
               justifyContent: "space-between",
