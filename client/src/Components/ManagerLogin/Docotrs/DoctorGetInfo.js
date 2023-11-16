@@ -59,7 +59,7 @@ const DoctorAppointments = () => {
   };
 
   const getDoctorName = () => {
-    Axios.get("http://server:3001/getDoctorName", {
+    Axios.get("http://localhost:3001/getDoctorName", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

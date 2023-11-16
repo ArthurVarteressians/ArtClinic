@@ -16,7 +16,7 @@ const ManagerLogin = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    Axios.post("http://server:3001/ManagerLoginmmm", {
+    Axios.post("http://localhost:3001/ManagerLoginmmm", {
       email: managerEmail,
       password: managerPassword,
     })
@@ -37,6 +37,7 @@ const ManagerLogin = () => {
         }
       })
       .catch((error) => {
+        console.error("Error making request:", error);
         setError("Invalid email or password. Please try again.");
       });
   };

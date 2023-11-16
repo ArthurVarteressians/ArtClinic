@@ -12,6 +12,61 @@ app.use(cors());
 app.use(express.json());
 const axios = require("axios");
 const db = require("./database");
+
+ console.log("Attempting to connect to MySQL...");
+
+
+
+ db.query("SELECT * FROM patientslist LIMIT 1", (error, results) => {
+  if (error) {
+    console.error("Error querying the database:", error);
+    return;
+  }
+
+  if (results.length > 0) {
+    console.log("First row from 'patientslist' table:", results[0]);
+  } else {
+    console.log("No data found in 'patientslist' table.");
+  }
+});
+
+
+
+
+ const PORT = process.env.PORT || 3001;
+ app.listen(PORT, () => console.log(`Server is Up on port ${PORT}`));
+ 
+
+
+
+
+
+
+
+
+
+
+
+// const db = mysql.createConnection({
+//   user: "root",
+//   host: "new-mysql-container-1",
+//   password: "123456789",
+//   database: "artclinic",
+// });
+
+// // Test the connection
+// db.connect((err) => {
+//   if (err) {
+//       console.error('Error connecting to MySQL:', err);
+//       return;
+//   }
+//   console.log('Connected to MySQL database');
+// });
+
+
+
+
+
 //===========================Clinic DB===================================
 const SECRET = "1I1d6WhwZWjGn4ijZDpBaGq";
 const query = util.promisify(db.query).bind(db);
@@ -240,5 +295,3 @@ app.get("/PatientAppointmentHistory", verifyToken, (req, res) => {
 });
 
 ///===============================PORT======================
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`Server is Up on port ${PORT}`));

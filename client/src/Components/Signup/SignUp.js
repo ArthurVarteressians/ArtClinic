@@ -58,7 +58,7 @@ function SignUp({ onSignInClick }) {
       };
       try {
         const response = await axios.post(
-          "http://server:3001/Profile",
+          "http://localhost:3001/Profile",
           enteredData
         );
         if (response.status === 200) {
@@ -310,7 +310,7 @@ function SignIn({ onSignUpClick }) {
       };
 
       const response = await axios.post(
-        "http://server:3001/ClientsLogins",
+        "http://localhost:3001/ClientsLogins",
         loginEnteredData
       );
 

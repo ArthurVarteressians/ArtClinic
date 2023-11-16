@@ -17,7 +17,7 @@ services:
       - new-mysql-container-1
     environment:
       - DB_HOST=new-mysql-container-1
-      - DB_PORT=3308  # Change this to a different port, e.g., 3308
+      - DB_PORT=3308
       - DB_USER=root
       - DB_PASSWORD=123456789
       - DB_DATABASE=artclinic
@@ -29,4 +29,14 @@ services:
       MYSQL_ROOT_PASSWORD: 123456789
       MYSQL_DATABASE: artclinic
     ports:
-      - "3308:3306"  # Map the container's 3306 port to a different host port, e.g., 3308
+      - "3308:3306"
+    volumes:
+      - ./database_structure.sql:/docker-entrypoint-initdb.d/database_structure.sql  # Mount your SQL dump file to the init directory
+
+  mysql-init:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456789
+      MYSQL_DATABASE: artclinic
+    volumes:
+      - ./database_structure.sql:/docker-entrypoint-initdb.d/database_structure.sql

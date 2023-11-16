@@ -6,6 +6,7 @@ const db = require("../database");
 const SECRET = "1I1d6WhwZWjGn4ijZDpBaGq";
 
 router.post("/", async (req, res) => {
+  console.log("Received a request to /ManagerLoginmmm");
   const { email, password } = req.body;
   const query = `SELECT * FROM managemenlogin WHERE email = ? AND password = ?`;
   db.query(query, [email, password], (err, result) => {
