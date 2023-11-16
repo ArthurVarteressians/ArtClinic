@@ -8,7 +8,7 @@ function MainAboutSetcin() {
   return (
     <div>
       <NavigationForSections />
-      <AboutMap />
+      {/* <AboutMap /> */}
       <SubmitQ />
       <Footer />
     </div>

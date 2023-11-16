@@ -32,7 +32,7 @@ const DoctorAppointments = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         Axios.put(
-          `http://localhost:3001/api/appointments/${appointmentnumber}`,
+          `http://server:3001/api/appointments/${appointmentnumber}`,
           {
             status: newStatus,
           },
@@ -59,7 +59,7 @@ const DoctorAppointments = () => {
   };
 
   const getDoctorName = () => {
-    Axios.get("http://localhost:3001/getDoctorName", {
+    Axios.get("http://server:3001/getDoctorName", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -80,7 +80,7 @@ const DoctorAppointments = () => {
   const handleGetAppointments = () => {
     setShowOpenAppointments(true);
 
-    Axios.get("http://localhost:3001/api/doctors/openAppointments", {
+    Axios.get("http://server:3001/api/doctors/openAppointments", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -99,7 +99,7 @@ const DoctorAppointments = () => {
   const handleClosedAppointments = () => {
     setShowOpenAppointments(false);
 
-    Axios.get("http://localhost:3001/api/doctors/closedAppointments", {
+    Axios.get("http://server:3001/api/doctors/closedAppointments", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },

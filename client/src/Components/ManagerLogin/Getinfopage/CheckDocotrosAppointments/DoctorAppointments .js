@@ -12,7 +12,7 @@ const DoctorAppointments = () => {
 
   const fetchDoctors = async () => {
     try {
-      const response = await Axios.get("http://localhost:3001/getDoctorsList");
+      const response = await Axios.get("http://server:3001/getDoctorsList");
       setDoctors(response.data);
     } catch (error) {
       console.error(error);
@@ -22,7 +22,7 @@ const DoctorAppointments = () => {
   const fetchAppointments = async (doctorId) => {
     try {
       const response = await Axios.get(
-        `http://localhost:3001/appointmentss?doctorId=${doctorId}`
+        `http://server:3001/appointmentss?doctorId=${doctorId}`
       );
       setAppointments(response.data);
     } catch (error) {

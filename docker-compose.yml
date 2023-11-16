@@ -1,0 +1,32 @@
+version: "3"
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    depends_on:
+      - new-mysql-container-1
+    environment:
+      - DB_HOST=new-mysql-container-1
+      - DB_PORT=3308  # Change this to a different port, e.g., 3308
+      - DB_USER=root
+      - DB_PASSWORD=123456789
+      - DB_DATABASE=artclinic
+    image: node:16-alpine
+
+  new-mysql-container-1:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456789
+      MYSQL_DATABASE: artclinic
+    ports:
+      - "3308:3306"  # Map the container's 3306 port to a different host port, e.g., 3308

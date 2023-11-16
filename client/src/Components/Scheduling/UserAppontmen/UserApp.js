@@ -11,7 +11,7 @@ const UserAppointment = () => {
   }, []);
 
   const fetchAppointmentHistory = () => {
-    Axios.get("http://localhost:3001/PatientAppointmentHistory", {
+    Axios.get("http://server:3001/PatientAppointmentHistory", {
       headers: {
         Authorization: localStorage.getItem("token"),
       },

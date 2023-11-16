@@ -12,7 +12,7 @@ const MonthlyClientCountsChart = () => {
     const fetchData = async () => {
       try {
         const response = await Axios.get(
-          "http://localhost:3001/GetNewClientsChartList"
+          "http://server:3001/GetNewClientsChartList"
         );
         setClientCounts(response.data);
         setShowChart(true);

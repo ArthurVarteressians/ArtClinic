@@ -37,7 +37,7 @@ function Calendar() {
   };
 
   const patientInformation = () => {
-    Axios.get("http://localhost:3001/patientInformation", {
+    Axios.get("http://server:3001/patientInformation", {
       headers: {
         Authorization: localStorage.getItem("token"),
       },

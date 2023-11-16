@@ -12,7 +12,6 @@ app.use(cors());
 app.use(express.json());
 const axios = require("axios");
 const db = require("./database");
-const PORT = 3001;
 //===========================Clinic DB===================================
 const SECRET = "1I1d6WhwZWjGn4ijZDpBaGq";
 const query = util.promisify(db.query).bind(db);
@@ -90,7 +89,6 @@ const verifyToken = (req, res, next) => {
     next();
   });
 };
-
 //==================================================Scheduling part
 
 app.post("/Sched", verifyToken, async (req, res) => {
@@ -223,7 +221,6 @@ app.get("/checkOpenAppointment", verifyToken, (req, res) => {
 
 app.get("/PatientAppointmentHistory", verifyToken, (req, res) => {
   const patientId = req.patient_id;
-
   // Retrieve appointment history for the patient
   db.query(
     `SELECT a.appointmentnumber, d.fullname, d.doctor_id, d.department, a.patient_id, a.appointment_date, a.registeration_date, a.update_date, a.appointment_status 
@@ -237,12 +234,11 @@ app.get("/PatientAppointmentHistory", verifyToken, (req, res) => {
         res.sendStatus(500);
         return;
       }
-
       res.json(result);
     }
   );
 });
 
 ///===============================PORT======================
-
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => console.log(`Server is Up on port ${PORT}`));

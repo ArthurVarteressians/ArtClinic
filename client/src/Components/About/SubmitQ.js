@@ -16,9 +16,9 @@ function SubmitQ() {
     if (!data.name || !data.email || !data.phonenumber) {
       toast.error("Please enter all fields.");
     } else {
-      try {
+      try { 
         // Check if the client has already submitted a call request
-        const response = await Axios.get("http://localhost:3001/SubmitQ", {
+        const response = await Axios.get("http://server:3001/SubmitQ", {
           params: {
             email: data.email,
             phonenumber: data.phonenumber,
@@ -36,7 +36,7 @@ function SubmitQ() {
         ) {
           // If the client hasn't submitted a call request, proceed with form submission
           const submitResponse = await Axios.post(
-            "http://localhost:3001/SubmitQ",
+            "http://server:3001/SubmitQ",
             data
           );
           toast.success(

@@ -16,7 +16,7 @@ const ManagerLogin = () => {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    Axios.post("http://localhost:3001/ManagerLoginmmm", {
+    Axios.post("http://server:3001/ManagerLoginmmm", {
       email: managerEmail,
       password: managerPassword,
     })

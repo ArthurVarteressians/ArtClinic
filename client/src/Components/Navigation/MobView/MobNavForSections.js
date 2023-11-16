@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import Logo from "../Imgs/logo.png";
 import Telicon from "../WebView/emergency-call.gif";
 import LoginIcon from "../WebView/profile.gif";
-import "./MobNav.css";
+import "./MobNav.css"
 function MobNavForSections() {
   const [menuOpen, setMenuOpen] = useState(false);
 

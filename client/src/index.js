@@ -7,11 +7,11 @@ import {
   Link,
 } from "react-router-dom";
 import App from "./App";
-import Doctors from "./Components/Doctors/Doctors";
+import Doctors from "./Components/Doctors/Doctors.js";
 import Mainpage from "./Components/Mainpage/Mainpage";
 import Services from "./Components/ServiceSe/Services.js";
 import MainSignUp from "./Components/Signup/MainSignUp";
-import "./Components/Sass/LandingpageButton.scss";
+// import "./Components/Sass/LandingpageButton.scss";
 import ManagerLogin from "./Components/ManagerLogin/ManagerLogin";
 import MainAboutSetcin from "./Components/About/MainAboutSetcin";
 import PrivacyandPolicy from "./Components/Privacy&Policy/PrivacyandPolicy";
