@@ -5,7 +5,7 @@ const AppointmentCounts = () => {
   const [appointmentCounts, setAppointmentCounts] = useState([]);
 
   useEffect(() => {
-    Axios.get("http://server:3001/appointmentCounts")
+    Axios.get("http://localhost:3001/appointmentCounts")
       .then((response) => {
         setAppointmentCounts(response.data);
       })

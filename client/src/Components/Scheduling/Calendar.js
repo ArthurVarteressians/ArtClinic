@@ -21,7 +21,7 @@ function Calendar() {
     return day !== 0 && day !== 6; 
   };
   const fetchDoctors = (department) => {
-    fetch(`http://server:3001/doctors/${department}`)
+    fetch(`http://localhost:3001/doctors/${department}`)
       .then((response) => response.json())
       .then((data) => {
         setDoctors(data);
@@ -35,7 +35,7 @@ function Calendar() {
   const fetchAvailableTimes = async (doctorId, date) => {
     try {
       const response = await axios.post(
-        "http://server:3001/checkAvailability",
+        "http://localhost:3001/checkAvailability",
         {
           doctorId: doctorId,
           date: date,
@@ -95,7 +95,7 @@ function Calendar() {
 
         // Check if the selected time is available
         const availabilityResponse = await axios.post(
-          "http://server:3001/checkAvailability",
+          "http://localhost:3001/checkAvailability",
           {
             doctorId: doctors[0].doctor_id,
             date: selectedDate,
@@ -110,7 +110,7 @@ function Calendar() {
 
         if (availabilityResponse.status === 200) {
           const openAppointmentResponse = await axios.get(
-            "http://server:3001/checkOpenAppointment",
+            "http://localhost:3001/checkOpenAppointment",
             {
               headers: {
                 Authorization: token,
@@ -129,7 +129,7 @@ function Calendar() {
           }
 
           const response = await axios.post(
-            "http://server:3001/Sched",
+            "http://localhost:3001/Sched",
             {
               doctorId: doctors[0].doctor_id,
               date: selectedDate,

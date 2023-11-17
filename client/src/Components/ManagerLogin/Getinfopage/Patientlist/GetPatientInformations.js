@@ -13,7 +13,7 @@ const GetPatientInformations = () => {
   }, []);
 
   const getPatientInformations = () => {
-    Axios.get("http://server:3001/GetClientsLists")
+    Axios.get("http://localhost:3001/GetClientsLists")
       .then((response) => {
         setPatientList(response.data);
         setShowPatientsGrid(true);
@@ -27,7 +27,7 @@ const GetPatientInformations = () => {
   const deletePatient = (id) => {
     console.log("Deleting patient with ID:", id); // Log the ID parameter
 
-    Axios.delete(`http://server:3001/GetClientsLists/${id}`)
+    Axios.delete(`http://localhost:3001/GetClientsLists/${id}`)
       .then((response) => {
         if (response.data.error) {
           console.log(response.data.error);

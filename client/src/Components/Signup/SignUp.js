@@ -43,8 +43,8 @@ function SignUp({ onSignInClick }) {
     event.preventDefault();
     const currentDate = new Date();
     currentDate.setHours(0, 0, 0, 0); // Set time to midnight
-    const formattedDate = currentDate.toLocaleDateString();
-
+    const formattedDate = currentDate.toISOString().split('T')[0]; // Get 'YYYY-MM-DD'
+    
     if (!Object.keys(errors).length) {
       const enteredData = {
         name: data.name,
