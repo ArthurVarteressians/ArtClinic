@@ -7,16 +7,17 @@ import Footer from "../Footer/Footer";
 import { ToastContainer, toast } from "react-toastify";
 import ReCAPTCHA from "react-google-recaptcha";
 import "react-toastify/dist/ReactToastify.css";
+import BASE_API_URL from "../../Apiendpointconfig";
+
 const ManagerLogin = () => {
   const [patientsList, setPatientList] = useState([]);
   const [managerEmail, setManagerEmail] = useState("");
   const [managerPassword, setManagerPassword] = useState("");
   const [error, setError] = useState("");
-
+  
   const navigate = useNavigate();
-
   const handleLogin = () => {
-    Axios.post("http://localhost:3001/ManagerLoginmmm", {
+    Axios.post(`${BASE_API_URL}/ManagerLoginmmm`, {
       email: managerEmail,
       password: managerPassword,
     })

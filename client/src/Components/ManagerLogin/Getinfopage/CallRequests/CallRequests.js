@@ -10,14 +10,14 @@ const CallRequests = () => {
   }, []);
 
   const getCallRequests = () => {
-    Axios.get("http://localhost:3001/ConsultingReq").then((response) => {
+    Axios.get("http://54.198.184.143:3001/ConsultingReq").then((response) => {
       setCallReqList(response.data);
     });
   };
   const deleteConsultingRequest = (id) => {
     console.log("Deleting consulting request with ID:", id); // Log the ID parameter
 
-    Axios.delete(`http://localhost:3001/ConsultingReq/${id}`)
+    Axios.delete(`http://54.198.184.143:3001/ConsultingReq/${id}`)
       .then((response) => {
         if (response.data.error) {
           console.log(response.data.error);

@@ -11,7 +11,7 @@ const MonthlyClientCountsChart = () => {
     const fetchData = async () => {
       try {
         const response = await Axios.get(
-          "http://localhost:3001/appointmentCounts"
+          "http://54.198.184.143:3001/appointmentCounts"
         );
         const data = response.data;
 
